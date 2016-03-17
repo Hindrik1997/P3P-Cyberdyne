@@ -33,3 +33,5 @@ V 0.0.0.0.1
 - Wander caused them.
 * Repo owner or admin
 * Other community or team contact
+
+Copyright @ SkyNet
