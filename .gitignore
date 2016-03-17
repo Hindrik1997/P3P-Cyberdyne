@@ -75,7 +75,7 @@ ipch/
 *.aps
 *.ncb
 *.opensdf
-*.sdf
+# *.sdf
 *.cachefile
 
 # Visual Studio profiler
@@ -141,11 +141,11 @@ publish/
 *.publishproj
 
 # NuGet Packages
-*.nupkg
+# *.nupkg
 # The packages folder can be ignored because of Package Restore
-**/packages/*
+# **/packages/*
 # except build/, which is used as an MSBuild target.
-!**/packages/build/
+# !**/packages/build/
 # Uncomment if necessary however generally it will be regenerated when needed
 #!**/packages/repositories.config
 
