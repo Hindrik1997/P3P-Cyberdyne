@@ -13,14 +13,16 @@
     </head>
     <body>
         <header>
+            <div class="float-left">
+                <nav>
+                    <ul id="menu">
+                        <li><a href="~/">Home</a></li>
+                        <li><a href="~/Robots">Robots</a></li>
+                        <li><a href="~/Contact">Contact</a></li>
+                    </ul>
+                </nav>
+            </div>
             <div class="content-wrapper">
-                <div class="float-left">
-                    <p class="site-title">
-                        <a href="~/">
-                            <img src="../Images/Logo.png" alt="Cyberdyne"></img>
-                        </a>
-                    </p>
-                </div>
                 <div class="float-right">
                     <section id="login">
                         @if (WebSecurity.IsAuthenticated) {
@@ -38,13 +40,6 @@
                             </ul>
                         }
                     </section>
-                    <nav>
-                        <ul id="menu">
-                            <li><a href="~/">Home</a></li>
-                            <li><a href="~/About">About</a></li>
-                            <li><a href="~/Contact">Contact</a></li>
-                        </ul>
-                    </nav>
                 </div>
             </div>
         </header>
@@ -57,7 +52,7 @@
         <footer>
             <div class="content-wrapper">
                 <div class="float-left">
-                    <p>&copy; @DateTime.Now.Year - My ASP.NET Web Page</p>
+                    <p>&copy; @DateTime.Now.Year Cyberdyne</p>
                 </div>
             </div>
         </footer>
