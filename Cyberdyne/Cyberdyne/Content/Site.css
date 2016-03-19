@@ -52,6 +52,11 @@ mark {
     float: right;
 }
 
+.text-center {
+    text-align: center;
+    margin: 40px 25% 40px 25% ;
+}
+
 .clear-fix:after {
     content: ".";
     clear: both;
@@ -97,7 +102,7 @@ h5, h6 {
 ----------------------------------------------------------*/
 .content-wrapper {
     margin: 0 auto;
-    max-width: 960px;
+    max-width: 1400px;
 }
 
 #body {
@@ -134,11 +139,14 @@ footer {
 /* site logo
 ----------------------------------------------------------*/
 
+.site-logo{
+    margin: auto;
+    width: 27%;
+}
+
 .site-logo a, .site-logo a:hover, .site-logo a:active {
     background: none;
     color: #c8c8c8;
-    outline: none;
-    text-decoration: none;
 }
 
 
@@ -325,6 +333,10 @@ aside {
 
 .label {
     font-weight: 700;
+}
+
+.well {
+    border: 3px solid #111;
 }
 
 /* login page */
