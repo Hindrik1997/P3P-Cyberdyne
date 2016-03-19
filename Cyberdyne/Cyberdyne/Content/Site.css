@@ -1,8 +1,8 @@
 ﻿html {
-    background-color: #e2e2e2;
     margin: 0;
     padding: 0;
 }
+    
 
 body {
     background-color: #fff;
@@ -13,6 +13,7 @@ body {
     margin: 0;
     padding: 0;
 }
+     
 
 a {
     color: #333;
@@ -35,6 +36,7 @@ header, footer, hgroup,
 nav, section {
     display: block;
 }
+      
 
 mark {
     background-color: #a6dbed;
@@ -64,6 +66,7 @@ h4, h5, h6 {
     margin-bottom: 0;
     padding-bottom: 0;
 }
+    
 
 h1 {
     font-size: 2em;
@@ -90,7 +93,6 @@ h5, h6 {
         text-decoration: none;
     }
 
-
 /* main layout
 ----------------------------------------------------------*/
 .content-wrapper {
@@ -101,6 +103,11 @@ h5, h6 {
 #body {
     clear: both;
     padding-bottom: 35px;
+}
+
+#bar {
+    background-color: black;
+    padding-bottom: 10pt;
 }
 
     .main-content {
@@ -140,7 +147,6 @@ footer {
 #login {
     display: block;
     font-size: .85em;
-    margin: 0 0 10px;
     text-align: right;
 }
 
@@ -182,20 +188,21 @@ ul#menu {
     ul#menu li {
         display: inline;
         list-style: none;
-        padding-left: 15px;
+        padding: 10px 0px 8px 0px;
     }
 
-        ul#menu li a {
-            background: none;
-            color: #999;
-            text-decoration: none;
-        }
+    ul#menu li:hover  {
+        color: #333;
+        text-decoration: none;
+        background-color: red;
+    }
 
-        ul#menu li a:hover {
-            color: #333;
-            text-decoration: none;
-        }
-
+    ul#menu li a {
+        background: none;
+        color: #fff;
+        text-decoration: none;
+        padding: 10px 10px 8px 10px;
+    }
 
 /* page elements
 ----------------------------------------------------------*/

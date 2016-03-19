@@ -13,37 +13,39 @@
     </head>
     <body>
         <header>
-            <div class="float-left">
-                <nav>
-                    <ul id="menu">
-                        <li><a href="~/">Home</a></li>
-                        <li><a href="~/Robots">Robots</a></li>
-                        <li><a href="~/Contact">Contact</a></li>
-                        @if (WebSecurity.IsAuthenticated)
-                        {
-                            <li><a href="~/AddRobot">Add a new robot</a></li>
-                        }
-                    </ul>
-                </nav>
-            </div>
-            <div class="content-wrapper">
-                <div class="float-right">
-                    <section id="login">
-                        @if (WebSecurity.IsAuthenticated) {
-                            <text>
-                                Hello, <a class="email" href="~/Account/Manage" title="Manage">@WebSecurity.CurrentUserName</a>!
-                                <form id="logoutForm" action="~/Account/Logout" method="post">
-                                    @AntiForgery.GetHtml()
-                                    <a href="javascript:document.getElementById('logoutForm').submit()">Log out</a>
-                                </form>
-                            </text>
-                        } else {
-                            <ul>
-                                <li><a href="~/Account/Register">Register</a></li>
-                                <li><a href="~/Account/Login">Log in</a></li>
-                            </ul>
-                        }
-                    </section>
+            <div id="bar">
+                <div class="float-left">
+                    <nav>
+                        <ul id="menu">
+                            <li><a href="~/">Home</a></li>
+                            <li><a href="~/Robots">Robots</a></li>
+                            <li><a href="~/Contact">Contact</a></li>
+                            @if (WebSecurity.IsAuthenticated)
+                            {
+                                <li><a href="~/AddRobot">Add a new robot</a></li>
+                            }
+                        </ul>
+                    </nav>
+                </div>
+                <div class="content-wrapper">
+                    <div class="float-right">
+                        <section id="login">
+                            @if (WebSecurity.IsAuthenticated) {
+                                <text>
+                                    Hello, <a class="email" href="~/Account/Manage" title="Manage">@WebSecurity.CurrentUserName</a>!
+                                    <form id="logoutForm" action="~/Account/Logout" method="post">
+                                        @AntiForgery.GetHtml()
+                                        <a href="javascript:document.getElementById('logoutForm').submit()">Log out</a>
+                                    </form>
+                                </text>
+                            } else {
+                                <ul>
+                                    <li><a href="~/Account/Register">Register</a></li>
+                                    <li><a href="~/Account/Login">Log in</a></li>
+                                </ul>
+                            }
+                        </section>
+                    </div>
                 </div>
             </div>
         </header>
