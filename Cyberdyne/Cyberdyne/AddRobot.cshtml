@@ -1,0 +1,47 @@
+﻿@{
+    Layout = "~/_SiteLayout.cshtml";
+    Page.Title = "Add robot";
+
+    //Validation fields
+    Validation.RequireField("RobotName", "You must enter a robot name");
+    Validation.RequireField("Description", "You must enter a description");
+    Validation.RequireField("Parts", "You must specify the parts");
+    Validation.RequireField("Files", "You haven't selected any files");
+    Validation.RequireField("Software", "You haven't provided a software link");
+
+    //Check if validation is valid and a user is logged in
+    if(IsPost && Validation.IsValid() && WebSecurity.IsAuthenticated){
+        Response.Redirect("~/Default.cshtml");
+    }
+}
+
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+    </head>
+    <body>
+        @Html.ValidationSummary()
+        <form method="post">
+            <fieldset>
+                <p><label for="RobotName">Robot Name:</label>
+                <input type="text" name="RobotName" value="@Request.Form["RobotName"]" />
+                
+                <p><label for="Description">Description:</label>
+                <input type="text" name="Description" value="@Request.Form["Description"]" />
+
+                <p><label for="Parts">Parts:</label>
+                <input type="text" name="Parts" value="@Request.Form["Parts"]" />
+
+                <p><label for="Files">Files:</label>
+                <input type="text" name="Files" value="@Request.Form["Files"]" />
+
+                <p><label for="Software">Software:</label>
+                <input type="text" name="Software" value="@Request.Form["Software"]" />
+
+                <p><input type="submit" name="buttonSubmit" value="Add Robot" /></p>
+            </fieldset>
+        </form>
+    </body>
+</html>

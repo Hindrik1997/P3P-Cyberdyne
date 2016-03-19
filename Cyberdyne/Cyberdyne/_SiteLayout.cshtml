@@ -19,6 +19,10 @@
                         <li><a href="~/">Home</a></li>
                         <li><a href="~/Robots">Robots</a></li>
                         <li><a href="~/Contact">Contact</a></li>
+                        @if (WebSecurity.IsAuthenticated)
+                        {
+                            <li><a href="~/AddRobot">Add a new robot</a></li>
+                        }
                     </ul>
                 </nav>
             </div>
