@@ -16,7 +16,7 @@ body {
      
 
 a {
-    color: #333;
+    color: #fff;
     outline: none;
     padding-left: 3px;
     padding-right: 3px;
@@ -25,11 +25,11 @@ a {
 
     a:link, a:visited,
     a:active, a:hover {
-        color: #333;
+        color: #fff;
     }
 
     a:hover {
-        background-color: #c7d1d6;
+        background-color: red;
     }
 
 header, footer, hgroup,
@@ -111,8 +111,10 @@ h5, h6 {
 }
 
 #bar {
+    font-size: 1.3em;
+    font-weight: 600;
     background-color: black;
-    padding-bottom: 10pt;
+    padding-bottom: 6pt;
 }
 
     .main-content {
@@ -153,21 +155,15 @@ footer {
 /* login
 ----------------------------------------------------------*/
 #login {
-    display: block;
-    font-size: .85em;
     text-align: right;
 }
 
     #login a {
-        background-color: #d3dce0;
-        margin-left: 10px;
-        margin-right: 3px;
-        padding: 2px 3px;
         text-decoration: none;
+        padding: 10px 10px 8px 10px;
     }
 
     #login a.email {
-        background: none;
         margin: 0;
         padding: 0;
         text-decoration: underline;
@@ -180,17 +176,21 @@ footer {
     #login li {
         display: inline;
         list-style: none;
+        padding: 0px 0px 0px 0px;
+    }
+
+    #login li:hover  {
+        color: #333;
+        text-decoration: none;
+        background-color: red;
     }
 
 
 /* menu
 ----------------------------------------------------------*/
 ul#menu {
-    font-size: 1.3em;
-    font-weight: 600;
-    margin: 0 0 5px;
+    margin: 0;
     padding: 0;
-    text-align: right;
 }
 
     ul#menu li {
