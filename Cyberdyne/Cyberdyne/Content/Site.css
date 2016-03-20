@@ -50,6 +50,9 @@ mark {
 
 .text-center {
     text-align: center;
+}
+
+.center{
     margin: 40px 25% 40px 25% ;
 }
 
@@ -93,6 +96,10 @@ h5, h6 {
         padding: 0;
         text-decoration: none;
     }
+
+object {
+    margin: 15px 20px 15px 20px;
+}
 
 /* main layout
 ----------------------------------------------------------*/
