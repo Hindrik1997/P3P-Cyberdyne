@@ -29,4 +29,13 @@ public class RepoManager
     private Repository<Software> SoftwareRepository = null;
     private Repository<Supplier> SupplierRepository = null;
 
+
+    public List<Robot> GetRobots()
+    {
+
+        return new List<Robot>();
+    }
+
+
+
 }
