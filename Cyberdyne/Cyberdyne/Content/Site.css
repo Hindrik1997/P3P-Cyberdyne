@@ -187,7 +187,7 @@ footer {
 
     #login li a:hover  {
         text-decoration: none;
-        background-color: red;
+        background-color: #B22;
     }
 
 
@@ -207,10 +207,55 @@ ul#menu {
     ul#menu li:hover  {
         color: #333;
         text-decoration: none;
-        background-color: red;
+        background-color: #B22;
     }
 
     ul#menu li a {
+        background: none;
+        color: #fff;
+        text-decoration: none;
+        padding: 10px 10px 8px 10px;
+    }
+
+/* side menu
+----------------------------------------------------------*/
+
+ul#menu-side {
+    margin: 0;
+    padding: 0;
+    padding-top: 40px;
+    float: left;
+    font-size: 1.3em;
+    font-weight: 600;
+    text-align: center;
+    color: #fff;
+}
+
+    ul#menu-side li {
+        position: relative;
+        list-style: none;
+        border: 3px solid #111;
+        border-radius: 10px 0px 0px 10px;
+        padding: 8px 5px 5px 5px;
+        margin-bottom: 5px;
+        margin-right: -3px;
+        background: #B22;
+        left: 0;
+        width: 100px;
+        -webkit-transition: width 2s, left 2s; /* Safari */
+        transition: width 2s, left 2s;
+    }
+
+    ul#menu-side li:hover  {
+        color: #333;
+        text-decoration: none;
+        /*Transitions*/
+        left: -75px;
+        width: 175px;
+        /*background-color: red;*/
+    }
+
+    ul#menu-side li a {
         background: none;
         color: #fff;
         text-decoration: none;
@@ -343,7 +388,8 @@ aside {
 .well {
     border: 3px solid #111;
     padding: 20px;
-    overflow:hidden
+    overflow:hidden;
+    background: #fff;
 }
 
 /* login page */
@@ -399,7 +445,7 @@ aside {
 }
 
 #logoutForm a:hover {
-    color: red;
+    color: #B22;
 }
 
 /* contact */
