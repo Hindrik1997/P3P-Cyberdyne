@@ -3,6 +3,14 @@
 <head>
     <meta charset="utf-8" />
     <title>Cyberdyne - @Page.Title</title>
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+    <!-- Latest compiled JavaScript -->
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
     <link href="~/Content/themes/base/jquery.ui.all.css" rel="stylesheet" type="text/css" />
     <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
     <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
@@ -46,10 +54,10 @@
                 }
             </section>
         </div>
-        <ul>
-            <li class="language"><img src="~/Images/gb.png" /></li>
-            <li class="language"><img src="~/Images/nl.png" /></li>
-        </ul>
+        <!--<ul>
+            <li class="language"><img src="~/Images/gb.png" alt="en" /></li>
+            <li class="language"><img src="~/Images/nl.png" alt="nl"/></li>
+        </ul>-->
     </header>
     <div id="body">
         @RenderSection("featured", required: false)
