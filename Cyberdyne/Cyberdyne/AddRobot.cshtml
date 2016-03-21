@@ -3,7 +3,6 @@
     Layout = "~/_SiteLayout.cshtml";
     Page.Title = "Add robot";
 
-    var fileName ="";
     //Validation fields
     Validation.RequireField("RobotName", "You must enter a robot name");
     Validation.RequireField("Description", "You must enter a description");
@@ -12,17 +11,21 @@
 
     //Check if validation is valid and a user is logged in
     if(IsPost && Request.Files.Count >0 && Validation.IsValid()){
+        //Create directory if it doesn't exist
         var dirPath = Server.MapPath("~/App_Data/UploadedFiles/");
         Directory.CreateDirectory(dirPath);
-
+        
+        //Catch files and save them on the server
+        var fileName = "";
         var fileSavePath = "";
-        var uploadedFile = Request.Files[0];
-        fileName = Path.GetFileName(uploadedFile.FileName);
-        fileSavePath = Server.MapPath("~/App_Data/UploadedFiles/" + fileName);
-        uploadedFile.SaveAs(fileSavePath);
+        for(int i =0; i < Request.Files.Count; i++) {
+            var uploadedFile = Request.Files[i];
+            fileName = Path.GetFileName(uploadedFile.FileName);
+            fileSavePath = Server.MapPath("~/App_Data/UploadedFiles/" + fileName);
+            uploadedFile.SaveAs(fileSavePath);
     }
 }
-
+}
 <!DOCTYPE html>
 
 <html lang="en">
@@ -42,11 +45,18 @@
                 <p><label for="Parts">Parts:</label>
                 <input type="text" name="Parts" value="" />
 
-                <p><label for="Files">Files:</label>
-                <input type="file" name="Files" value=""/>
-
                 <p><label for="Software">Software:</label>
-                <input type="text" name="Software" value="" />
+                <input type="text" name="Software" value="" /></p>
+                
+                <p><label for="Youtube">Youtube:</label>
+                <input type="text" name="Youtube" value=""/></p>
+                
+                @FileUpload.GetHtml(
+                    initialNumberOfFiles:1,
+                    allowMoreFilesToBeAdded:true,
+                    includeFormTag:false,
+                    addText:"Add another file",
+                    uploadText:"Upload")
 
                 <p><input type="submit" name="buttonSubmit" value="Add Robot" /></p>
             </fieldset>
