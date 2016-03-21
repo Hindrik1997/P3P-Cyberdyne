@@ -8,7 +8,7 @@ body {
     background-color: #fff;
     border-top: solid 10px #000;
     color: #333;
-    font-size: .85em;
+    font-size: 1.85em;
     font-family: "Segoe UI", Verdana, Helvetica, Sans-Serif;
     margin: 0;
     padding: 0;
@@ -114,7 +114,7 @@ object {
 }
 
 #bar {
-    font-size: 2em;
+    font-size: 1em;
     font-weight: 700;
     background-color: black;
     padding-bottom: 7px;
@@ -399,6 +399,11 @@ aside {
     background: #fff;
 }
 
+#video {
+    margin: auto;
+    width: 100%;
+}
+
 /* login page */
 #loginForm {
     border-right: solid 2px #c8c8c8;
@@ -677,7 +682,6 @@ tr.pager td {
     /* logo */
     header .site-logo {
         margin: 10px;
-        text-align: center;
     }
 
     /* login */
