@@ -315,6 +315,13 @@ ol.round {
             background: url("../Images/orderedList9.png") no-repeat;
         }
 
+/* language selection */
+li.language {
+    display: inline-block;
+    vertical-align: top;
+    padding: .2%;
+}
+
 /* content */
 article {
     float: left;
