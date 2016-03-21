@@ -226,7 +226,6 @@ ul#menu-side {
     padding: 0;
     padding-top: 40px;
     float: left;
-    font-size: 1.3em;
     font-weight: 600;
     text-align: center;
     color: #fff;
@@ -242,7 +241,8 @@ ul#menu-side {
         margin-right: -3px;
         background: #B22;
         left: 0;
-        width: 100px;
+        width: 120px;
+        text-align: left;
         -webkit-transition: width 2s, left 2s; /* Safari */
         transition: width 1s, margin-left 1s;
     }
@@ -250,8 +250,8 @@ ul#menu-side {
     ul#menu-side li:hover  {
         text-decoration: none;
         /*Transitions*/
-        margin-left: -50px;
-        width: 150px;
+        margin-left: -55px;
+        width: 175px;
         /*background-color: red;*/
     }
 
