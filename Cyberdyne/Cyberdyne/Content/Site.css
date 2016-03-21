@@ -16,7 +16,6 @@ body {
      
 
 a {
-    color: #fff;
     outline: none;
     padding-left: 3px;
     padding-right: 3px;
@@ -25,7 +24,6 @@ a {
 
     a:link, a:visited,
     a:active, a:hover {
-        color: #fff;
     }
 
 header, footer, hgroup,
@@ -390,6 +388,7 @@ aside {
 
 .label {
     font-weight: 700;
+    color: black;
 }
 
 .well {
