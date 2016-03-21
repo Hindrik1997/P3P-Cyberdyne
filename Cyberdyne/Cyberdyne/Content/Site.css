@@ -179,11 +179,14 @@ footer {
     #login li {
         display: inline;
         list-style: none;
+    }
+
+
+    #login li a {
         padding: 10px 10px 8px 10px;
     }
 
-    #login li:hover  {
-        color: #333;
+    #login li a:hover  {
         text-decoration: none;
         background-color: red;
     }
