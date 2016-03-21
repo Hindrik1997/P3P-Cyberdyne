@@ -15,6 +15,8 @@ public class RepoManager
         RobotImageRepository = new Repository<RobotImage>(this);
         ComponentRepository = new Repository<Component>(this);
         FileRepository = new Repository<File>(this);
+        SoftwareRepository = new Repository<Software>(this);
+        SupplierRepository = new Repository<Supplier>(this);
     }
 
     private Repository<Robot> RobotRepository = null;
