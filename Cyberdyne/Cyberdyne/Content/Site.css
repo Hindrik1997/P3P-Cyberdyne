@@ -105,7 +105,7 @@ object {
 ----------------------------------------------------------*/
 .content-wrapper {
     margin: 0 auto;
-    max-width: 1400px;
+    max-width: 80%;
 }
 
 #body {
@@ -146,7 +146,7 @@ footer {
 
 .site-logo{
     margin: auto;
-    width: 27%;
+    width: 40%;
 }
 
 .site-logo a, .site-logo a:hover, .site-logo a:active {
@@ -343,6 +343,7 @@ aside {
 
 .well {
     border: 3px solid #111;
+    overflow:hidden
 }
 
 /* login page */
