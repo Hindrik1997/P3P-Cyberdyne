@@ -117,7 +117,7 @@ object {
     font-size: 2em;
     font-weight: 700;
     background-color: black;
-    padding-bottom: 5pt;
+    padding-bottom: 7px;
 }
 
     .main-content {
@@ -201,7 +201,7 @@ ul#menu {
     ul#menu li {
         display: inline;
         list-style: none;
-        padding: 10px 0px 8px 0px;
+        padding: 11px 0px 8px 0px;
     }
 
     ul#menu li:hover  {
