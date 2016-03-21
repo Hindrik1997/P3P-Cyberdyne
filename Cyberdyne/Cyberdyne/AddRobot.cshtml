@@ -1,17 +1,22 @@
-﻿@{
+﻿@using Microsoft.Web.Helpers;
+@{
     Layout = "~/_SiteLayout.cshtml";
     Page.Title = "Add robot";
 
+    var fileName ="";
     //Validation fields
     Validation.RequireField("RobotName", "You must enter a robot name");
     Validation.RequireField("Description", "You must enter a description");
     Validation.RequireField("Parts", "You must specify the parts");
-    Validation.RequireField("Files", "You haven't selected any files");
     Validation.RequireField("Software", "You haven't provided a software link");
 
     //Check if validation is valid and a user is logged in
-    if(IsPost && Validation.IsValid() && WebSecurity.IsAuthenticated){
-        Response.Redirect("~/Default.cshtml");
+    if(IsPost && Request.Files.Count >0 && Validation.IsValid()){
+        var fileSavePath = "";
+        var uploadedFile = Request.Files[0];
+        fileName = Path.GetFileName(uploadedFile.FileName);
+        fileSavePath = Server.MapPath("~/App_Data/UploadedFiles/" + fileName);
+        uploadedFile.SaveAs(fileSavePath);
     }
 }
 
@@ -23,7 +28,7 @@
     </head>
     <body>
         @Html.ValidationSummary()
-        <form method="post">
+        <form method="post" enctype="multipart/form-data" action="">
             <fieldset>
                 <p><label for="RobotName">Robot Name:</label>
                 <input type="text" name="RobotName" value="@Request.Form["RobotName"]" />
@@ -35,7 +40,7 @@
                 <input type="text" name="Parts" value="@Request.Form["Parts"]" />
 
                 <p><label for="Files">Files:</label>
-                <input type="text" name="Files" value="@Request.Form["Files"]" />
+                <input type="file" name="Files" value=""/>
 
                 <p><label for="Software">Software:</label>
                 <input type="text" name="Software" value="@Request.Form["Software"]" />
