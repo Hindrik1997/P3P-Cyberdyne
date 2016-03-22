@@ -3,7 +3,6 @@
     padding: 0;
 }
     
-
 body {
     background-color: #fff;
     border-top: solid 10px #000;
@@ -190,10 +189,25 @@ footer {
     }
 
 
-
-
 /* menu
 ----------------------------------------------------------*/
+#LanguageButtons {
+    margin-top: -10px;
+    margin-left: 1000px;
+}
+
+.LanguageButton {
+    max-width: 20px;
+    max-height: 20px;
+    padding: 0;
+    float: left; 
+}
+
+#DutchButton {
+    margin-left: 5px;
+}
+
+
 ul#menu {
     margin: 0;
     padding: 0;

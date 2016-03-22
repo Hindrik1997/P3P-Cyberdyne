@@ -1,4 +1,16 @@
-﻿<!DOCTYPE html>
+﻿@using Resources;
+@{ 
+    if (IsPost && !Request["Dutch"].IsEmpty())
+    {
+        UICulture = "nl-NL";
+    }
+    if (IsPost && !Request["English"].IsEmpty())
+    {
+        UICulture = "en-GB";
+    }
+}
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -35,6 +47,14 @@
                     </ul>
                 </nav>
             </div>
+
+            <div id="LanguageButtons">
+                <form method="post">
+                        <p><input type="image" class="LanguageButton" src="~/Images/gb.png" name="English" value="en-GB" /></p>
+                        <p><input type="image" class="LanguageButton" id="DutchButton" src="~/Images/nl.png" name="Dutch" value="nl-NL" /></p>
+                </form>
+            </div>
+
             <section id="login">
                 @if (WebSecurity.IsAuthenticated)
                 {
@@ -54,10 +74,10 @@
                 }
             </section>
         </div>
-        <!--<ul>
-            <li class="language"><img src="~/Images/gb.png" alt="en" /></li>
-            <li class="language"><img src="~/Images/nl.png" alt="nl"/></li>
-        </ul>-->
+
+        @*Dit is een voorbeeld van tekst uit een resource file:*@
+        @Content.HomeContent
+
     </header>
     <div id="body">
         @RenderSection("featured", required: false)
