@@ -2,12 +2,15 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using WebMatrix.Data;
 
 /// <summary>
 /// Summary description for RepoManager
 /// </summary>
 public class RepoManager
 {
+    public Database db;
+
     public RepoManager()
     {
         RobotRepository = new Repository<Robot>(this);

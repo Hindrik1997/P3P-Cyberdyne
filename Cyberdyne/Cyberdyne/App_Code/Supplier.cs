@@ -8,7 +8,7 @@ using System.Web;
 /// </summary>
 public class Supplier : RepoObject
 {
-    public Supplier(int _ID) : base(_ID)
+    public Supplier(int _ID, RepoManager _RepoRef) : base(_ID,_RepoRef)
     {
         //
         // TODO: Add constructor logic here

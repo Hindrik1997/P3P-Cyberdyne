@@ -11,7 +11,7 @@ public class Component : RepoObject
 
 
 
-    public Component(int _ID) : base(_ID)
+    public Component(int _ID, RepoManager _RepoRef) : base(_ID,_RepoRef)
     {
         //
         // TODO: Add constructor logic here

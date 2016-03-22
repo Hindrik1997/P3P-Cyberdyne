@@ -8,7 +8,7 @@ using System.Web;
 /// </summary>
 public class File : RepoObject
 {
-    public File(int _ID) : base(_ID)
+    public File(int _ID, RepoManager _RepoRef) : base(_ID,_RepoRef)
     {
         //
         // TODO: Add constructor logic here

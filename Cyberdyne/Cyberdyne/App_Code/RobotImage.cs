@@ -8,7 +8,7 @@ using System.Web;
 /// </summary>
 public class RobotImage : RepoObject
 {
-    public RobotImage(int _ID) : base(_ID)
+    public RobotImage(int _ID, RepoManager _RepoRef) : base(_ID,_RepoRef)
     {
         //
         // TODO: Add constructor logic here

@@ -8,13 +8,17 @@ using System.Web;
 /// </summary>
 public class Robot : RepoObject
 {
-    public Robot(int _ID) : base(_ID)
+    public string Naam { get; set; }
+
+
+
+    public Robot(int _ID, RepoManager _RepoRef) : base(_ID,_RepoRef)
     {
         
     }
 
     public override void GetObjectData()
     {
-
+        
     }
 }
