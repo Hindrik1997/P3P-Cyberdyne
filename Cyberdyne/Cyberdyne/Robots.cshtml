@@ -2,6 +2,9 @@
     Layout = "~/_SiteLayout.cshtml";
     Page.Title = "Robots";
 
+    string url = HttpContext.Current.Request.Url.Query;
+    Page.Title = "Robot ID: " + url.Split('=')[1];
+
 }
 
 <div class="content-wrapper">
