@@ -8,11 +8,13 @@ using System.Web;
 /// </summary>
 public class Supplier : RepoObject
 {
-    public Supplier(int _ID, RepoManager _RepoRef) : base(_ID,_RepoRef)
+    public string name { get; set; }
+    public string adress { get; set; }
+
+    public Supplier(string name, string adress, int _ID, RepoManager _RepoRef) : base(_ID,_RepoRef)
     {
-        //
-        // TODO: Add constructor logic here
-        //
+        this.name = name;
+        this.adress = adress;  
     }
 
     public override void GetObjectData()

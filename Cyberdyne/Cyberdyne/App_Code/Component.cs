@@ -8,19 +8,28 @@ using System.Web;
 /// </summary>
 public class Component : RepoObject
 {
+    public string componentNumber { get; set; }
+    public decimal price { get; set; }
+    public string descriptionNL { get; set; }
+    public string descriptionENG { get; set; }
+
+    public int robotID { get; set; }
+    public int supplierID { get; set; }
+
+    public Supplier ReferencedSupplier { get; private set; }
 
 
-
-    public Component(int _ID, RepoManager _RepoRef) : base(_ID,_RepoRef)
+    public Component(string componentNumber, decimal price, string descriptionNL, string descriptionENG, int _ID, RepoManager _RepoRef) : base(_ID,_RepoRef)
     {
-        //
-        // TODO: Add constructor logic here
-        //   
+        this.componentNumber = componentNumber;
+        this.price = price;
+        this.descriptionNL = descriptionNL;
+        this.descriptionENG = descriptionENG;
     }
 
     public override void GetObjectData()
     {
-
+        throw new NotNecessaryException();
     }
 
     public override void UpdateData()

@@ -72,28 +72,69 @@ public class RepoManager
         }
     }
     
-    //REFERENCES MOETEN NOG! ZIE ROBOT CLASS
+    //REFERENCES MOETEN NOG! ZIE ROBOT CLASS  
+
+    //IS GOED DOEN WE MORGEN! *Donderdag
 
     //Michael, implementeer de volgende methods zoals de methods hierboven, de rest doen we morgen wel
     #region MichaelCode
     protected void GetBasicComponentData()
     {
-        
+        if (ComponentRepository == null)
+            throw new NullReferenceException("null gedoe");
+
+        db = Database.Open("Cyberdyne");
+
+        IEnumerable<dynamic> Data = db.Query("SELECT * FROM Components");
+
+        foreach (var Row in Data)
+        {
+            ComponentRepository.Add(new Component(Row["ComponentNumber"], Row["Price"], Row["DescriptionNL"], Row["DescriptionENG"], Row["ComponentID"], this));
+        }
+
     }
 
     protected void GetBasicFileData()
     {
-       
+        if (FileRepository == null)
+            throw new NullReferenceException("null gedoe");
+        db = Database.Open("Cyberdyne");
+
+        IEnumerable<dynamic> Data = db.Query("SELECT * FROM Files");
+
+        foreach (var Row in Data)
+        {
+            FileRepository.Add(new File(Row["Name"], Row["Location"], Row["Version"], Row["RobotID"], Row["FileID"], this));
+        }
+
     }
 
     protected void GetBasicSoftwareData()
     {
-       
+        if (FileRepository == null)
+            throw new NullReferenceException("null gedoe");
+        db = Database.Open("Cyberdyne");
+
+        IEnumerable<dynamic> Data = db.Query("SELECT * FROM Files");
+
+        foreach (var Row in Data)
+        {
+            FileRepository.Add(new File(Row["Name"], Row["Location"], Row["Version"], Row["RobotID"], Row["FileID"], this));
+        }
     }
 
     protected void GetBasicSupplierData()
     {
-        
+        if (SupplierRepository == null)
+            throw new NullReferenceException("null gedoe");
+        db = Database.Open("Cyberdyne");
+
+        IEnumerable<dynamic> Data = db.Query("SELECT * FROM Supplier");
+
+        foreach (var Row in Data)
+        {
+            SupplierRepository.Add(new Supplier(Row["Name"], Row["Adress"], Row["SupplierID"], this));
+        }
     }
     #endregion
 

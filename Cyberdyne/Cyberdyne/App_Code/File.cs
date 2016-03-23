@@ -8,17 +8,27 @@ using System.Web;
 /// </summary>
 public class File : RepoObject
 {
-    public File(int _ID, RepoManager _RepoRef) : base(_ID,_RepoRef)
+    public string name { get; set; }
+    public string location { get; set; }
+    public string version { get; set; }
+
+    public int robotID { get; set; }
+
+    public Robot ReferencedRobot { get; private set; }
+
+    public File(string name, string location, string version, int robotID, int _ID, RepoManager _RepoRef) : base(_ID,_RepoRef)
     {
-        //
-        // TODO: Add constructor logic here
-        //
+        this.name = name;
+        this.location = location;
+        this.version = version;
+        this.robotID = robotID;
     }
 
     public override void GetObjectData()
     {
-        
+        throw new NotImplementedException();
     }
+
     public override void UpdateData()
     {
         throw new NotImplementedException();
