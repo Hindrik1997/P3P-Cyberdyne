@@ -20,4 +20,5 @@ public abstract class RepoObject
     }
 
     public abstract void GetObjectData();
+    public abstract void UpdateData();
 }

@@ -8,14 +8,24 @@ using System.Web;
 /// </summary>
 public class RobotImage : RepoObject
 {
-    public RobotImage(int _ID, RepoManager _RepoRef) : base(_ID,_RepoRef)
+    public string Name { get; set; }
+    public string ImageLocation { get; set; }
+    public int RobotID { get; set; }
+    public Robot ReferencedRobot { get; private set; }
+
+    public RobotImage(string _Name,string _ImageLocation, int _RobotID,int _ID, RepoManager _RepoRef) : base(_ID,_RepoRef)
     {
-        //
-        // TODO: Add constructor logic here
-        //
+        Name = _Name;
+        ImageLocation = _ImageLocation;
+        RobotID = _RobotID;
+        ReferencedRobot = null;
     }
 
     public override void GetObjectData()
+    {
+        throw new NotImplementedException();
+    }
+    public override void UpdateData()
     {
         throw new NotImplementedException();
     }

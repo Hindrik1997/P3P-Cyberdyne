@@ -22,4 +22,9 @@ public class Component : RepoObject
     {
 
     }
+
+    public override void UpdateData()
+    {
+        throw new NotImplementedException();
+    }
 }

@@ -20,4 +20,8 @@ public class Software : RepoObject
         throw new NotImplementedException();
     }
 
+    public override void UpdateData()
+    {
+        throw new NotImplementedException();
+    }
 }

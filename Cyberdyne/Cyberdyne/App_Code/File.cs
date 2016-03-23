@@ -19,4 +19,8 @@ public class File : RepoObject
     {
         
     }
+    public override void UpdateData()
+    {
+        throw new NotImplementedException();
+    }
 }

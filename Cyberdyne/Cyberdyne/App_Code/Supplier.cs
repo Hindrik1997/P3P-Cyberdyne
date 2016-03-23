@@ -19,4 +19,8 @@ public class Supplier : RepoObject
     {
         throw new NotImplementedException();
     }
+    public override void UpdateData()
+    {
+        throw new NotImplementedException();
+    }
 }
