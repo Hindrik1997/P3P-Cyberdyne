@@ -16,7 +16,7 @@
     Validation.RequireField("DescriptionNL", "You must enter a description");
     Validation.RequireField("DescriptionEN", "You must enter a description");
 
-    if(IsPost && WebSecurity.IsAuthenticated){
+    if(IsPost && WebSecurity.CurrentUserId == 3){
         partName = Request.Form["PartName"];
         supplierName = Request.Form["SupplierName"];
         supplierAddress = Request.Form["SupplierAdress"];
@@ -50,10 +50,10 @@
                 <input type="text" name="Price" value="" /></p>
 
                 <p><label for="DescriptionNL">DescriptionNL:</label>
-                <input type="text" name="DescriptionNL" value="" /></p>
+                <textarea name="DescriptionNL"></textarea>
 
                 <p><label for="DescriptionEN">DescriptionEN:</label>
-                <input type="text" name="DescriptionEN" value="" /></p>
+                <textarea name="DescriptionEN"></textarea>
 
                 <p><input type="submit" name="buttonSubmit" value="Add Part" /></p>
             </fieldset>
