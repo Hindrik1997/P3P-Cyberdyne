@@ -35,7 +35,6 @@ public class Robot : RepoObject
 
     public override void GetObjectData()
     {
-        //Zoeken naar referenties
         foreach (Software Sw in repoRef.softwareRepository)
         {
             if (Sw.robotID == ID)
@@ -53,6 +52,7 @@ public class Robot : RepoObject
 
         IEnumerable<dynamic> result = Db.Query("SELECT * FROM ComponentList WHERE RobotID = @0", ID);
         components = new List<ComponentData>();
+
         foreach (var Item in result)
         {
             //ComponentID ophalen en zoeken naar bijhorende component en deze aan de componentlijst toevoegen

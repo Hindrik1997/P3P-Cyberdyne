@@ -9,17 +9,13 @@ using WebMatrix.Data;
 /// </summary>
 public class RepoManager
 {
+    /// <summary>
+    /// Database object voor connecties. Gebruik deze graag als het mogelijk is, zodat het aantal objecten niet mega groot wordt
+    /// </summary>
     public Database db;
 
     public RepoManager()
     {
-        robotRepository = new Repository<Robot>(this);
-        robotMovieRepository = new Repository<RobotMovie>(this);
-        robotImageRepository = new Repository<RobotImage>(this);
-        componentRepository = new Repository<Component>(this);
-        fileRepository = new Repository<File>(this);
-        softwareRepository = new Repository<Software>(this);
-        supplierRepository = new Repository<Supplier>(this);
     }
 
     public Repository<Robot> robotRepository = null;
@@ -32,12 +28,31 @@ public class RepoManager
     public Repository<Software> softwareRepository = null;
     public Repository<Supplier> supplierRepository = null;
 
+    /*
+    WAARSCHUWING: Gebruik je een van de GetItem of GetBasicItem methodes, dan worden alle item in de repo ge killed, dus houdt hier rekening mee!
+    Dus ga niet domweg vanalles tegelijkertijd gebruiken ofzo, maar stuk voor stuk. Dank u      
+        */
+
+    /// <summary>
+    /// Called voor elk object in de repo de GetObjectData methode. 
+    /// </summary>
+    /// <typeparam name="T">Type van het item in de repository, moet een afstamemling van RepoObject zijn</typeparam>
+    /// <param name="repoRef">Repository reference</param>
+    void FillAllDataInRepo<T>(Repository<T> repoRef) where T : RepoObject
+    {
+        foreach (T obj in repoRef)
+        {
+            obj.GetObjectData();
+        }
+    }
+
+    /// <summary>
+    /// De interne methodes voor het laden van de basis eigenschappen van een database object.
+    /// </summary>
+    #region Protected Basic Methodes
     protected void GetBasicRobotData()
     {
-        if (robotRepository == null)
-            throw new NullReferenceException("Jo, de roborepo is null!");
-
-
+        robotRepository = new Repository<Robot>(this);
         IEnumerable<dynamic> Data = db.Query("SELECT * FROM Robots");
 
         foreach (var Row in Data)
@@ -47,8 +62,7 @@ public class RepoManager
     }
     protected void GetBasicRobotMovieData()
     {
-        if (robotMovieRepository == null)
-            throw new NullReferenceException("Jo, de robomovierepo is null!");
+        robotMovieRepository = new Repository<RobotMovie>(this);
 
         IEnumerable<dynamic> Data = db.Query("SELECT * FROM RobotMovies");
 
@@ -59,9 +73,7 @@ public class RepoManager
     }
     protected void GetBasicRobotImageData()
     {
-        if (robotImageRepository == null)
-            throw new NullReferenceException("Jo, de roboimagerepo is null!");
-
+        robotImageRepository = new Repository<RobotImage>(this);
         IEnumerable<dynamic> Data = db.Query("SELECT * FROM RobotImages");
 
         foreach (var Row in Data)
@@ -71,9 +83,7 @@ public class RepoManager
     }   
     protected void GetBasicComponentData()
     {
-        if (componentRepository == null)
-            throw new NullReferenceException("null gedoe");
-
+        componentRepository = new Repository<Component>(this);
         IEnumerable<dynamic> Data = db.Query("SELECT * FROM Components");
 
         foreach (var Row in Data)
@@ -83,8 +93,7 @@ public class RepoManager
     }
     protected void GetBasicFileData()
     {
-        if (fileRepository == null)
-            throw new NullReferenceException("null gedoe");
+        fileRepository = new Repository<File>(this);
 
         IEnumerable<dynamic> Data = db.Query("SELECT * FROM Files");
 
@@ -95,8 +104,7 @@ public class RepoManager
     }
     protected void GetBasicSoftwareData()
     {
-        if (fileRepository == null)
-            throw new NullReferenceException("null gedoe");
+        softwareRepository = new Repository<Software>(this);
 
         IEnumerable<dynamic> Data = db.Query("SELECT * FROM Files");
 
@@ -107,9 +115,7 @@ public class RepoManager
     }
     protected void GetBasicSupplierData()
     {
-        if (supplierRepository == null)
-            throw new NullReferenceException("null gedoe");
-
+        supplierRepository = new Repository<Supplier>(this);
         IEnumerable<dynamic> Data = db.Query("SELECT * FROM Supplier");
 
         foreach (var Row in Data)
@@ -117,18 +123,176 @@ public class RepoManager
             supplierRepository.Add(new Supplier(Row["Name"], Row["Address"], Row["SupplierID"], this));
         }
     }
+    #endregion
 
-
-    public Robot ItemExist<T> (int _ID) where T : Robot
+    /// <summary>
+    /// Call deze methodes als je een complete lijst met álle data wilt inc. dependent objecten.
+    /// Liever niet teveel gebruiken tenzij strict noodzakelijk.
+    /// Deze methoden invalideert elk object die hiervoor in de repo zat
+    /// </summary>
+    #region Publieke Geavanceerde Methodes
+    public List<Robot> GetRobots()
     {
-        foreach (var Robot in robotRepository)
-        {
-            if (Robot.ID == _ID)
-                return Robot;
-        }
-        return null;
+        db = Database.Open("Cyberdyne");
+        GetBasicRobotData();
+
+        //Softwares inladen
+        GetSoftwares();
+        //Componenten inladen
+        GetComponents();
+        //GetRobotImages, Movies, Files
+        GetFiles(); GetRobotImages(); GetRobotMovies();
+        FillAllDataInRepo(robotRepository);
+        db.Close();
+        return robotRepository.GetList();
     }
+    public List<Component> GetComponents()
+    {
+        db = Database.Open("Cyberdyne");
+        GetBasicComponentData();
+        GetSuppliers();
+        FillAllDataInRepo(supplierRepository);
+        FillAllDataInRepo(componentRepository);
+        db.Close();
+        return componentRepository.GetList();
+    }
+    public List<File> GetFiles()
+    {
+        db = Database.Open("Cyberdyne");
+        GetBasicFileData();
+        try
+        {
+            if (robotRepository != null)
+                FillAllDataInRepo(fileRepository);
+            else
+                throw new NullReferenceException("robot repo is null!");
+        }
+        finally
+        {
+            db.Close();
+        }
+        return fileRepository.GetList();
+    }
+    public List<RobotMovie> GetRobotMovies()
+    {
+        db = Database.Open("Cyberdyne");
+        GetBasicRobotMovieData();
+        try
+        {
+            if (robotRepository != null)
+                FillAllDataInRepo(robotMovieRepository);
+            else
+                throw new NullReferenceException("robot repo is either null!");
+        }
+        finally
+        {
+            db.Close();
+        }
+        db.Close();
+        return robotMovieRepository.GetList();
+    }
+    public List<RobotImage> GetRobotImages()
+    {
+        db = Database.Open("Cyberdyne");
+        GetBasicRobotImageData();
+        try
+        {
+            if (robotRepository != null)
+                FillAllDataInRepo(robotImageRepository);
+            else
+                throw new NullReferenceException("robot repo is null!");
+        }
+        finally
+        {
+            db.Close();
+        }
+        return robotImageRepository.GetList();
+    }
+    public List<Software> GetSoftwares()
+    {
+        db = Database.Open("Cyberdyne");
+        GetBasicSoftwareData();
+        try
+        {
+            if (robotRepository != null)
+                FillAllDataInRepo(softwareRepository);
+            else
+                throw new NullReferenceException("robot repo is null!");
+        }
+        finally
+        {
+            db.Close();
+        }
+        return softwareRepository.GetList();
+    }
+    public List<Supplier> GetSuppliers()
+    {
+        db = Database.Open("Cyberdyne");
+        GetBasicSupplierData();
+        FillAllDataInRepo(supplierRepository); //Type wordt wel in runtime geresolved
+        db.Close();
+        return supplierRepository.GetList();
+    }
+    #endregion
 
 
+    /// <summary>
+    /// Call deze methods als je simpele data wilt, voor displayen etc.
+    ///Deze methods halen enkel de basis data op voor een object. 
+    ///Call GetObjectData() op een object voor meer data
+    /// </summary>
+    #region Publieke Basic Methodes
+    public List<Robot> GetBasicRobots()
+    {
+        db = Database.Open("Cyberdyne");
+        GetBasicRobotData();
+        db.Close();
+        return robotRepository.GetList();
+    }
+    public List<Component> GetBasicComponentDatas()
+    {
+        db = Database.Open("Cyberdyne");
+        GetBasicComponentData();
+        db.Close();
+        return componentRepository.GetList();
+    }
+    public List<File> GetBasicFiles()
+    {
+        db = Database.Open("Cyberdyne");
+        GetBasicFileData();
+        db.Close();
+        return fileRepository.GetList();
+    }
+    public List<RobotMovie> GetRobotBasicMovies()
+    {
+        db = Database.Open("Cyberdyne");
+        GetBasicRobotMovieData();
+        db.Close();
+        return robotMovieRepository.GetList();
+    }
+    public List<RobotImage> GetBasicRobotImages()
+    {
+        db = Database.Open("Cyberdyne");
+        GetBasicRobotImageData();
+        db.Close();
+        return robotImageRepository.GetList();
+    }
+    public List<Software> GetBasicSoftwares()
+    {
+        db = Database.Open("Cyberdyne");
+        GetBasicSoftwareData();
+        db.Close();
+        return softwareRepository.GetList();
+    }
+    public List<Supplier> GetBasicSuppliers()
+    {
+        db = Database.Open("Cyberdyne");
+        GetBasicSupplierData();
+        db.Close();
+        return supplierRepository.GetList();
+    }
+    #endregion
+
+    //SEARCHEN ENZO MOET ER NOG IN!
 
 }

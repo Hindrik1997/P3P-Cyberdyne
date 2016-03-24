@@ -17,6 +17,11 @@ public class Repository<T> : IEnumerable<T> where  T : RepoObject
 
     private List<T> repoContents = new List<T>();
 
+    public List<T> GetList()
+    {
+        return repoContents;
+    }
+
     public void Add(T Item)
     {
         repoContents.Add(Item);

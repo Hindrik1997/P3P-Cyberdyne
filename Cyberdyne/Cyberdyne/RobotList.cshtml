@@ -2,6 +2,12 @@
     Layout = "~/_SiteLayout.cshtml";
     Page.Title = "Robot List";
 
+    RepoManager RM = new RepoManager();
+    RM.GetRobots();
+
+
+
+
     var db = Database.Open("Cyberdyne");
     var selectCommand = "SELECT COUNT(RobotID) FROM Robots";
     double robots = db.QueryValue(selectCommand);
