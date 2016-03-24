@@ -62,7 +62,6 @@
     <hgroup class="title">
         <h1>@Page.Title.</h1>
     </hgroup>
-    <h2>Use a local account to log in.</h2>
     <form method="post">
         @AntiForgery.GetHtml()
         @* If one or more validation errors exist, show an error *@
@@ -93,7 +92,7 @@
         </fieldset>
     </form>
     <p>
-        <a href="~/Account/Register">Don't have a Account?</a>
-        <a href="~/Account/ForgotPassword">Did you forget your password?</a>
+        <a class="row" href="~/Account/Register">Don't have a Account?</a>
+        <a class="row" href="~/Account/ForgotPassword">Did you forget your password?</a>
     </p>
 </div>

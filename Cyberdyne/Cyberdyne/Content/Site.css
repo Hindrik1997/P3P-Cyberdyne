@@ -189,6 +189,11 @@ footer {
         list-style: none;
     }
 
+    #login li form {
+        display: inline;
+        list-style: none;
+    }
+
 
     #login li a {
         padding: 10px 20px 8px 10px;
@@ -202,27 +207,17 @@ footer {
 
 /* menu
 ----------------------------------------------------------*/
-#LanguageButtons {
-    margin-top: -10px;
-    margin-left: 80%;
+#Flags{
+    position: relative;
+    top: 5px;
+    margin-right: 20px;
 }
-
-#LanguageButtons1 {
-    margin-top: -10px;
-    margin-left: 70%;
-}
-
 .LanguageButton {
-    max-width: 20px;
-    max-height: 20px;
+    max-width: 30px;
+    max-height: 30px;
     padding: 0;
-    float: left; 
+    margin: auto;
 }
-
-#DutchButton {
-    margin-left: 5px;
-}
-
 
 ul#menu {
     margin: 0;
@@ -230,14 +225,13 @@ ul#menu {
 }
 
     ul#menu li {
-        display: inline;
         list-style: none;
         padding: 11px 0px 8px 0px;
         transition: color 1s;
+        display: inline;
     }
 
-    ul#menu li:hover  {
-        color: #333;
+    ul#menu li a:hover  {
         text-decoration: none;
         background-color: #B22;
     }
@@ -246,8 +240,9 @@ ul#menu {
         background: none;
         color: #fff;
         text-decoration: none;
-        padding: 10px 10px 8px 10px;
+        padding: 10px 10px 9px 10px;
     }
+
 
 /* side menu
 ----------------------------------------------------------*/
@@ -706,7 +701,10 @@ tr.pager td {
 
     /* header
     ----------------------------------------------------------*/
-
+    #bar {
+        font-size: 1.5em;
+        font-weight: 700;
+    }
 
     header .float-left,
     header .float-right {

@@ -31,7 +31,7 @@
                         <li><a href="~/Contact">Contact</a></li>
                         @if (WebSecurity.IsAuthenticated)
                         {
-                            <li><a href="~/AddRobot">Add a new robot</a></li>
+                            <li><a href="~/AddRobot">Add Robot</a></li>
                             <li><a href="~/AddPart">Add Parts</a></li>
                         }
                     </ul>
@@ -41,12 +41,6 @@
             <section id="login">
                 @if (WebSecurity.IsAuthenticated)
                 {
-                    <div id="LanguageButtons1">
-                        <form method="post">
-                            <p><input type="image" class="LanguageButton" src="~/Images/gb.png" name="English" value="en-GB" /></p>
-                            <p><input type="image" class="LanguageButton" id="DutchButton" src="~/Images/nl.png" name="Dutch" value="nl-NL" /></p>
-                        </form>
-                    </div>
                     <text>
                         <a class="email" href="~/Account/Manage" title="Manage">@WebSecurity.CurrentUserName</a>,
                         <form id="logoutForm" action="~/Account/Logout" method="post">
@@ -56,15 +50,15 @@
                     </text>
                 }
                 else {
-                    <div id="LanguageButtons">
-                        <form method="post">
-                            <p><input type="image" class="LanguageButton" src="~/Images/gb.png" name="English" value="en-GB" /></p>
-                            <p><input type="image" class="LanguageButton" id="DutchButton" src="~/Images/nl.png" name="Dutch" value="nl-NL" /></p>
-                        </form>
-                    </div>
                     <ul>
                         <li><a href="~/Account/Register">Register</a></li>
                         <li><a href="~/Account/Login">Log in</a></li>
+                        <li>
+                            <form id="Flags" method="post">
+                                <input type="image" class="LanguageButton" src="~/Images/gb.png" name="English" value="en-GB" />
+                                <input type="image" class="LanguageButton" src="~/Images/nl.png" name="Dutch" value="nl-NL" />
+                            </form>
+                        </li>
                     </ul>
                 }
             </section>
