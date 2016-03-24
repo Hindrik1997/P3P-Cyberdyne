@@ -57,12 +57,11 @@
     }
 }
 
-<hgroup class="title">
-    <h1>@Page.Title.</h1>
-</hgroup>
 
-<section id="loginForm">
-    <h2>Use a local account to log in.</h2>
+<div class="row center">
+    <hgroup class="title">
+        <h1>@Page.Title.</h1>
+    </hgroup>
     <form method="post">
         @AntiForgery.GetHtml()
         @* If one or more validation errors exist, show an error *@
@@ -93,12 +92,7 @@
         </fieldset>
     </form>
     <p>
-        <a href="~/Account/Register">Don't have a Account?</a>
-        <a href="~/Account/ForgotPassword">Did you forget your password?</a>
+        <a class="row" href="~/Account/Register">Don't have a Account?</a>
+        <a class="row" href="~/Account/ForgotPassword">Did you forget your password?</a>
     </p>
-</section>
-
-<section class="social" id="socialLoginForm">
-    <h2>Use another service to log in.</h2>
-    @RenderPage("~/Account/_ExternalLoginsList.cshtml")
-</section>
+</div>

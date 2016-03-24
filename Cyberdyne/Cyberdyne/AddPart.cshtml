@@ -1,0 +1,62 @@
+﻿@{
+    Layout = "~/_SiteLayout.cshtml";
+    Page.Title = "Add Part";
+
+    var partName ="";
+    var supplierName ="";
+    var supplierAddress ="";
+    var price = "";
+    var descriptionNL = "";
+    var descriptionEN = "";
+
+    Validation.RequireField("PartName", "You must enter a part name");
+    Validation.RequireField("SupplierName", "You must enter a supplier name");
+    Validation.RequireField("SupplierAddress", "You must enter a supplier adrress");
+    Validation.RequireField("Price", "You must enter a price");
+    Validation.RequireField("DescriptionNL", "You must enter a description");
+    Validation.RequireField("DescriptionEN", "You must enter a description");
+
+    if(IsPost && WebSecurity.CurrentUserId == 3){
+        partName = Request.Form["PartName"];
+        supplierName = Request.Form["SupplierName"];
+        supplierAddress = Request.Form["SupplierAdress"];
+        price = Request.Form["Price"];
+        descriptionNL = Request.Form["DescriptionNL"];
+        descriptionEN = Request.Form["DescriptionEN"];
+    }
+
+}
+
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+    </head>
+    <body>
+        @Html.ValidationSummary()
+        <form method="post" enctype="multipart/form-data" action="">
+            <fieldset>
+                <p><label for="PartName">Part Name:</label>
+                <input type="text" name="PartName" value="" />
+                
+                <p><label for="SupplierName">Supplier Name:</label>
+                <input type="text" name="SupplierName" value="" />
+
+                <p><label for="SupplierAddress">Supplier Address:</label>
+                <input type="text" name="SupplierAddress" value="" />
+
+                <p><label for="Price">Price:</label>
+                <input type="text" name="Price" value="" /></p>
+
+                <p><label for="DescriptionNL">DescriptionNL:</label>
+                <textarea name="DescriptionNL"></textarea>
+
+                <p><label for="DescriptionEN">DescriptionEN:</label>
+                <textarea name="DescriptionEN"></textarea>
+
+                <p><input type="submit" name="buttonSubmit" value="Add Part" /></p>
+            </fieldset>
+        </form>
+    </body>
+</html>

@@ -1,0 +1,108 @@
+﻿@using Microsoft.Web.Helpers;
+@{
+    Layout = "~/_SiteLayout.cshtml";
+    Page.Title = "Add robot";
+
+    var robotName = "";
+    var description = "";
+    var parts = "";
+    var software = "";
+    var robotVideo = "";
+
+    string[] options = new string[]{"ja", "Nee"};
+
+    //Validation fields
+    Validation.RequireField("RobotName", "You must enter a robot name");
+    Validation.RequireField("Description", "You must enter a description");
+    Validation.RequireField("Parts", "You must specify the parts");
+    Validation.RequireField("Software", "You haven't provided a software link");
+    Validation.RequireField("Youtube", "You haven't provided a youtube link");
+
+    //Check if validation is valid and a user is logged in
+    if(IsPost && Request.Files.Count >0 && Validation.IsValid() && WebSecurity.CurrentUserId == 3){
+        //Create directories if they don't exist
+        var dirPath = Server.MapPath("~/App_Data/UploadedFiles/");
+        var imagePath = Server.MapPath("~/App_Data/Images/");
+        Directory.CreateDirectory(dirPath);
+        Directory.CreateDirectory(imagePath);
+
+        //Initialize variables
+        robotName = Request.Form["RobotName"];
+        description = Request.Form["Description"];
+        parts = Request.Form["Parts"];
+        software = Request.Form["Software"];
+        robotVideo = Request.Form["Youtube"];        
+
+        //Catch files and save them on the server
+        string[] imageFormats = new string[]{".jpg", ".png", ".gif", ".jpeg"};
+        var fileName = "";
+        var fileSavePath = "";
+
+        for(int i =0; i < Request.Files.Count; i++) {
+            bool isImage = false;
+            var uploadedFile = Request.Files[i];
+            fileName = Path.GetFileName(uploadedFile.FileName);
+
+            foreach(var item in imageFormats){
+                if(fileName.Contains(item)){
+                    isImage =true;
+                }
+            }
+
+            if(isImage){
+                    fileSavePath = Server.MapPath("~/App_Data/Images/" + fileName);
+                    uploadedFile.SaveAs(fileSavePath);
+                }
+                else{
+                    fileSavePath = Server.MapPath("~/App_Data/UploadedFiles/" + fileName);
+                    uploadedFile.SaveAs(fileSavePath);
+                }              
+        }
+    }
+}
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+    </head>
+    <body>
+        @Html.ValidationSummary()
+        <form method="post" enctype="multipart/form-data" action="">
+            <fieldset>
+                <p><label for="RobotName">Robot Name:</label>
+                <input type="text" name="RobotName" value="" />
+                
+                <p><label for="Description">Description:</label>
+                <textarea name="Description"></textarea>
+
+                <p><label for="Parts">Parts:</label>
+                <select name="cars">
+                  @foreach(string option in options){
+                      @:<option value="@option">@option</option>
+                  }
+                </select>
+                
+
+                <p><label for="Software">Software:</label>
+                <input type="text" name="Software" value="" /></p>
+                
+                <p><label for="Youtube">Youtube link:</label>
+                <input type="text" name="Youtube" value=""/></p>
+                
+                <p><label for="Files">Files:</label></p>
+                @FileUpload.GetHtml(
+                    initialNumberOfFiles:1,
+                    allowMoreFilesToBeAdded:true,
+                    includeFormTag:false,
+                    addText:"Add another file",
+                    uploadText:"Upload")
+
+                <p><label for="images">images:</label></p>
+                <input type="file" name="image" value="" multiple/></p>
+
+                <p><input type="submit" name="buttonSubmit" value="Add Robot" /></p>
+            </fieldset>
+        </form>
+    </body>
+</html>

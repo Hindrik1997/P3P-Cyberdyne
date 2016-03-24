@@ -1,0 +1,48 @@
+﻿@{
+    Layout = "~/_SiteLayout.cshtml";
+    Page.Title = "Robot List";
+
+    var db = Database.Open("Cyberdyne");
+    var selectCommand = "SELECT COUNT(RobotID) FROM Robots";
+    double robots = db.QueryValue(selectCommand);
+
+    int colums = 2;
+    double rows;
+    int curRobot = 0;
+    rows = Math.Ceiling(robots / colums);
+    
+    /*TODO: Use sessions to keep track of the robot ID*/
+}
+
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title></title>
+    </head>
+    <body>
+        @for(var r=1;r<=rows;r++)
+        {
+            <div class="row">
+                @for(var i=1;i<=colums;i++)
+                {
+                    if(curRobot < robots)
+                    {
+                        <div class="col-sm-6">
+                            <a href="~/Robots?id=@curRobot">
+                                <img class="float-left" src="images/terminator.png" alt="Terminator" width="50%"> 
+                                <!--TODO: Assign data from the database-->
+                                <h1>Name</h1>
+                                <p>Lorem ipsum dolor sit amet, ex has assum appetere, pri te commodo impedit detraxit. Melius detracto liberavisse eam ad, duo et amet signiferumque. Ipsum cotidieque et est. Lobortis tractatos ut his, ei oblique nusquam vis, et velit utinam omnium mel. Cu petentium intellegat reformidans eos.
+                                    In nam agam viderer splendide. Nostro offendit definitiones eos ad, ne est paulo erroribus. Duo quem possim viderer te. Usu ea homero evertitur. Lorem scaevola ut sea.
+                                    Ius no purto pericula, ea hinc discere tacimates mei. Eu eam modo prompta dignissim. Movet conclusionemque at vix, nihil feugiat mei ne, dolor homero debitis qui et. Cum feugiat voluptua cu, in est soluta veritus graecis. Ne ignota tamquam adipiscing mei, cum id tation nemore officiis.</p>
+                            </a>
+                        </div>
+                    }
+                    curRobot++;
+                }
+            </div>
+        }
+    </body>
+</html>
