@@ -24,6 +24,9 @@ public class Robot : RepoObject
 
     public List<RobotMovie> Movies { get; set; }
 
+    public string DescriptionDutch { get; set; }
+
+    public string DescriptionEnglish { get; set; }
 
     public Robot(string _Naam, string _Category, int _ID, RepoManager _RepoRef) : base(_ID,_RepoRef)
     {
@@ -33,7 +36,18 @@ public class Robot : RepoObject
 
     public override void GetObjectData()
     {
+        //Zoeken naar referenties
+        foreach (Software Sw in RepoRef.SoftwareRepository)
+        {
+            if (Sw.robotID == ID)
+            {
+
+            }
+        }
+
+
         
+           
     }
     public override void UpdateData()
     {

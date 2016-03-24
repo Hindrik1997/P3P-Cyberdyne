@@ -22,15 +22,15 @@ public class RepoManager
         SupplierRepository = new Repository<Supplier>(this);
     }
 
-    private Repository<Robot> RobotRepository = null;
-    private Repository<RobotMovie> RobotMovieRepository = null;
-    private Repository<RobotImage> RobotImageRepository = null;
+    public Repository<Robot> RobotRepository = null;
+    public Repository<RobotMovie> RobotMovieRepository = null;
+    public Repository<RobotImage> RobotImageRepository = null;
 
-    private Repository<Component> ComponentRepository = null;
-    private Repository<File> FileRepository = null;
+    public Repository<Component> ComponentRepository = null;
+    public Repository<File> FileRepository = null;
 
-    private Repository<Software> SoftwareRepository = null;
-    private Repository<Supplier> SupplierRepository = null;
+    public Repository<Software> SoftwareRepository = null;
+    public Repository<Supplier> SupplierRepository = null;
 
     protected void GetBasicRobotData()
     {

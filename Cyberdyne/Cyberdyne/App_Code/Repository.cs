@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -6,7 +7,7 @@ using System.Web;
 /// <summary>
 /// Repository class
 /// </summary>
-public class Repository<T> where  T : RepoObject
+public class Repository<T> : IEnumerable<T> where  T : RepoObject
 {
     RepoManager m_ParentRepo = null;
     public Repository(RepoManager _Manager)
@@ -42,5 +43,15 @@ public class Repository<T> where  T : RepoObject
     public int Count()
     {
         return RepoContents.Count();
+    }
+
+    public IEnumerator<T> GetEnumerator()
+    {
+        return RepoContents.GetEnumerator();
+    }
+
+    IEnumerator IEnumerable.GetEnumerator()
+    {
+        return RepoContents.GetEnumerator();
     }
 }
