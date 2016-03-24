@@ -706,6 +706,8 @@ tr.pager td {
 
     /* header
     ----------------------------------------------------------*/
+
+
     header .float-left,
     header .float-right {
         float: none;
@@ -747,6 +749,10 @@ tr.pager td {
             color: #333;
         }
 
+        #login li a:hover  {
+            background-color: transparent;
+        }
+
     /* menu */
     nav {
         margin-bottom: 5px;
@@ -761,6 +767,16 @@ tr.pager td {
         ul#menu li {
             margin: 0;
             padding: 0;
+        }
+
+        ul#menu li:hover {
+            color: #333;
+            background-color:transparent;
+        }
+
+
+        ul#menu a:hover {
+            color: #333;
         }
 
 
@@ -846,7 +862,6 @@ tr.pager td {
         float: none;
         width: auto;
     }
-
 
     /* footer
     ----------------------------------------------------------*/

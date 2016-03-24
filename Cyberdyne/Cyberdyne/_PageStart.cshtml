@@ -1,11 +1,22 @@
 ﻿@{
-    if (IsPost && !Request["Dutch"].IsEmpty())
+    /*TODO: The language should be saved across pages*/    
+
+    /* Default language selection */
+    if (!IsPost) {
+        UICulture = "en-GB";
+    }
+    
+    /* Selects Dutch when the nl flag is clicked */
+    else if (IsPost && !Request["Dutch"].IsEmpty())
     {
         UICulture = "nl-NL";
+        Session["language"] = UICulture;
     }
 
-    if (IsPost && !Request["English"].IsEmpty())
+    /* Selects English when the gb flag is clicked */
+    else if (IsPost && !Request["English"].IsEmpty())
     {
         UICulture = "en-GB";
+        Session["language"] = UICulture;
     }
 }
