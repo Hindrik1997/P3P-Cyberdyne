@@ -136,6 +136,17 @@ public class RepoManager
             SupplierRepository.Add(new Supplier(Row["Name"], Row["Address"], Row["SupplierID"], this));
         }
     }
+
+    public Robot ItemExist<T> (int _ID) where T : Robot
+    {
+        foreach (var Robot in RobotRepository)
+        {
+            if (Robot.ID == _ID)
+                return Robot;
+        }
+        return null;
+    }
+    
     #endregion
 
 

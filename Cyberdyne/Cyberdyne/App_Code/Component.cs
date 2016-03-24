@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using WebMatrix.Data;
 
 /// <summary>
 /// Summary description for Component
@@ -34,6 +35,29 @@ public class Component : RepoObject
 
     public override void UpdateData()
     {
-        throw new NotImplementedException();
+        Database db = Database.Open("Cyberdyne");
+        bool componentExist = false;
+        bool supplierExist = false;
+        foreach (var Component in RepoRef.ComponentRepository)
+        {
+            if (Component.ID == ID)
+            {
+                componentExist = true;
+            }
+        }
+        foreach (var Supplier in RepoRef.SupplierRepository)
+        {
+            if (Supplier.ID == supplierID)
+            {
+                supplierExist = true;
+            }
+        }
+        if (exist)
+        {
+
+        }
+            db.Execute("UPDATE Supplier SET Name=@0, Address=@1  WHERE CategoryId", name, address);
+        else
+            db.Execute("INSERT INTO Supplier (Name, Address) VALUES @0, @1", name, address);
     }
 }

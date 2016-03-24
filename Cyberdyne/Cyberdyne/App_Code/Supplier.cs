@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using WebMatrix.Data;
 
 /// <summary>
 /// Summary description for Supplier
@@ -23,6 +24,18 @@ public class Supplier : RepoObject
     }
     public override void UpdateData()
     {
-        throw new NotImplementedException();
+        Database db = Database.Open("Cyberdyne");
+        bool exist = false;
+        foreach (var Supplier in RepoRef.SupplierRepository)
+        {
+            if (Supplier.ID == ID)
+            {
+                exist = true;
+            }
+        }
+        if (exist)
+            db.Execute("UPDATE Supplier SET Name=@0, Address=@1  WHERE CategoryId", name, address);
+        else
+            db.Execute("INSERT INTO Supplier (Name, Address) VALUES @0, @1", name, address);
     }
 }
