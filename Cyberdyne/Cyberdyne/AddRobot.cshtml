@@ -19,7 +19,7 @@
     Validation.RequireField("Youtube", "You haven't provided a youtube link");
 
     //Check if validation is valid and a user is logged in
-    if(IsPost && Request.Files.Count >0 && Validation.IsValid() && WebSecurity.IsAuthenticated){
+    if(IsPost && Request.Files.Count >0 && Validation.IsValid() && WebSecurity.CurrentUserId == 3){
         //Create directories if they don't exist
         var dirPath = Server.MapPath("~/App_Data/UploadedFiles/");
         var imagePath = Server.MapPath("~/App_Data/Images/");
@@ -74,7 +74,7 @@
                 <input type="text" name="RobotName" value="" />
                 
                 <p><label for="Description">Description:</label>
-                <input type="text" name="Description" value="" />
+                <textarea name="Description"></textarea>
 
                 <p><label for="Parts">Parts:</label>
                 <select name="cars">
