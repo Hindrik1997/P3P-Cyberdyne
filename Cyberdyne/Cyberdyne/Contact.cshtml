@@ -1,4 +1,5 @@
-﻿@{
+﻿@using Resources;
+@{
     Layout = "~/_SiteLayout.cshtml";
     Page.Title = "Contact";
 }
@@ -6,32 +7,32 @@
 <div class="row">
     <div class="col-sm-6">
     <hgroup class="title">
-        <h1>@Page.Title.</h1>
+        <h1>@Page.Title</h1>
     </hgroup>
 
     <section class="contact">
         <header>
-            <h3>Phone:</h3>
+            <h3>@Content.Phone</h3>
         </header>
         <p>
-            <span class="label">Main:</span>
+            <span class="label">NHL:</span>
             <span>058 251 2345</span>
         </p>
     </section>
 
     <section class="contact">
         <header>
-            <h3>Email:</h3>
+            <h3>E-mail:</h3>
         </header>
         <p>
-            <span class="label">Support:</span>
+            <span class="label">@Content.Support</span>
             <span><a href="mailto:Josfoppele@nhl.nl">Josfoppele@nhl.nl</a></span>
         </p>
     </section>
 
     <section class="contact">
         <header>
-            <h3>Address:</h3>
+            <h3>@Content.Address</h3>
         </header>
         <p>
             NHL Leeuwarden<br />

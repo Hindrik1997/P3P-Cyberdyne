@@ -1,0 +1,10 @@
+﻿@{
+    if (IsPost && !Request["Dutch"].IsEmpty())
+    {
+        UICulture = "nl-NL";
+    }
+    if (IsPost && !Request["English"].IsEmpty())
+    {
+        UICulture = "en-GB";
+    } 
+}
