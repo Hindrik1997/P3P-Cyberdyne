@@ -13,7 +13,6 @@ public class Component : RepoObject
     public string descriptionNL { get; set; }
     public string descriptionENG { get; set; }
 
-    public int robotID { get; set; }
     public int supplierID { get; set; }
 
     public Supplier ReferencedSupplier { get; private set; }

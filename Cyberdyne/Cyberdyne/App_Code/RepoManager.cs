@@ -44,6 +44,7 @@ public class RepoManager
         {
             RobotRepository.Add(new Robot(Row["Name"], Row["Category"], Row["RobotID"],this));
         }
+        db.Close();
     }
     protected void GetBasicRobotMovieData()
     {
@@ -57,6 +58,7 @@ public class RepoManager
         {
             RobotMovieRepository.Add(new RobotMovie(Row["Titel"],Row["RobotID"], Row["Location"],Row["MovieID"], this));
         }
+        db.Close();
     }
     protected void GetBasicRobotImageData()
     {
@@ -70,6 +72,7 @@ public class RepoManager
         {
             RobotImageRepository.Add(new RobotImage(Row["Name"], Row["ImgLocation"], Row["RobotID"], Row["ImageID"], this));
         }
+        db.Close();
     }
     
     //REFERENCES MOETEN NOG! ZIE ROBOT CLASS  
@@ -91,7 +94,7 @@ public class RepoManager
         {
             ComponentRepository.Add(new Component(Row["ComponentNumber"], Row["Price"], Row["DescriptionNL"], Row["DescriptionENG"], Row["ComponentID"], this));
         }
-
+        db.Close();
     }
 
     protected void GetBasicFileData()
@@ -106,7 +109,7 @@ public class RepoManager
         {
             FileRepository.Add(new File(Row["Name"], Row["Location"], Row["Version"], Row["RobotID"], Row["FileID"], this));
         }
-
+        db.Close();
     }
 
     protected void GetBasicSoftwareData()
@@ -121,6 +124,7 @@ public class RepoManager
         {
             FileRepository.Add(new File(Row["Name"], Row["Location"], Row["Version"], Row["RobotID"], Row["FileID"], this));
         }
+        db.Close();
     }
 
     protected void GetBasicSupplierData()
@@ -135,6 +139,7 @@ public class RepoManager
         {
             SupplierRepository.Add(new Supplier(Row["Name"], Row["Address"], Row["SupplierID"], this));
         }
+        db.Close();
     }
     #endregion
 

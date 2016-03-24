@@ -23,7 +23,14 @@ public class RobotImage : RepoObject
 
     public override void GetObjectData()
     {
-        throw new NotImplementedException();
+        foreach (Robot RB in RepoRef.RobotRepository)
+        {
+            if (RB.ID == RobotID)
+            {
+                ReferencedRobot = RB;
+                break;
+            }
+        }
     }
     public override void UpdateData()
     {

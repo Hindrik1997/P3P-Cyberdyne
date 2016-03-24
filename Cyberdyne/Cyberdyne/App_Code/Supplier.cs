@@ -19,7 +19,7 @@ public class Supplier : RepoObject
 
     public override void GetObjectData()
     {
-        throw new NotImplementedException();
+        throw new NotNecessaryException();
     }
     public override void UpdateData()
     {

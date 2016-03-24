@@ -22,7 +22,14 @@ public class RobotMovie : RepoObject
 
     public override void GetObjectData()
     {
-        throw new NotNecessaryException();//Needs it later on tough
+        foreach (Robot RB in RepoRef.RobotRepository)
+        {
+            if (RB.ID == RobotID)
+            {
+                ReferencedRobot = RB;
+                break;
+            }
+        }
     }
 
     public override void UpdateData()

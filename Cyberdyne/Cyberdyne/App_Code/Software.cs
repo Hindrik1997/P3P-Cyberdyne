@@ -12,21 +12,28 @@ public class Software : RepoObject
     public string location { get; set; }
     public string version { get; set; }
 
-    public int robotID { get; set; }
+    public int RobotID { get; set; }
        
     public Robot ReferencedRobot { get; private set; }
 
-    public Software(string name, string location, string version, int robotID, int _ID, RepoManager _RepoRef) : base(_ID,_RepoRef)
+    public Software(string _Name, string _Location, string _Version, int _RobotID, int _ID, RepoManager _RepoRef) : base(_ID,_RepoRef)
     {
-        this.name = name;
-        this.location = location;
-        this.version = version;
-        this.robotID = robotID;
+        this.name = _Name;
+        this.location = _Location;
+        this.version = _Version;
+        RobotID = _RobotID;
     }
 
     public override void GetObjectData()
     {
-        throw new NotImplementedException();
+        foreach (Robot RB in RepoRef.RobotRepository)
+        {
+            if (RB.ID == RobotID)
+            {
+                ReferencedRobot = RB;
+                break;
+            }
+        }
     }
 
     public override void UpdateData()
