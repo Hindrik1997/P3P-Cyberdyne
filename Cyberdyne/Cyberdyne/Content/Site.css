@@ -147,7 +147,7 @@ footer {
 .site-logo {
     margin: auto;
     width: 43.5%;
-    margin-top: -50px;
+    margin-top: -30px;
 }
 
 #logo {
@@ -177,6 +177,7 @@ footer {
         margin: 0;
         padding: 0;
         text-decoration: underline;
+        color: white;
     }
 
     #login ul {
@@ -199,12 +200,16 @@ footer {
         background-color: #B22;
     }
 
-
 /* menu
 ----------------------------------------------------------*/
 #LanguageButtons {
     margin-top: -10px;
-    margin-left: 1000px;
+    margin-left: 80%;
+}
+
+#LanguageButtons1 {
+    margin-top: -10px;
+    margin-left: 70%;
 }
 
 .LanguageButton {
@@ -483,8 +488,8 @@ aside {
     display: inline;
 }
 
-#logoutForm a:hover {
-    color: #B22;
+#logoutForm a{
+    color: white;
 }
 
 /* contact */
