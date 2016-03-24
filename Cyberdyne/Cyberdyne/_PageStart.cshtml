@@ -1,6 +1,6 @@
 ﻿@{
     if (!IsPost)  {
-        UICulture = Session["selectedLanguage"].ToString();
+        UICulture = "en-GB";
     }   
 
     if (IsPost && !Request["Dutch"].IsEmpty())
@@ -8,6 +8,7 @@
         UICulture = "nl-NL";
         Session["selectedLanguage"] = UICulture;
     }
+
     if (IsPost && !Request["English"].IsEmpty())
     {
         UICulture = "en-GB";
