@@ -57,11 +57,11 @@
     }
 }
 
-<hgroup class="title">
-    <h1>@Page.Title.</h1>
-</hgroup>
 
-<section id="loginForm">
+<div class="row center">
+    <hgroup class="title">
+        <h1>@Page.Title.</h1>
+    </hgroup>
     <h2>Use a local account to log in.</h2>
     <form method="post">
         @AntiForgery.GetHtml()
@@ -96,9 +96,4 @@
         <a href="~/Account/Register">Don't have a Account?</a>
         <a href="~/Account/ForgotPassword">Did you forget your password?</a>
     </p>
-</section>
-
-<section class="social" id="socialLoginForm">
-    <h2>Use another service to log in.</h2>
-    @RenderPage("~/Account/_ExternalLoginsList.cshtml")
-</section>
+</div>
