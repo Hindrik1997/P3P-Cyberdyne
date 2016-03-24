@@ -9,12 +9,12 @@ using System.Web;
 public class Supplier : RepoObject
 {
     public string name { get; set; }
-    public string adress { get; set; }
+    public string address { get; set; }
 
-    public Supplier(string name, string adress, int _ID, RepoManager _RepoRef) : base(_ID,_RepoRef)
+    public Supplier(string name, string address, int _ID, RepoManager _RepoRef) : base(_ID,_RepoRef)
     {
         this.name = name;
-        this.adress = adress;  
+        this.address = address;  
     }
 
     public override void GetObjectData()

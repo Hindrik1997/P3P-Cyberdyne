@@ -133,7 +133,7 @@ public class RepoManager
 
         foreach (var Row in Data)
         {
-            SupplierRepository.Add(new Supplier(Row["Name"], Row["Adress"], Row["SupplierID"], this));
+            SupplierRepository.Add(new Supplier(Row["Name"], Row["Address"], Row["SupplierID"], this));
         }
     }
     #endregion
