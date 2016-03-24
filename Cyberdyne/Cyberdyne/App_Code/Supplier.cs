@@ -26,7 +26,7 @@ public class Supplier : RepoObject
     {
         Database db = Database.Open("Cyberdyne");
         bool exist = false;
-        foreach (var Supplier in RepoRef.SupplierRepository)
+        foreach (var Supplier in repoRef.supplierRepository)
         {
             if (Supplier.ID == ID)
             {
@@ -37,5 +37,6 @@ public class Supplier : RepoObject
             db.Execute("UPDATE Supplier SET Name=@0, Address=@1  WHERE CategoryId", name, address);
         else
             db.Execute("INSERT INTO Supplier (Name, Address) VALUES @0, @1", name, address);
+        db.Close();
     }
 }

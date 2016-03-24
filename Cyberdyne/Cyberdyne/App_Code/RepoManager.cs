@@ -20,7 +20,6 @@ public class RepoManager
         fileRepository = new Repository<File>(this);
         softwareRepository = new Repository<Software>(this);
         supplierRepository = new Repository<Supplier>(this);
-        InitializeRepos();
     }
 
     public Repository<Robot> robotRepository = null;
@@ -32,19 +31,6 @@ public class RepoManager
 
     public Repository<Software> softwareRepository = null;
     public Repository<Supplier> supplierRepository = null;
-
-    private void InitializeRepos()
-    {
-        db = Database.Open("Cyberdyne");
-        GetBasicRobotData();
-        GetBasicRobotImageData();
-        GetBasicRobotMovieData();
-        GetBasicSoftwareData();
-        GetBasicSupplierData();
-        GetBasicComponentData();
-        GetBasicFileData();
-        db.Close();
-    }
 
     protected void GetBasicRobotData()
     {
@@ -132,23 +118,17 @@ public class RepoManager
         }
     }
 
-<<<<<<< HEAD
+
     public Robot ItemExist<T> (int _ID) where T : Robot
     {
-        foreach (var Robot in RobotRepository)
+        foreach (var Robot in robotRepository)
         {
             if (Robot.ID == _ID)
                 return Robot;
         }
         return null;
     }
-    
-    #endregion
-=======
-    
 
-
->>>>>>> 56dca8b00ba1b5052f83fcd5ee9cae5f63c125e4
 
 
 }
