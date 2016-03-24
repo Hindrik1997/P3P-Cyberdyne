@@ -92,7 +92,7 @@ public class RepoManager
 
         foreach (var Row in Data)
         {
-            componentRepository.Add(new Component(Row["ComponentNumber"], Row["Price"], Row["DescriptionNL"], Row["DescriptionENG"], Row["ComponentID"], this));
+            componentRepository.Add(new Component(Row["ComponentNumber"], Row["Price"], Row["ComponentID"], this));
         }
         db.Close();
     }
