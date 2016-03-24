@@ -1,15 +1,4 @@
 ﻿@using Resources;
-@{ 
-    if (IsPost && !Request["Dutch"].IsEmpty())
-    {
-        UICulture = "nl-NL";
-    }
-    if (IsPost && !Request["English"].IsEmpty())
-    {
-        UICulture = "en-GB";
-    }
-}
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -49,18 +38,17 @@
                 </nav>
             </div>
 
-            <div id="LanguageButtons">
-                <form method="post">
-                        <p><input type="image" class="LanguageButton" src="~/Images/gb.png" name="English" value="en-GB" /></p>
-                        <p><input type="image" class="LanguageButton" id="DutchButton" src="~/Images/nl.png" name="Dutch" value="nl-NL" /></p>
-                </form>
-            </div>
-
             <section id="login">
                 @if (WebSecurity.IsAuthenticated)
                 {
+                    <div id="LanguageButtons1">
+                        <form method="post">
+                            <p><input type="image" class="LanguageButton" src="~/Images/gb.png" name="English" value="en-GB" /></p>
+                            <p><input type="image" class="LanguageButton" id="DutchButton" src="~/Images/nl.png" name="Dutch" value="nl-NL" /></p>
+                        </form>
+                    </div>
                     <text>
-                        Hello, <a class="email" href="~/Account/Manage" title="Manage">@WebSecurity.CurrentUserName</a>!
+                        <a class="email" href="~/Account/Manage" title="Manage">@WebSecurity.CurrentUserName</a>,
                         <form id="logoutForm" action="~/Account/Logout" method="post">
                             @AntiForgery.GetHtml()
                             <a href="javascript:document.getElementById('logoutForm').submit()">Log out</a>
@@ -68,6 +56,12 @@
                     </text>
                 }
                 else {
+                    <div id="LanguageButtons">
+                        <form method="post">
+                            <p><input type="image" class="LanguageButton" src="~/Images/gb.png" name="English" value="en-GB" /></p>
+                            <p><input type="image" class="LanguageButton" id="DutchButton" src="~/Images/nl.png" name="Dutch" value="nl-NL" /></p>
+                        </form>
+                    </div>
                     <ul>
                         <li><a href="~/Account/Register">Register</a></li>
                         <li><a href="~/Account/Login">Log in</a></li>
@@ -75,9 +69,6 @@
                 }
             </section>
         </div>
-
-        @*Dit is een voorbeeld van tekst uit een resource file:*@
-        @Content.HomeContent
 
     </header>
     <div id="body">

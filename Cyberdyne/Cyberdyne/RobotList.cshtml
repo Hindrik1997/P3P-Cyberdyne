@@ -2,13 +2,16 @@
     Layout = "~/_SiteLayout.cshtml";
     Page.Title = "Robot List";
 
-    /*TODO: Assign robots to the ammount of robots in the database*/
-    double robots = 4;
+    var db = Database.Open("Cyberdyne");
+    var selectCommand = "SELECT COUNT(RobotID) FROM Robots";
+    double robots = db.QueryValue(selectCommand);
 
     int colums = 2;
     double rows;
     int curRobot = 0;
     rows = Math.Ceiling(robots / colums);
+    
+    /*TODO: Use sessions to keep track of the robot ID*/
 }
 
 <!DOCTYPE html>
