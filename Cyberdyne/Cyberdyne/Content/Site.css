@@ -144,9 +144,16 @@ footer {
 /* site logo
 ----------------------------------------------------------*/
 
-.site-logo{
+.site-logo {
     margin: auto;
-    width: 40%;
+    width: 43.5%;
+    margin-top: -50px;
+}
+
+#logo {
+    max-width: 100%;
+    min-width: 150px;
+    width: auto;
 }
 
 .site-logo a, .site-logo a:hover, .site-logo a:active {
@@ -852,12 +859,4 @@ tr.pager td {
         footer p {
             margin: 0;
         }
-}
-
-/* Robot page side list buttons */
-input[type="submit"] {
-  color: #fff;
-  background-color: rgba(255, 255, 255, 0.00);
-  border: rgba(255, 255, 255, 0.00);
-  padding: 0;
 }
