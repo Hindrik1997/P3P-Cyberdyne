@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using WebMatrix.Data;
 
 /// <summary>
 /// Summary description for Component
@@ -15,20 +16,35 @@ public class Component : RepoObject
 
     public int supplierID { get; set; }
 
-    public Supplier ReferencedSupplier { get; private set; }
+    public Supplier referencedSupplier { get; private set; }
 
 
-    public Component(string componentNumber, decimal price, string descriptionNL, string descriptionENG, int _ID, RepoManager _RepoRef) : base(_ID,_RepoRef)
+    public Component(string componentNumber, decimal price, int _ID, RepoManager _RepoRef) : base(_ID,_RepoRef)
     {
         this.componentNumber = componentNumber;
         this.price = price;
-        this.descriptionNL = descriptionNL;
-        this.descriptionENG = descriptionENG;
     }
 
     public override void GetObjectData()
     {
-        throw new NotNecessaryException();
+        Database db = Database.Open("Cyberdyne");
+
+        dynamic TextNL = db.QueryValue("SELECT DescriptionNL FROM Components WHERE ComponentID = @0", ID);
+        dynamic TextENG = db.QueryValue("SELECT DescriptionENG FROM Components WHERE ComponentID = @0", ID);
+
+        descriptionNL = Convert.ToString(TextNL);
+        descriptionENG = Convert.ToString(TextENG);
+
+        dynamic SupID = db.QueryValue("SELECT SupplierID FROM Components WHERE ComponentID = @0", ID);
+        supplierID = Convert.ToInt32(SupID);
+        foreach (Supplier s in repoRef.supplierRepository)
+        {
+            if (s.ID == supplierID)
+            {
+                referencedSupplier = s;
+                break;
+            }
+        }
     }
 
     public override void UpdateData()

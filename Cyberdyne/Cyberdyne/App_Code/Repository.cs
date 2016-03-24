@@ -15,43 +15,43 @@ public class Repository<T> : IEnumerable<T> where  T : RepoObject
         m_ParentRepo = _Manager;
     }
 
-    private List<T> RepoContents = new List<T>();
+    private List<T> repoContents = new List<T>();
 
     public void Add(T Item)
     {
-        RepoContents.Add(Item);
+        repoContents.Add(Item);
     }
 
     public void Remove(T Item)
     {
-        RepoContents.Remove(Item);
+        repoContents.Remove(Item);
     }
 
     public T this[int index]
     {
-        get { if (index < 0 || index > RepoContents.Count)
+        get { if (index < 0 || index > repoContents.Count)
                 throw new IndexOutOfRangeException();
-            return RepoContents[index];
+            return repoContents[index];
         }
         set {
-            if (index < 0 || index > RepoContents.Count)
+            if (index < 0 || index > repoContents.Count)
                 throw new IndexOutOfRangeException();
-            RepoContents[index] = value;
+            repoContents[index] = value;
         }
     }
 
     public int Count()
     {
-        return RepoContents.Count();
+        return repoContents.Count();
     }
 
     public IEnumerator<T> GetEnumerator()
     {
-        return RepoContents.GetEnumerator();
+        return repoContents.GetEnumerator();
     }
 
     IEnumerator IEnumerable.GetEnumerator()
     {
-        return RepoContents.GetEnumerator();
+        return repoContents.GetEnumerator();
     }
 }

@@ -8,12 +8,12 @@ using System.Web;
 /// </summary>
 public class ComponentData
 {
-    public Component Component = null;
-    public int Count = 0;
+    public Component component = null;
+    public int count = 0;
 
     public ComponentData(Component _Component, int _Count)
     {
-        Component = _Component;
-        Count = _Count;
+        component = _Component;
+        count = _Count;
     }
 }

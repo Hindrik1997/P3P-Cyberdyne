@@ -12,23 +12,23 @@ public class Software : RepoObject
     public string location { get; set; }
     public string version { get; set; }
 
-    public int RobotID { get; set; }
+    public int robotID { get; set; }
        
     public Robot ReferencedRobot { get; private set; }
 
     public Software(string _Name, string _Location, string _Version, int _RobotID, int _ID, RepoManager _RepoRef) : base(_ID,_RepoRef)
     {
-        this.name = _Name;
-        this.location = _Location;
-        this.version = _Version;
-        RobotID = _RobotID;
+        name = _Name;
+        location = _Location;
+        version = _Version;
+        robotID = _RobotID;
     }
 
     public override void GetObjectData()
     {
-        foreach (Robot RB in RepoRef.RobotRepository)
+        foreach (Robot RB in repoRef.robotRepository)
         {
-            if (RB.ID == RobotID)
+            if (RB.ID == robotID)
             {
                 ReferencedRobot = RB;
                 break;

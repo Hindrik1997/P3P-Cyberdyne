@@ -13,28 +13,28 @@ public class RepoManager
 
     public RepoManager()
     {
-        RobotRepository = new Repository<Robot>(this);
-        RobotMovieRepository = new Repository<RobotMovie>(this);
-        RobotImageRepository = new Repository<RobotImage>(this);
-        ComponentRepository = new Repository<Component>(this);
-        FileRepository = new Repository<File>(this);
-        SoftwareRepository = new Repository<Software>(this);
-        SupplierRepository = new Repository<Supplier>(this);
+        robotRepository = new Repository<Robot>(this);
+        robotMovieRepository = new Repository<RobotMovie>(this);
+        robotImageRepository = new Repository<RobotImage>(this);
+        componentRepository = new Repository<Component>(this);
+        fileRepository = new Repository<File>(this);
+        softwareRepository = new Repository<Software>(this);
+        supplierRepository = new Repository<Supplier>(this);
     }
 
-    public Repository<Robot> RobotRepository = null;
-    public Repository<RobotMovie> RobotMovieRepository = null;
-    public Repository<RobotImage> RobotImageRepository = null;
+    public Repository<Robot> robotRepository = null;
+    public Repository<RobotMovie> robotMovieRepository = null;
+    public Repository<RobotImage> robotImageRepository = null;
 
-    public Repository<Component> ComponentRepository = null;
-    public Repository<File> FileRepository = null;
+    public Repository<Component> componentRepository = null;
+    public Repository<File> fileRepository = null;
 
-    public Repository<Software> SoftwareRepository = null;
-    public Repository<Supplier> SupplierRepository = null;
+    public Repository<Software> softwareRepository = null;
+    public Repository<Supplier> supplierRepository = null;
 
     protected void GetBasicRobotData()
     {
-        if (RobotRepository == null)
+        if (robotRepository == null)
             throw new NullReferenceException("Jo, de roborepo is null!");
         db = Database.Open("Cyberdyne");
 
@@ -42,13 +42,13 @@ public class RepoManager
 
         foreach (var Row in Data)
         {
-            RobotRepository.Add(new Robot(Row["Name"], Row["Category"], Row["RobotID"],this));
+            robotRepository.Add(new Robot(Row["Name"], Row["Category"], Row["RobotID"],this));
         }
         db.Close();
     }
     protected void GetBasicRobotMovieData()
     {
-        if (RobotMovieRepository == null)
+        if (robotMovieRepository == null)
             throw new NullReferenceException("Jo, de robomovierepo is null!");
         db = Database.Open("Cyberdyne");
 
@@ -56,13 +56,13 @@ public class RepoManager
 
         foreach (var Row in Data)
         {
-            RobotMovieRepository.Add(new RobotMovie(Row["Titel"],Row["RobotID"], Row["Location"],Row["MovieID"], this));
+            robotMovieRepository.Add(new RobotMovie(Row["Titel"],Row["RobotID"], Row["Location"],Row["MovieID"], this));
         }
         db.Close();
     }
     protected void GetBasicRobotImageData()
     {
-        if (RobotImageRepository == null)
+        if (robotImageRepository == null)
             throw new NullReferenceException("Jo, de roboimagerepo is null!");
         db = Database.Open("Cyberdyne");
 
@@ -70,7 +70,7 @@ public class RepoManager
 
         foreach (var Row in Data)
         {
-            RobotImageRepository.Add(new RobotImage(Row["Name"], Row["ImgLocation"], Row["RobotID"], Row["ImageID"], this));
+            robotImageRepository.Add(new RobotImage(Row["Name"], Row["ImgLocation"], Row["RobotID"], Row["ImageID"], this));
         }
         db.Close();
     }
@@ -83,7 +83,7 @@ public class RepoManager
     #region MichaelCode
     protected void GetBasicComponentData()
     {
-        if (ComponentRepository == null)
+        if (componentRepository == null)
             throw new NullReferenceException("null gedoe");
 
         db = Database.Open("Cyberdyne");
@@ -92,14 +92,14 @@ public class RepoManager
 
         foreach (var Row in Data)
         {
-            ComponentRepository.Add(new Component(Row["ComponentNumber"], Row["Price"], Row["DescriptionNL"], Row["DescriptionENG"], Row["ComponentID"], this));
+            componentRepository.Add(new Component(Row["ComponentNumber"], Row["Price"], Row["DescriptionNL"], Row["DescriptionENG"], Row["ComponentID"], this));
         }
         db.Close();
     }
 
     protected void GetBasicFileData()
     {
-        if (FileRepository == null)
+        if (fileRepository == null)
             throw new NullReferenceException("null gedoe");
         db = Database.Open("Cyberdyne");
 
@@ -107,14 +107,14 @@ public class RepoManager
 
         foreach (var Row in Data)
         {
-            FileRepository.Add(new File(Row["Name"], Row["Location"], Row["Version"], Row["RobotID"], Row["FileID"], this));
+            fileRepository.Add(new File(Row["Name"], Row["Location"], Row["Version"], Row["RobotID"], Row["FileID"], this));
         }
         db.Close();
     }
 
     protected void GetBasicSoftwareData()
     {
-        if (FileRepository == null)
+        if (fileRepository == null)
             throw new NullReferenceException("null gedoe");
         db = Database.Open("Cyberdyne");
 
@@ -122,14 +122,14 @@ public class RepoManager
 
         foreach (var Row in Data)
         {
-            FileRepository.Add(new File(Row["Name"], Row["Location"], Row["Version"], Row["RobotID"], Row["FileID"], this));
+            fileRepository.Add(new File(Row["Name"], Row["Location"], Row["Version"], Row["RobotID"], Row["FileID"], this));
         }
         db.Close();
     }
 
     protected void GetBasicSupplierData()
     {
-        if (SupplierRepository == null)
+        if (supplierRepository == null)
             throw new NullReferenceException("null gedoe");
         db = Database.Open("Cyberdyne");
 
@@ -137,7 +137,7 @@ public class RepoManager
 
         foreach (var Row in Data)
         {
-            SupplierRepository.Add(new Supplier(Row["Name"], Row["Address"], Row["SupplierID"], this));
+            supplierRepository.Add(new Supplier(Row["Name"], Row["Address"], Row["SupplierID"], this));
         }
         db.Close();
     }

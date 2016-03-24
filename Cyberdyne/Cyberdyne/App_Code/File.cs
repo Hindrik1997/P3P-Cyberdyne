@@ -26,7 +26,7 @@ public class File : RepoObject
 
     public override void GetObjectData()
     {
-        foreach (Robot RB in RepoRef.RobotRepository)
+        foreach (Robot RB in repoRef.robotRepository)
         {
             if (RB.ID == RobotID)
             {

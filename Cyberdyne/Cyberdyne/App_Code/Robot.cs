@@ -9,38 +9,38 @@ using WebMatrix.Data;
 /// </summary>
 public class Robot : RepoObject
 {
-    public string Naam { get; set; }
+    public string name { get; set; }
 
-    public string Category { get; set; }
+    public string category { get; set; }
 
-    public Software Software { get; set; }
+    public Software software { get; set; }
 
-    public List<ComponentData> Components { get; set; }
+    public List<ComponentData> components { get; set; }
 
-    public List<File> Files { get; set; }
+    public List<File> files { get; set; }
 
-    public List<RobotImage> Images { get; set; }
+    public List<RobotImage> images { get; set; }
 
-    public List<RobotMovie> Movies { get; set; }
+    public List<RobotMovie> movies { get; set; }
 
-    public string DescriptionDutch { get; set; }
+    public string descriptionDutch { get; set; }
 
-    public string DescriptionEnglish { get; set; }
+    public string descriptionEnglish { get; set; }
 
     public Robot(string _Naam, string _Category, int _ID, RepoManager _RepoRef) : base(_ID,_RepoRef)
     {
-        Category = _Category;
-        Naam = _Naam;
+        category = _Category;
+        name = _Naam;
     }
 
     public override void GetObjectData()
     {
         //Zoeken naar referenties
-        foreach (Software Sw in RepoRef.SoftwareRepository)
+        foreach (Software Sw in repoRef.softwareRepository)
         {
-            if (Sw.RobotID == ID)
+            if (Sw.robotID == ID)
             {
-                Software = Sw;
+                software = Sw;
                 break;
             }
         }
@@ -48,47 +48,47 @@ public class Robot : RepoObject
         //Fetch text
         dynamic TextNL = Db.QueryValue("SELECT DescriptionNL FROM Robots WHERE RobotID = @0", ID);
         dynamic TextENG = Db.QueryValue("SELECT DescriptionENG FROM Robots WHERE RobotID = @0", ID);
-        DescriptionDutch = Convert.ToString(TextNL);
-        DescriptionEnglish = Convert.ToString(TextENG);
+        descriptionDutch = Convert.ToString(TextNL);
+        descriptionEnglish = Convert.ToString(TextENG);
 
         IEnumerable<dynamic> result = Db.Query("SELECT * FROM ComponentList WHERE RobotID = @0", ID);
-        Components = new List<ComponentData>();
+        components = new List<ComponentData>();
         foreach (var Item in result)
         {
             //ComponentID ophalen en zoeken naar bijhorende component en deze aan de componentlijst toevoegen
-            foreach (Component P in RepoRef.ComponentRepository)
+            foreach (Component P in repoRef.componentRepository)
             {
                 if (P.ID == (int)Item["ComponentID"])
                 {
-                    Components.Add(new ComponentData(P, (int)Item["Quantity"]));
+                    components.Add(new ComponentData(P, (int)Item["Quantity"]));
                     break;
                 }
             }
         }
         Db.Close();
-        Images = new List<RobotImage>();
-        foreach (RobotImage RI in RepoRef.RobotImageRepository)
+        images = new List<RobotImage>();
+        foreach (RobotImage RI in repoRef.robotImageRepository)
         {
-            if (RI.RobotID == ID)
+            if (RI.robotID == ID)
             {
-                Images.Add(RI);
+                images.Add(RI);
             }
         }
-        Movies = new List<RobotMovie>();
-        foreach (RobotMovie RM in RepoRef.RobotMovieRepository)
+        movies = new List<RobotMovie>();
+        foreach (RobotMovie RM in repoRef.robotMovieRepository)
         {
-            if (RM.RobotID == ID)
+            if (RM.robotID == ID)
             {
-                Movies.Add(RM);
+                movies.Add(RM);
             }
         }
 
-        Files = new List<File>();
-        foreach (File F in RepoRef.FileRepository)
+        files = new List<File>();
+        foreach (File F in repoRef.fileRepository)
         {
             if (F.RobotID == ID)
             {
-                Files.Add(F);
+                files.Add(F);
             }
         }
     }
