@@ -10,13 +10,13 @@ using WebMatrix.Data;
 public abstract class RepoObject
 {
     public readonly int ID;
-    protected RepoManager RepoRef;
+    protected RepoManager repoRef;
 
 
     public RepoObject(int _ID, RepoManager _RepoRef)
     {
         ID = _ID;
-        RepoRef = _RepoRef;
+        repoRef = _RepoRef;
     }
 
     public abstract void GetObjectData();

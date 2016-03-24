@@ -12,7 +12,7 @@ public class File : RepoObject
     public string location { get; set; }
     public string version { get; set; }
 
-    public int robotID { get; set; }
+    public int RobotID { get; set; }
 
     public Robot ReferencedRobot { get; private set; }
 
@@ -21,12 +21,19 @@ public class File : RepoObject
         this.name = name;
         this.location = location;
         this.version = version;
-        this.robotID = robotID;
+        this.RobotID = robotID;
     }
 
     public override void GetObjectData()
     {
-        throw new NotImplementedException();
+        foreach (Robot RB in repoRef.robotRepository)
+        {
+            if (RB.ID == RobotID)
+            {
+                ReferencedRobot = RB;
+                break;
+            }
+        }
     }
 
     public override void UpdateData()

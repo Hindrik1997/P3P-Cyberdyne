@@ -13,130 +13,126 @@ public class RepoManager
 
     public RepoManager()
     {
-        RobotRepository = new Repository<Robot>(this);
-        RobotMovieRepository = new Repository<RobotMovie>(this);
-        RobotImageRepository = new Repository<RobotImage>(this);
-        ComponentRepository = new Repository<Component>(this);
-        FileRepository = new Repository<File>(this);
-        SoftwareRepository = new Repository<Software>(this);
-        SupplierRepository = new Repository<Supplier>(this);
+        robotRepository = new Repository<Robot>(this);
+        robotMovieRepository = new Repository<RobotMovie>(this);
+        robotImageRepository = new Repository<RobotImage>(this);
+        componentRepository = new Repository<Component>(this);
+        fileRepository = new Repository<File>(this);
+        softwareRepository = new Repository<Software>(this);
+        supplierRepository = new Repository<Supplier>(this);
+        InitializeRepos();
     }
 
-    public Repository<Robot> RobotRepository = null;
-    public Repository<RobotMovie> RobotMovieRepository = null;
-    public Repository<RobotImage> RobotImageRepository = null;
+    public Repository<Robot> robotRepository = null;
+    public Repository<RobotMovie> robotMovieRepository = null;
+    public Repository<RobotImage> robotImageRepository = null;
 
-    public Repository<Component> ComponentRepository = null;
-    public Repository<File> FileRepository = null;
+    public Repository<Component> componentRepository = null;
+    public Repository<File> fileRepository = null;
 
-    public Repository<Software> SoftwareRepository = null;
-    public Repository<Supplier> SupplierRepository = null;
+    public Repository<Software> softwareRepository = null;
+    public Repository<Supplier> supplierRepository = null;
+
+    private void InitializeRepos()
+    {
+        db = Database.Open("Cyberdyne");
+        GetBasicRobotData();
+        GetBasicRobotImageData();
+        GetBasicRobotMovieData();
+        GetBasicSoftwareData();
+        GetBasicSupplierData();
+        GetBasicComponentData();
+        GetBasicFileData();
+        db.Close();
+    }
 
     protected void GetBasicRobotData()
     {
-        if (RobotRepository == null)
+        if (robotRepository == null)
             throw new NullReferenceException("Jo, de roborepo is null!");
-        db = Database.Open("Cyberdyne");
+
 
         IEnumerable<dynamic> Data = db.Query("SELECT * FROM Robots");
 
         foreach (var Row in Data)
         {
-            RobotRepository.Add(new Robot(Row["Name"], Row["Category"], Row["RobotID"],this));
+            robotRepository.Add(new Robot(Row["Name"], Row["Category"], Row["RobotID"], this));
         }
     }
     protected void GetBasicRobotMovieData()
     {
-        if (RobotMovieRepository == null)
+        if (robotMovieRepository == null)
             throw new NullReferenceException("Jo, de robomovierepo is null!");
-        db = Database.Open("Cyberdyne");
 
         IEnumerable<dynamic> Data = db.Query("SELECT * FROM RobotMovies");
 
         foreach (var Row in Data)
         {
-            RobotMovieRepository.Add(new RobotMovie(Row["Titel"],Row["RobotID"], Row["Location"],Row["MovieID"], this));
+            robotMovieRepository.Add(new RobotMovie(Row["Titel"],Row["RobotID"], Row["Location"],Row["MovieID"], this));
         }
     }
     protected void GetBasicRobotImageData()
     {
-        if (RobotImageRepository == null)
+        if (robotImageRepository == null)
             throw new NullReferenceException("Jo, de roboimagerepo is null!");
-        db = Database.Open("Cyberdyne");
 
         IEnumerable<dynamic> Data = db.Query("SELECT * FROM RobotImages");
 
         foreach (var Row in Data)
         {
-            RobotImageRepository.Add(new RobotImage(Row["Name"], Row["ImgLocation"], Row["RobotID"], Row["ImageID"], this));
+            robotImageRepository.Add(new RobotImage(Row["Name"], Row["ImgLocation"], Row["RobotID"], Row["ImageID"], this));
         }
-    }
-    
-    //REFERENCES MOETEN NOG! ZIE ROBOT CLASS  
-
-    //IS GOED DOEN WE MORGEN! *Donderdag
-
-    //Michael, implementeer de volgende methods zoals de methods hierboven, de rest doen we morgen wel
-    #region MichaelCode
+    }   
     protected void GetBasicComponentData()
     {
-        if (ComponentRepository == null)
+        if (componentRepository == null)
             throw new NullReferenceException("null gedoe");
-
-        db = Database.Open("Cyberdyne");
 
         IEnumerable<dynamic> Data = db.Query("SELECT * FROM Components");
 
         foreach (var Row in Data)
         {
-            ComponentRepository.Add(new Component(Row["ComponentNumber"], Row["Price"], Row["DescriptionNL"], Row["DescriptionENG"], Row["ComponentID"], this));
+            componentRepository.Add(new Component(Row["ComponentNumber"], Row["Price"], Row["ComponentID"], this));
         }
-
     }
-
     protected void GetBasicFileData()
     {
-        if (FileRepository == null)
+        if (fileRepository == null)
             throw new NullReferenceException("null gedoe");
-        db = Database.Open("Cyberdyne");
 
         IEnumerable<dynamic> Data = db.Query("SELECT * FROM Files");
 
         foreach (var Row in Data)
         {
-            FileRepository.Add(new File(Row["Name"], Row["Location"], Row["Version"], Row["RobotID"], Row["FileID"], this));
+            fileRepository.Add(new File(Row["Name"], Row["Location"], Row["Version"], Row["RobotID"], Row["FileID"], this));
         }
-
     }
-
     protected void GetBasicSoftwareData()
     {
-        if (FileRepository == null)
+        if (fileRepository == null)
             throw new NullReferenceException("null gedoe");
-        db = Database.Open("Cyberdyne");
 
         IEnumerable<dynamic> Data = db.Query("SELECT * FROM Files");
 
         foreach (var Row in Data)
         {
-            FileRepository.Add(new File(Row["Name"], Row["Location"], Row["Version"], Row["RobotID"], Row["FileID"], this));
+            fileRepository.Add(new File(Row["Name"], Row["Location"], Row["Version"], Row["RobotID"], Row["FileID"], this));
         }
     }
-
     protected void GetBasicSupplierData()
     {
-        if (SupplierRepository == null)
+        if (supplierRepository == null)
             throw new NullReferenceException("null gedoe");
-        db = Database.Open("Cyberdyne");
 
         IEnumerable<dynamic> Data = db.Query("SELECT * FROM Supplier");
 
         foreach (var Row in Data)
         {
-            SupplierRepository.Add(new Supplier(Row["Name"], Row["Address"], Row["SupplierID"], this));
+            supplierRepository.Add(new Supplier(Row["Name"], Row["Address"], Row["SupplierID"], this));
         }
     }
 
+<<<<<<< HEAD
     public Robot ItemExist<T> (int _ID) where T : Robot
     {
         foreach (var Robot in RobotRepository)
@@ -148,6 +144,11 @@ public class RepoManager
     }
     
     #endregion
+=======
+    
+
+
+>>>>>>> 56dca8b00ba1b5052f83fcd5ee9cae5f63c125e4
 
 
 }

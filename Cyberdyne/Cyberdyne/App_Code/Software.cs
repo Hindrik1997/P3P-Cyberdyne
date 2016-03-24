@@ -16,17 +16,24 @@ public class Software : RepoObject
        
     public Robot ReferencedRobot { get; private set; }
 
-    public Software(string name, string location, string version, int robotID, int _ID, RepoManager _RepoRef) : base(_ID,_RepoRef)
+    public Software(string _Name, string _Location, string _Version, int _RobotID, int _ID, RepoManager _RepoRef) : base(_ID,_RepoRef)
     {
-        this.name = name;
-        this.location = location;
-        this.version = version;
-        this.robotID = robotID;
+        name = _Name;
+        location = _Location;
+        version = _Version;
+        robotID = _RobotID;
     }
 
     public override void GetObjectData()
     {
-        throw new NotImplementedException();
+        foreach (Robot RB in repoRef.robotRepository)
+        {
+            if (RB.ID == robotID)
+            {
+                ReferencedRobot = RB;
+                break;
+            }
+        }
     }
 
     public override void UpdateData()

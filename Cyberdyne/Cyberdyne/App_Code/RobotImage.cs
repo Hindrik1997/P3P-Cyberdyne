@@ -8,22 +8,29 @@ using System.Web;
 /// </summary>
 public class RobotImage : RepoObject
 {
-    public string Name { get; set; }
-    public string ImageLocation { get; set; }
-    public int RobotID { get; set; }
-    public Robot ReferencedRobot { get; private set; }
+    public string name { get; set; }
+    public string imageLocation { get; set; }
+    public int robotID { get; set; }
+    public Robot referencedRobot { get; private set; }
 
     public RobotImage(string _Name,string _ImageLocation, int _RobotID,int _ID, RepoManager _RepoRef) : base(_ID,_RepoRef)
     {
-        Name = _Name;
-        ImageLocation = _ImageLocation;
-        RobotID = _RobotID;
-        ReferencedRobot = null;
+        name = _Name;
+        imageLocation = _ImageLocation;
+        robotID = _RobotID;
+        referencedRobot = null;
     }
 
     public override void GetObjectData()
     {
-        throw new NotImplementedException();
+        foreach (Robot RB in repoRef.robotRepository)
+        {
+            if (RB.ID == robotID)
+            {
+                referencedRobot = RB;
+                break;
+            }
+        }
     }
     public override void UpdateData()
     {

@@ -8,21 +8,28 @@ using System.Web;
 /// </summary>
 public class RobotMovie : RepoObject
 {
-    public string Name { get; set; }
-    public string Location { get; set; }
-    public int RobotID {get; set;}
+    public string name { get; set; }
+    public string location { get; set; }
+    public int robotID {get; set;}
 
-    public Robot ReferencedRobot { get; private set; }
+    public Robot referencedRobot { get; private set; }
 
     public RobotMovie(string _Name, int _RobotID, string _Location, int _ID, RepoManager _RepoRef) : base(_ID,_RepoRef)
     {
-        Name = _Name;
-        RobotID = _RobotID;
+        name = _Name;
+        robotID = _RobotID;
     }
 
     public override void GetObjectData()
     {
-        throw new NotNecessaryException();//Needs it later on tough
+        foreach (Robot RB in repoRef.robotRepository)
+        {
+            if (RB.ID == robotID)
+            {
+                referencedRobot = RB;
+                break;
+            }
+        }
     }
 
     public override void UpdateData()
