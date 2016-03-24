@@ -853,3 +853,11 @@ tr.pager td {
             margin: 0;
         }
 }
+
+/* Robot page side list buttons */
+input[type="submit"] {
+  color: #fff;
+  background-color: rgba(255, 255, 255, 0.00);
+  border: rgba(255, 255, 255, 0.00);
+  padding: 0;
+}
