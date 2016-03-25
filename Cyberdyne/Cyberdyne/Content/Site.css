@@ -141,27 +141,6 @@ footer {
 }
 
 
-/* site logo
-----------------------------------------------------------*/
-
-.site-logo {
-    margin: auto;
-    width: 43.5%;
-    margin-top: -30px;
-}
-
-#logo {
-    max-width: 100%;
-    min-width: 150px;
-    width: auto;
-}
-
-.site-logo a, .site-logo a:hover, .site-logo a:active {
-    background: none;
-    color: #c8c8c8;
-}
-
-
 /* login
 ----------------------------------------------------------*/
 #login {
@@ -711,10 +690,6 @@ tr.pager td {
         float: none;
     }
 
-    /* logo */
-    header .site-logo {
-        margin: 10px;
-    }
 
     /* login */
     #login {
