@@ -228,6 +228,31 @@ ul#menu {
         padding: 11px 10px 8px 10px;
     }
 
+/* Home
+----------------------------------------------------------*/
+#HomeEditor textarea{
+    text-align: left;
+    font-size: 0.8em;
+    width: 100%;
+}
+
+#HomeEditor input{
+    background-color: black;
+    color: white;
+    border: 0;
+}
+
+#DutchText {
+    margin-left: 1%;
+}
+
+#HomeEditor textarea english{
+    margin-left: 10px;
+}
+
+#HomeEditor div{
+    float: left;
+}
 
 /* side menu
 ----------------------------------------------------------*/
