@@ -1,6 +1,6 @@
 ﻿@{
     //Selects Language:
-    if (Session["language"].ToString().IsEmpty())
+    if (Session.IsNewSession)
     {
         UICulture = "en-GB"; //Default Language
     }
