@@ -147,6 +147,20 @@ footer {
     font-size: .8em;
 }
 
+/* Carousal
+----------------------------------------------------------*/
+
+.carousel-control.left, .carousel-control.right {
+    background-image: none;
+    color: #000;
+}
+
+#myCarousel {
+    margin-top: 40px;
+}
+
+
+
 
 /* login
 ----------------------------------------------------------*/
