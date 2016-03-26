@@ -32,6 +32,11 @@ public class Repository<T> : IEnumerable<T> where  T : RepoObject
         repoContents.Remove(Item);
     }
 
+    public void RemoveAll()
+    {
+        repoContents = new List<T>();
+    }
+
     public T this[int index]
     {
         get { if (index < 0 || index > repoContents.Count)

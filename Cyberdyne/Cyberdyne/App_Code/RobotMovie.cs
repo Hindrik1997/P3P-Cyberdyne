@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using WebMatrix.Data;
 
 /// <summary>
 /// Summary description for RobotMovies
@@ -34,6 +35,22 @@ public class RobotMovie : RepoObject
 
     public override void UpdateData()
     {
-        throw new NotImplementedException();
+        Database db = Database.Open("Cyberdyne");
+        bool exist = Exist();
+
+        if (exist)
+            db.Execute("UPDATE RobotMovies SET Titel=@0, Location=@1, RobotID=@2 WHERE MovieID =@3", name, location, robotID, ID);
+        else
+        {
+            db.Execute("INSERT INTO RobotMovies (Name, Location, RobotID) VALUES @0, @1, @2", name, location, robotID);
+            ID = db.QueryValue("SELECT MovieID FROM RobotMovies WHERE MovieID = @@IDENTITY");
+        }
+        db.Close();
+    }
+    public bool Exist()
+    {
+        Database db = Database.Open("Cyberdyne");
+        var commandText = @"SELECT COUNT(*) FROM RobotMovies WHERE MovieID = @0";
+        return (int)db.QueryValue(commandText, ID) > 0;
     }
 }

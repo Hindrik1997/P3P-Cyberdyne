@@ -1,37 +1,57 @@
 ﻿@using Microsoft.Web.Helpers;
 @{
+    RepoManager RM = new RepoManager();
+    RM.GetComponents();
     Layout = "~/_SiteLayout.cshtml";
     Page.Title = "Add robot";
+
 
     var robotName = "";
     var description = "";
     var parts = "";
-    var software = "";
-    var robotVideo = "";
+    var softwareLocation = "";
+    //var robotVideoLocation = "";
 
     string[] options = new string[]{"ja", "Nee"};
 
     //Validation fields
     Validation.RequireField("RobotName", "You must enter a robot name");
     Validation.RequireField("Description", "You must enter a description");
-    Validation.RequireField("Parts", "You must specify the parts");
-    Validation.RequireField("Software", "You haven't provided a software link");
+    //Validation.RequireField("Parts", "You must specify the parts");
+    Validation.RequireField("SoftwareLocation", "You haven't provided a software link");
     Validation.RequireField("Youtube", "You haven't provided a youtube link");
 
     //Check if validation is valid and a user is logged in
-    if(IsPost && Request.Files.Count >0 && Validation.IsValid() && WebSecurity.CurrentUserId == 3){
+    //if(IsPost && Request.Files.Count >0 && Validation.IsValid() && WebSecurity.CurrentUserId == 3){
+    if (IsPost && Request.Files.Count > 0 && Validation.IsValid()){
         //Create directories if they don't exist
+
         var dirPath = Server.MapPath("~/App_Data/UploadedFiles/");
         var imagePath = Server.MapPath("~/App_Data/Images/");
+
+        //Moet nog toegevoegd worden aan FRONT END
+        var category = "";
+        var softwareName = "";
+        var softwareVersion = "";
+        //en Wat meer...
+
         Directory.CreateDirectory(dirPath);
         Directory.CreateDirectory(imagePath);
+
 
         //Initialize variables
         robotName = Request.Form["RobotName"];
         description = Request.Form["Description"];
-        parts = Request.Form["Parts"];
-        software = Request.Form["Software"];
-        robotVideo = Request.Form["Youtube"];        
+        parts = Request.Params["Parts"];
+        softwareLocation = Request.Form["SoftwareLocation"];
+        //robotVideo = Request.Form["Youtube"];
+
+
+        Robot Robot = new Robot(robotName, category, -1, RM);
+        Robot.UpdateData();
+        Robot.descriptionEnglish = description;
+        Software Software = new Software(softwareName, softwareLocation, softwareVersion, Robot.ID, -1, RM);
+        
 
         //Catch files and save them on the server
         string[] imageFormats = new string[]{".jpg", ".png", ".gif", ".jpeg"};
@@ -50,13 +70,13 @@
             }
 
             if(isImage){
-                    fileSavePath = Server.MapPath("~/App_Data/Images/" + fileName);
-                    uploadedFile.SaveAs(fileSavePath);
-                }
-                else{
-                    fileSavePath = Server.MapPath("~/App_Data/UploadedFiles/" + fileName);
-                    uploadedFile.SaveAs(fileSavePath);
-                }              
+                fileSavePath = Server.MapPath("~/App_Data/Images/" + fileName);
+                uploadedFile.SaveAs(fileSavePath);
+            }
+            else{
+                fileSavePath = Server.MapPath("~/App_Data/UploadedFiles/" + fileName);
+                uploadedFile.SaveAs(fileSavePath);
+            }
         }
     }
 }
@@ -77,15 +97,25 @@
                 <textarea name="Description"></textarea>
 
                 <p><label for="Parts">Parts:</label>
-                <select name="cars">
+                @*<select name="cars">
                   @foreach(string option in options){
                       @:<option value="@option">@option</option>
                   }
-                </select>
-                
-
-                <p><label for="Software">Software:</label>
-                <input type="text" name="Software" value="" /></p>
+                </select>*@
+                <select multiple>
+                    <fieldlset>
+                    <legend>Parts</legend>
+                    @foreach(var Component in RM.componentRepository)
+                    {
+                        <option value="@Component.ID"><ul id="menu">
+                        <li>@Component.ID</li>
+                        <li>@Component.componentName</li>
+                        </ul></option>
+                    }
+                     </fieldlset>
+                </select>        
+                <p><label for="SoftwareLocation">Software:</label>
+                <input type="text" name="SoftwareLocation" value="" /></p>
                 
                 <p><label for="Youtube">Youtube link:</label>
                 <input type="text" name="Youtube" value=""/></p>

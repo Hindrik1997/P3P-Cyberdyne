@@ -9,7 +9,7 @@ using WebMatrix.Data;
 /// </summary>
 public abstract class RepoObject
 {
-    public readonly int ID;
+    public int ID { get;  set; }
     protected RepoManager repoRef;
 
 

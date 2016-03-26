@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using WebMatrix.Data;
 
 /// <summary>
 /// Summary description for RobotImage
@@ -34,6 +35,22 @@ public class RobotImage : RepoObject
     }
     public override void UpdateData()
     {
-        throw new NotImplementedException();
+        Database db = Database.Open("Cyberdyne");
+        bool exist = Exist();
+
+        if (exist)
+            db.Execute("UPDATE RobotImages SET Name=@0, ImgLocation=@1, RobotID=@2 WHERE ImageID =@3", name, imageLocation, robotID, ID);
+        else
+        {
+            db.Execute("INSERT INTO RobotImages (Name, ImgLocation, RobotID) VALUES @0, @1, @2", name, imageLocation, robotID);
+            ID = db.QueryValue("SELECT ImageID FROM RobotImages WHERE ImageID = @@IDENTITY");
+        }
+        db.Close();
+    }
+    public bool Exist()
+    {
+        Database db = Database.Open("Cyberdyne");
+        var commandText = @"SELECT COUNT(*) FROM RobotImages WHERE ImageID = @0";
+        return (int)db.QueryValue(commandText, ID) > 0;
     }
 }

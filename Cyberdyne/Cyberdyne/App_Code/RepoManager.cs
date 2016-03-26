@@ -88,7 +88,7 @@ public class RepoManager
 
         foreach (var Row in Data)
         {
-            componentRepository.Add(new Component(Row["ComponentNumber"], Row["Price"], Row["ComponentID"], this));
+            componentRepository.Add(new Component(Row["ComponentNumber"],Row["ComponentName"], Row["Price"], Row["ComponentID"], this));
         }
     }
     protected void GetBasicFileData()
@@ -135,7 +135,7 @@ public class RepoManager
     {
         db = Database.Open("Cyberdyne");
         GetBasicRobotData();
-
+        GetBasicRobotImages();
         //Softwares inladen
         GetSoftwares();
         //Componenten inladen
@@ -294,5 +294,39 @@ public class RepoManager
     #endregion
 
     //SEARCHEN ENZO MOET ER NOG IN!
+    #region Publieke Zoek Methodes Robots
+    public List<Robot> GetRobotsByName(string Search)
+    {
+        db = Database.Open("Cyberdyne");
+        GetBasicRobotDataByName(Search);
+        GetBasicRobotImages();
+        //Softwares inladen
+        GetSoftwares();
+        //Componenten inladen
+        GetComponents();
+        //GetRobotImages, Movies, Files
+        GetFiles(); GetRobotImages(); GetRobotMovies();
+        FillAllDataInRepo(robotRepository);
+        db.Close();
+        return robotRepository.GetList();
+    }
 
+    protected void GetBasicRobotDataByName(string Search)
+    {
+        robotRepository = new Repository<Robot>(this);
+        string sql = @"
+        SELECT Robots.Name, Robots.Category, Robots.RobotID 
+            FROM Robots 
+            Where Robots.Name LIKE @0 
+        UNION SELECT Robots.Name, Robots.Category, Robots.RobotID 
+            FROM Robots, ComponentList, Components 
+            Where Components.ComponentName LIKE @0 AND Robots.RobotID = ComponentList.RobotID AND Components.ComponentID = ComponentList.ComponentID";
+        IEnumerable<dynamic> Data = db.Query(sql, Search);
+        //IEnumerable<dynamic> Data = db.Query("SELECT Robots.Name, Robots.Category, Robots.RobotID FROM Robots Where Robots.Name LIKE @0 UNION SELECT Robots.Name, Robots.Category, Robots.RobotID FROM Robots, ComponentList, Components Where Components.ComponentName LIKE @0 AND Robots.RobotID = ComponentList.RobotID AND Components.ComponentID = ComponentList.ComponentID", Search);
+        foreach (var Row in Data)
+        {
+            robotRepository.Add(new Robot(Row["Name"], Row["Category"], Row["RobotID"], this));
+        }
+    }
+    #endregion
 }

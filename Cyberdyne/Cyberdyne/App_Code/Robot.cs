@@ -94,6 +94,23 @@ public class Robot : RepoObject
     }
     public override void UpdateData()
     {
-        throw new NotImplementedException();
+        Database db = Database.Open("Cyberdyne");
+        bool exist = Exist();
+
+        if (exist)
+            db.Execute("UPDATE Robots SET Name=@0, Category=@1, DescriptionNL=@2, DescriptionENG=@3 WHERE RobotID =@4", name, category, descriptionDutch, descriptionEnglish, ID);
+        else
+        {
+            db.Execute("INSERT INTO Robots (Name, Category, DescriptionNL, DescriptionENG) VALUES @0, @1, @2, @3", name, category, descriptionDutch, descriptionEnglish);
+            ID = db.QueryValue("SELECT RobotID FROM Robots WHERE RobotID = @@IDENTITY");
+        }
+        db.Close();
+    }
+
+    public bool Exist()
+    {
+        Database db = Database.Open("Cyberdyne");
+        var commandText = @"SELECT COUNT(*) FROM Robots WHERE RobotID = @0";
+        return (int)db.QueryValue(commandText, ID) > 0;
     }
 }

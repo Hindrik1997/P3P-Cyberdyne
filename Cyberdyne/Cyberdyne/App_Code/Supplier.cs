@@ -20,23 +20,27 @@ public class Supplier : RepoObject
 
     public override void GetObjectData()
     {
-        throw new NotNecessaryException();
+        //throw new NotNecessaryException();
     }
     public override void UpdateData()
     {
         Database db = Database.Open("Cyberdyne");
-        bool exist = false;
-        foreach (var Supplier in repoRef.supplierRepository)
-        {
-            if (Supplier.ID == ID)
-            {
-                exist = true;
-            }
-        }
+        bool exist = Exist();
+
         if (exist)
             db.Execute("UPDATE Supplier SET Name=@0, Address=@1  WHERE CategoryId", name, address);
         else
+            {
             db.Execute("INSERT INTO Supplier (Name, Address) VALUES @0, @1", name, address);
+            ID = db.QueryValue("SELECT SupplierID FROM Supplier WHERE SupplierID = @@IDENTITY");
+            }
         db.Close();
+    }
+
+    public bool Exist()
+    {
+        Database db = Database.Open("Cyberdyne");
+        var commandText = @"SELECT COUNT(*) FROM Supplier WHERE SupplierID = @0";
+        return (int)db.QueryValue(commandText, ID) > 0;
     }
 }
