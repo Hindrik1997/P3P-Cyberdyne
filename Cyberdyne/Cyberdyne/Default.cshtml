@@ -15,6 +15,7 @@
         string position = "HomeContent";
         EnglishContent = Request["English1"];
         re.Add(path, position, EnglishContent);
+        Response.Redirect("~/Default.cshtml");
     }
 
     if (IsPost && !Request["Dutch1"].IsEmpty())
@@ -23,6 +24,7 @@
         string position = "HomeContent";
         DutchContent = Request["Dutch1"];
         re.Add(path, position, EnglishContent);
+        Response.Redirect("~/Default.cshtml");
     }
 }
 
@@ -47,15 +49,14 @@
 
                         <div id="DutchText">
                             <label for="Dutch1"> Dutch:</label>
-                            <textarea rows="3" cols="50" name="Ducth1">@DutchContent</textarea>
+                            <textarea rows="3" cols="50" name="Dutch1">@DutchContent</textarea>
                         </div>
 
-                        <div>
+                        <div id="SubmitButton">
                             <p><input type="submit" name="Submit" value="@Content.Submit" /></p>
                         </div>
                     </form>
                 }
-
                 <div id="myCarousel" class="carousel slide" data-ride="carousel">
                       <!-- Indicators -->
                       <ol class="carousel-indicators">
