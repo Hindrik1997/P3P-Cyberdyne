@@ -10,7 +10,7 @@
 
     var db = Database.Open("Cyberdyne");
     var selectCommand = "SELECT COUNT(RobotID) FROM Robots";
-    double robots = db.QueryValue(selectCommand);
+    double robots = 4; //db.QueryValue(selectCommand);
 
     int colums = 2;
     double rows;
@@ -36,8 +36,8 @@
                     if(curRobot < robots)
                     {
                         <div class="col-sm-6">
-                            <a href="~/Robots/Robots?id=@curRobot">
-                                <img class="float-left" src="images/terminator.png" alt="Terminator" width="50%"> 
+                            <a href="~/Menu/Robots/Robots?id=@curRobot">
+                                <img class="float-left" src="~/images/terminator.png" alt="Terminator" width="50%"> 
                                 <!--TODO: Assign data from the database-->
                                 <h1>Name</h1>
                                 <p>Lorem ipsum dolor sit amet, ex has assum appetere, pri te commodo impedit detraxit. Melius detracto liberavisse eam ad, duo et amet signiferumque. Ipsum cotidieque et est. Lobortis tractatos ut his, ei oblique nusquam vis, et velit utinam omnium mel. Cu petentium intellegat reformidans eos.
