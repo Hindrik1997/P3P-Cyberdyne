@@ -117,16 +117,19 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Submit" xml:space="preserve">
+    <value>Toepassen</value>
+  </data>
   <data name="Address" xml:space="preserve">
     <value>Adres:</value>
   </data>
-  <data name="HomeContent" xml:space="preserve">
-    <value>Dit is een voorbeeld van Nederlandse tekst :)</value>
+  <data name="Support" xml:space="preserve">
+    <value>Helpdesk:</value>
   </data>
   <data name="Phone" xml:space="preserve">
     <value>Telefoon:</value>
   </data>
-  <data name="Support" xml:space="preserve">
-    <value>Helpdesk:</value>
+  <data name="HomeContent" xml:space="preserve">
+    <value>Welkom bij Cyberdyne. Deze website is de plek voor mensen die geïnteresseerd zijn in robots.</value>
   </data>
 </root>

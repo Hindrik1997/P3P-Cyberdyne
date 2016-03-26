@@ -1,6 +1,29 @@
-﻿@{
+﻿@using Resources;
+@using ResourceEditor;
+@{
     Layout = "~/_SiteLayout.cshtml";
     Page.Title = "Home Page";
+
+    var EnglishContent = "";
+    var DutchContent = "";
+
+    ResourceEditor re = new ResourceEditor();
+
+    if (IsPost && !Request["English1"].IsEmpty())
+    {
+        string path = Server.MapPath("~/App_GlobalResources/Content.resx");
+        string position = "HomeContent";
+        EnglishContent = Request["English1"];
+        re.Add(path, position, EnglishContent);
+    }
+
+    if (IsPost && !Request["Dutch1"].IsEmpty())
+    {
+        string path = Server.MapPath("~/App_GlobalResources/Content.nl-NL.resx");
+        string position = "HomeContent";
+        DutchContent = Request["Dutch1"];
+        re.Add(path, position, EnglishContent);
+    }
 }
 
 <div>
@@ -12,12 +35,27 @@
             </a>
             <div class="well">
                 <p class="text-center">
-                    Lorem ipsum dolor sit amet, ex has assum appetere, pri te commodo impedit detraxit. Melius detracto liberavisse eam ad, duo et amet signiferumque. Ipsum cotidieque et est. Lobortis tractatos ut his, ei oblique nusquam vis, et velit utinam omnium mel. Cu petentium intellegat reformidans eos.
-                    In nam agam viderer splendide. Nostro offendit definitiones eos ad, ne est paulo erroribus. Duo quem possim viderer te. Usu ea homero evertitur. Lorem scaevola ut sea.
-                    Ius no purto pericula, ea hinc discere tacimates mei. Eu eam modo prompta dignissim. Movet conclusionemque at vix, nihil feugiat mei ne, dolor homero debitis qui et. Cum feugiat voluptua cu, in est soluta veritus graecis. Ne ignota tamquam adipiscing mei, cum id tation nemore officiis.
-                    An has dico vocibus contentiones, nam duis oblique ad. Sit numquam utroque te, cum suas forensibus dissentiunt ut, nam ne amet alia scribentur. Per ei ferri erant consetetur, ullum assum principes ne vis. Has nusquam recteque ad.
-                    Pri id malis viris delectus, ei doming integre moderatius nam. Liber audire no vim, eu pro consul integre expetendis. Mel aeterno debitis quaerendum eu, in facer oportere inciderint per, dissentiunt ullamcorper pro ex. Ex eam quas rationibus honestatis. Omittam ullamcorper suscipiantur mel ex, ea mea accusamus principes ullamcorper, an duo stet reprimique. Ex nec fabulas epicuri verterem, prompta torquatos pertinacia ei eam.
+                    @Content.HomeContent
                 </p>
+                @if (WebSecurity.IsAuthenticated)
+                {
+                    <form method="post" id="HomeEditor">
+                        <div>
+                            <label for="English1">English:</label>
+                            <textarea rows="3" cols="50" name="English1">@EnglishContent</textarea>
+                        </div>
+
+                        <div id="DutchText">
+                            <label for="Dutch1"> Dutch:</label>
+                            <textarea rows="3" cols="50" name="Ducth1">@DutchContent</textarea>
+                        </div>
+
+                        <div>
+                            <p><input type="submit" name="Submit" value="@Content.Submit" /></p>
+                        </div>
+                    </form>
+                }
+
                 <div id="myCarousel" class="carousel slide" data-ride="carousel">
                       <!-- Indicators -->
                       <ol class="carousel-indicators">
