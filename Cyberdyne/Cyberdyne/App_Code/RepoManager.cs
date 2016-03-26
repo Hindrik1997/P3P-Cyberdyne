@@ -246,6 +246,7 @@ public class RepoManager
     {
         db = Database.Open("Cyberdyne");
         GetBasicRobotData();
+        GetBasicRobotImages();
         db.Close();
         return robotRepository.GetList();
     }
