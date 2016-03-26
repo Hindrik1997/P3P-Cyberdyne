@@ -15,8 +15,13 @@ body {
 }
 
 img {
-    margin: 20px;
+          margin: auto;
 }
+
+a img {
+          margin: 20px;
+}
+
 
 
 a {
@@ -84,6 +89,7 @@ h2 {
 
 h3 {
     font-size: 1.2em;
+    color: #B22;
 }
 
 h4 {
