@@ -9,19 +9,19 @@
 
     ResourceEditor re = new ResourceEditor();
 
-    if (IsPost && !Request["English"].IsEmpty())
+    if (IsPost && !Request["English1"].IsEmpty())
     {
         string path = Server.MapPath("~/App_GlobalResources/Content.resx");
         string position = "HomeContent";
-        EnglishContent = Request["English"];
+        EnglishContent = Request["English1"];
         re.Add(path, position, EnglishContent);
     }
 
-    if (IsPost && !Request["Dutch"].IsEmpty())
+    if (IsPost && !Request["Dutch1"].IsEmpty())
     {
         string path = Server.MapPath("~/App_GlobalResources/Content.nl-NL.resx");
         string position = "HomeContent";
-        DutchContent = Request["Dutch"];
+        DutchContent = Request["Dutch1"];
         re.Add(path, position, EnglishContent);
     }
 }
@@ -41,13 +41,13 @@
                 {
                     <form method="post" id="HomeEditor">
                         <div>
-                            <label for="English">English:</label>
-                            <textarea rows="3" cols="50" name="English">@EnglishContent</textarea>
+                            <label for="English1">English:</label>
+                            <textarea rows="3" cols="50" name="English1">@EnglishContent</textarea>
                         </div>
 
                         <div id="DutchText">
-                            <label for="Dutch"> Dutch:</label>
-                            <textarea rows="3" cols="50" name="Dutch">@DutchContent</textarea>
+                            <label for="Dutch1"> Dutch:</label>
+                            <textarea rows="3" cols="50" name="Ducth1">@DutchContent</textarea>
                         </div>
 
                         <div>
