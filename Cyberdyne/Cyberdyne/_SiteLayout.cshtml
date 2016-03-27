@@ -27,40 +27,40 @@
                 <nav>
                     <ul id="menu">
                         <li><a href="~/">Home</a></li>
-                        <li><a href="~/RobotList">Robots</a></li>
+                        <li><a href="~/Menu/Robots/RobotList">Robots</a></li>
                         <li><a href="~/Contact">Contact</a></li>
                         @if (WebSecurity.CurrentUserId == 3)
                         {
-                            <li><a href="~/AddRobot">Add Robot</a></li>
-                            <li><a href="~/AddPart">Add Parts</a></li>
+                            <li><a href="~/Menu/Admin/AddRobot">Add Robot</a></li>
+                            <li><a href="~/Menu/Admin/AddPart">Add Parts</a></li>
                         }
                     </ul>
                 </nav>
             </div>
 
             <section id="login">
-                @if (WebSecurity.IsAuthenticated)
-                {
-                    <text>
-                        <a class="email" href="~/Account/Manage" title="Manage">@WebSecurity.CurrentUserName</a>,
-                        <form id="logoutForm" action="~/Account/Logout" method="post">
-                            @AntiForgery.GetHtml()
-                            <a href="javascript:document.getElementById('logoutForm').submit()">Log out</a>
-                        </form>
-                    </text>
-                }
-                else {
-                    <ul>
-                        <li><a href="~/Account/Register">Register</a></li>
-                        <li><a href="~/Account/Login">Log in</a></li>
+                <ul>
+                    @if (WebSecurity.IsAuthenticated)
+                    {
                         <li>
-                            <form id="Flags" method="post">
-                                <input type="image" class="LanguageButton" src="~/Images/gb.png" name="English" value="en-GB" />
-                                <input type="image" class="LanguageButton" src="~/Images/nl.png" name="Dutch" value="nl-NL" />
+                            <a class="email" href="~/Account/Manage" title="Manage">@WebSecurity.CurrentUserName</a>,
+                            <form id="logoutForm" action="~/Account/Logout" method="post">
+                                @AntiForgery.GetHtml()
+                                <a href="javascript:document.getElementById('logoutForm').submit()">Log out</a>
                             </form>
                         </li>
-                    </ul>
-                }
+                    }
+                    else {
+                        <li><a href="~/Account/Register">Register</a></li>
+                        <li><a href="~/Account/Login">Log in</a></li>
+                    }
+                    <li>
+                        <form id="Flags" method="post">
+                            <input type="image" class="LanguageButton" src="~/Images/gb.png" name="English" value="en-GB" />
+                            <input type="image" class="LanguageButton" src="~/Images/nl.png" name="Dutch" value="nl-NL" />
+                        </form>
+                    </li>
+                </ul>
             </section>
         </div>
 
