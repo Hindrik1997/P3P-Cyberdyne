@@ -42,17 +42,21 @@
             {
                 <div class="col-sm-3">
                     <a href="~/Menu/Robots?id=@Robot.ID">
-                        <img class="float-left" src="~/@Robot.images[0].imageLocation" alt="Terminator" width="50%">
-                        <!--TODO: Assign data from the database-->
-                        <h1>@Robot.name</h1>
-                        <h3>@Robot.category</h3>
-                        @if (UICulture.Equals("nl-NL")) { 
-                            <p>@Robot.descriptionDutch</p>
-                        }
-                        else
-                        {
-                            <p>@Robot.descriptionEnglish</p>
-                        }
+                        <div class="well">
+                            <img class="widthMax" src="~/@Robot.images[0].imageLocation" alt="Terminator">
+                            <!--TODO: Assign data from the database-->
+                            <div class="tile-text">
+                                <h1>@Robot.name</h1>
+                                <h3>@Robot.category</h3>
+                                @if (UICulture.Equals("nl-NL")) { 
+                                    <p>@Robot.descriptionDutch</p>
+                                }
+                                else
+                                {
+                                    <p>@Robot.descriptionEnglish</p>
+                                }
+                            </div>
+                        </div>
                     </a>
                 </div>
             }

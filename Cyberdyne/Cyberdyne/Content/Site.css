@@ -15,12 +15,12 @@ body {
 }
 
 img {
-          margin: auto;
-          width: 50%;
+    margin: auto;
+    width: 50%;
 }
 
-a img {
-          margin: 20px;
+.widthMax {
+    width: 100%;
 }
 
 a {
@@ -157,6 +157,21 @@ footer {
 #myCarousel {
     margin-top: 200px;
 }
+
+/* Tiles
+----------------------------------------------------------*/
+#tiles{
+    position: relative;
+}
+
+.tile{
+   position: absolute; top: 0px; left: 0px; display: list-item; 
+}
+
+.unstyled{
+    list-style: none;
+}
+
 
 /* login
 ----------------------------------------------------------*/
@@ -449,6 +464,14 @@ aside {
     padding: 20px;
     overflow:hidden;
     background: #fff;
+}
+
+a .well {
+    padding: 0px;
+}
+
+.tile.text{
+    padding-left: 10px;
 }
 
 #video {
