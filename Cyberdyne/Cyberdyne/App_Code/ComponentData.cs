@@ -11,11 +11,13 @@ public class ComponentData
 {
     public Component component = null;
     public int count = 0;
+    public int robotID = 0;
 
-    public ComponentData(Component _Component, int _Count)
+    public ComponentData(Component _Component, int _Count, int robotID= -1)
     {
         component = _Component;
         count = _Count;
+        this.robotID = robotID;
     }
 
     public void UpdateData(int componentID, int robotID, int quantity)

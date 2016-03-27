@@ -15,16 +15,24 @@ public class Component : RepoObject
     public string descriptionNL { get; set; }
     public string descriptionENG { get; set; }
 
+    public int robotID { get; set; }
+    public string robotName { get; set; }
     public int supplierID { get; set; }
+    public int componentQuantity { get; set; }
 
+    public List<ComponentData> components { get; set; }
     public Supplier referencedSupplier { get; private set; }
 
 
-    public Component(string componentNumber, string componentName, decimal price, int _ID, RepoManager _RepoRef) : base(_ID,_RepoRef)
+    public Component(string componentNumber, string componentName, decimal price, int _ID, RepoManager _RepoRef, int robotID = -1, string robotName = null, int componentQuantity = -1, int supplierID = -1) : base(_ID,_RepoRef)
     {
         this.componentNumber = componentNumber;
         this.price = price;
         this.componentName = componentName;
+        this.robotID = robotID;
+        this.robotName = robotName;
+        this.componentQuantity = componentQuantity;
+        this.supplierID = supplierID;
     }
 
     public override void GetObjectData()
@@ -45,6 +53,21 @@ public class Component : RepoObject
             {
                 referencedSupplier = s;
                 break;
+            }
+        }
+        IEnumerable<dynamic> result = db.Query("SELECT * FROM ComponentList WHERE ComponentID = @0", ID);
+        components = new List<ComponentData>();
+
+        foreach (var Item in result)
+        {
+            //ComponentID ophalen en zoeken naar bijhorende component en deze aan de componentlijst toevoegen
+            foreach (Component P in repoRef.componentRepository)
+            {
+                if (P.ID == (int)Item["ComponentID"])
+                {
+                    components.Add(new ComponentData(P, (int)Item["Quantity"], Item["RobotID"]));
+                    break;
+                }
             }
         }
     }
