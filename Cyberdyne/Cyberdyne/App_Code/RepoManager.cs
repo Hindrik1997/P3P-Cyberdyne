@@ -68,7 +68,7 @@ public class RepoManager
 
         foreach (var Row in Data)
         {
-            robotMovieRepository.Add(new RobotMovie(Row["Titel"],Row["RobotID"], Row["Location"],Row["MovieID"], this));
+            robotMovieRepository.Add(new RobotMovie(Row["Titel"], Row["RobotID"], Row["Location"], Row["MovieID"], this));
         }
     }
     protected void GetBasicRobotImageData()
@@ -80,7 +80,7 @@ public class RepoManager
         {
             robotImageRepository.Add(new RobotImage(Row["Name"], Row["ImgLocation"], Row["RobotID"], Row["ImageID"], this));
         }
-    }   
+    }
     protected void GetBasicComponentData()
     {
         componentRepository = new Repository<Component>(this);
@@ -88,7 +88,7 @@ public class RepoManager
 
         foreach (var Row in Data)
         {
-            componentRepository.Add(new Component(Row["ComponentNumber"],Row["ComponentName"], Row["Price"], Row["ComponentID"], this));
+            componentRepository.Add(new Component(Row["ComponentNumber"], Row["ComponentName"], Row["Price"], Row["ComponentID"], this));
         }
     }
     protected void GetBasicFileData()
@@ -322,10 +322,38 @@ public class RepoManager
             FROM Robots, ComponentList, Components 
             Where Components.ComponentName LIKE @0 AND Robots.RobotID = ComponentList.RobotID AND Components.ComponentID = ComponentList.ComponentID";
         IEnumerable<dynamic> Data = db.Query(sql, Search);
-        //IEnumerable<dynamic> Data = db.Query("SELECT Robots.Name, Robots.Category, Robots.RobotID FROM Robots Where Robots.Name LIKE @0 UNION SELECT Robots.Name, Robots.Category, Robots.RobotID FROM Robots, ComponentList, Components Where Components.ComponentName LIKE @0 AND Robots.RobotID = ComponentList.RobotID AND Components.ComponentID = ComponentList.ComponentID", Search);
         foreach (var Row in Data)
         {
             robotRepository.Add(new Robot(Row["Name"], Row["Category"], Row["RobotID"], this));
+        }
+    }
+    #endregion
+
+    #region Publieke Zoek Methodes Parts
+    public List<Component> GetPartsByName(string Search)
+    {
+        db = Database.Open("Cyberdyne");
+        GetBasicPartsDataByNameOrRobot(Search);
+        FillAllDataInRepo(componentRepository);
+        db.Close();
+        return componentRepository.GetList();
+    }
+
+    protected void GetBasicPartsDataByNameOrRobot(string Search)
+    {
+        componentRepository = new Repository<Component>(this);
+        string sql = @"
+        SELECT Components.ComponentID, Components.ComponentNumber, Components.SupplierID, Components.Price, Components.ComponentName, ComponentList.Quantity, ComponentList.RobotID, Robots.Name  
+            FROM Components
+        LEFT JOIN ComponentList
+            ON Components.ComponentID=ComponentList.ComponentID 
+        LEFT JOIN Robots
+            ON ComponentList.RobotID=Robots.RobotID
+        WHERE Components.ComponentName LIKE @0 OR Components.ComponentNumber LIKE @0 OR Robots.Name LIKE @0";
+        IEnumerable<dynamic> Data = db.Query(sql, Search);
+        foreach (var Row in Data)
+        {
+            componentRepository.Add(new Component(Row["ComponentNumber"], Row["ComponentName"], Row["Price"], Row["ComponentID"], this, Row["RobotID"], Row["Name"], Row["Quantity"], Row["SupplierID"]));
         }
     }
     #endregion
