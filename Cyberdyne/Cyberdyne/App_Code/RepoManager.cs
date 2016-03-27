@@ -341,7 +341,7 @@ public class RepoManager
         string sql = @"
         SELECT Robots.Name, Robots.Category, Robots.RobotID 
             FROM Robots 
-            Where Robots.Name LIKE @0 AND Robots.Category LIKE @0
+            Where Robots.Name LIKE @0 OR Robots.Category LIKE @0
         UNION SELECT Robots.Name, Robots.Category, Robots.RobotID 
             FROM Robots, ComponentList, Components 
             Where Components.ComponentName LIKE @0 AND Robots.RobotID = ComponentList.RobotID AND Components.ComponentID = ComponentList.ComponentID";
