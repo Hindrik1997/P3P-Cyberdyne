@@ -11,15 +11,20 @@ body {
     font-family: "Segoe UI", Verdana, Helvetica, Sans-Serif;
     margin: 0;
     padding: 0;
+    
 }
 
 img {
-    margin: 20px;
+    margin: auto;
+    width: 50%;
 }
-     
+
+.widthMax {
+    width: 100%;
+}
 
 a {
-    outline: none;
+    outline: 0;
     padding-left: 3px;
     padding-right: 3px;
 }
@@ -83,6 +88,7 @@ h2 {
 
 h3 {
     font-size: 1.2em;
+    color: #B22;
 }
 
 h4 {
@@ -140,25 +146,30 @@ footer {
     font-size: .8em;
 }
 
-
-/* site logo
+/* Carousal
 ----------------------------------------------------------*/
 
-.site-logo {
-    margin: auto;
-    width: 43.5%;
-    margin-top: -30px;
+.carousel-control.left, .carousel-control.right {
+    background-image: none;
+    color: #000;
 }
 
-#logo {
-    max-width: 100%;
-    min-width: 150px;
-    width: auto;
+#myCarousel {
+    margin-top: 200px;
 }
 
-.site-logo a, .site-logo a:hover, .site-logo a:active {
-    background: none;
-    color: #c8c8c8;
+/* Tiles
+----------------------------------------------------------*/
+#tiles{
+    position: relative;
+}
+
+.tile{
+   position: absolute; top: 0px; left: 0px; display: list-item; 
+}
+
+.unstyled{
+    list-style: none;
 }
 
 
@@ -196,7 +207,7 @@ footer {
 
 
     #login li a {
-        padding: 10px 20px 8px 10px;
+        padding: 11px 20px 8px 10px;
         color: white;
     }
 
@@ -226,7 +237,6 @@ ul#menu {
 
     ul#menu li {
         list-style: none;
-        padding: 11px 0px 8px 0px;
         transition: color 1s;
         display: inline;
     }
@@ -240,9 +250,39 @@ ul#menu {
         background: none;
         color: #fff;
         text-decoration: none;
-        padding: 10px 10px 9px 10px;
+        padding: 11px 10px 8px 10px;
     }
 
+/* Home
+----------------------------------------------------------*/
+#HomeEditor textarea{
+    text-align: left;
+    font-size: 0.8em;
+    width: 100%;
+}
+
+#HomeEditor input{
+    background-color: black;
+    color: white;
+    border: 0;
+}
+
+#DutchText {
+    margin-left: 1%;
+}
+
+#HomeEditor textarea english{
+    margin-left: 10px;
+}
+
+#HomeEditor div{
+    float: left;
+}
+
+#SubmitButton {
+    width: 100%;
+    float: none;
+}
 
 /* side menu
 ----------------------------------------------------------*/
@@ -262,7 +302,6 @@ ul#menu-side {
         list-style: none;
         border: 3px solid #111;
         border-radius: 10px 0px 0px 10px;
-        padding: 8px 5px 5px 5px;
         margin-bottom: 5px;
         margin-right: -3px;
         background: #B22;
@@ -282,10 +321,11 @@ ul#menu-side {
     }
 
     ul#menu-side li a {
+        padding: 8px 5px 5px 5px;
         background: none;
         color: #fff;
         text-decoration: none;
-        padding: 10px 50px 8px 10px;
+        display: block;
     }
 
 /* page elements
@@ -424,6 +464,14 @@ aside {
     padding: 20px;
     overflow:hidden;
     background: #fff;
+}
+
+a .well {
+    padding: 0px;
+}
+
+.tile.text{
+    padding-left: 10px;
 }
 
 #video {
@@ -711,10 +759,6 @@ tr.pager td {
         float: none;
     }
 
-    /* logo */
-    header .site-logo {
-        margin: 10px;
-    }
 
     /* login */
     #login {
