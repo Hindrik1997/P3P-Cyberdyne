@@ -41,7 +41,7 @@
             @foreach (var Robot in RM.robotRepository)
             {
                 <div class="col-sm-6">
-                    <a href="~/Menu/Robots/Robots?id=@Robot.ID">
+                    <a href="~/Menu/Robots?id=@Robot.ID">
                         <img class="float-left" src="@Robot.images[0].imageLocation" alt="Terminator" width="50%">
                         <!--TODO: Assign data from the database-->
                         <h1>@Robot.name</h1>
