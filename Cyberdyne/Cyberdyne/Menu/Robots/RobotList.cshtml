@@ -17,24 +17,6 @@
         RM.GetRobots();
 
     }
-
-
-<<<<<<< HEAD:Cyberdyne/Cyberdyne/RobotList.cshtml
-    int robots = RM.robotRepository.Count();
-    int colums = 4;
-    int rows;
-=======
-    var db = Database.Open("Cyberdyne");
-    var selectCommand = "SELECT COUNT(RobotID) FROM Robots";
-    double robots = 4; //db.QueryValue(selectCommand);
-
-    int colums = 2;
-    double rows;
->>>>>>> remotes/origin/Front-End:Cyberdyne/Cyberdyne/Menu/Robots/RobotList.cshtml
-    int curRobot = 0;
-    rows = robots / colums;
-
-    /*TODO: Use sessions to keep track of the robot ID*/
 }
 @* Vertaling Gebeuren hier ook nog voor aub :) *@
 <!DOCTYPE html>
@@ -45,7 +27,6 @@
         <title></title>
     </head>
     <body>
-<<<<<<< HEAD:Cyberdyne/Cyberdyne/RobotList.cshtml
         <form method="get">
         <div>
             <label for="SearchRobot">Robot 2 Look for:</label>
@@ -59,45 +40,21 @@
        
             @foreach (var Robot in RM.robotRepository)
             {
-
-            <div class="col-sm-6">
-                <a href="~/Robots?id=@Robot.ID">
-                    <img class="float-left" src="@Robot.images[0].imageLocation" alt="Terminator" width="50%">
-                    <!--TODO: Assign data from the database-->
-                    <h1>@Robot.name</h1>
-                    <h3>@Robot.category</h3>
-                    @if (UICulture.Equals("nl-NL")) { 
-                            <p>@Robot.descriptionDutch</p>
+                <div class="col-sm-6">
+                    <a href="~/Menu/Robots/Robots?id=@Robot.ID">
+                        <img class="float-left" src="@Robot.images[0].imageLocation" alt="Terminator" width="50%">
+                        <!--TODO: Assign data from the database-->
+                        <h1>@Robot.name</h1>
+                        <h3>@Robot.category</h3>
+                        @if (UICulture.Equals("nl-NL")) { 
+                                <p>@Robot.descriptionDutch</p>
                         }
                         else
                         {
                             <p>@Robot.descriptionEnglish</p>
                         }
-                </a>
-=======
-        @for(var r=1;r<=rows;r++)
-        {
-            <div class="row">
-                @for(var i=1;i<=colums;i++)
-                {
-                    if(curRobot < robots)
-                    {
-                        <div class="col-sm-6">
-                            <a href="~/Menu/Robots/Robots?id=@curRobot">
-                                <img class="float-left" src="~/images/terminator.png" alt="Terminator" width="50%"> 
-                                <!--TODO: Assign data from the database-->
-                                <h1>Name</h1>
-                                <p>Lorem ipsum dolor sit amet, ex has assum appetere, pri te commodo impedit detraxit. Melius detracto liberavisse eam ad, duo et amet signiferumque. Ipsum cotidieque et est. Lobortis tractatos ut his, ei oblique nusquam vis, et velit utinam omnium mel. Cu petentium intellegat reformidans eos.
-                                    In nam agam viderer splendide. Nostro offendit definitiones eos ad, ne est paulo erroribus. Duo quem possim viderer te. Usu ea homero evertitur. Lorem scaevola ut sea.
-                                    Ius no purto pericula, ea hinc discere tacimates mei. Eu eam modo prompta dignissim. Movet conclusionemque at vix, nihil feugiat mei ne, dolor homero debitis qui et. Cum feugiat voluptua cu, in est soluta veritus graecis. Ne ignota tamquam adipiscing mei, cum id tation nemore officiis.</p>
-                            </a>
-                        </div>
-                    }
-                    curRobot++;
-                }
->>>>>>> remotes/origin/Front-End:Cyberdyne/Cyberdyne/Menu/Robots/RobotList.cshtml
-            </div>
+                    </a>
+                </div>
             }
-
     </body>
 </html>
