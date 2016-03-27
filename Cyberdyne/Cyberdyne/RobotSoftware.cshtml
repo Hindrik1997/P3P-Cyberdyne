@@ -1,5 +1,14 @@
 ﻿@{
     Layout = "~/_RobotLayout.cshtml";
+    Page.Title = "Software";
+
+    string robotId = Session["RobotID"].ToString();
 }
 
-<h1>Software</h1>
+<h1>@Page.Title</h1>
+    <style type="text/css">
+        .grid {margin: 4px; border-collapse: collapse; width: 100%; }
+        .grid th, .grid td {border: 1px solid #C0C0C0; padding: 3px; }
+        .head {background-color: #E8E8E8; color: #FFF;}
+        .alt {background-color: #E8E8E8; color: #000;}
+    </style>
