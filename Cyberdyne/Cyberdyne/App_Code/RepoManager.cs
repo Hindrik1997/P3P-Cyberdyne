@@ -294,6 +294,29 @@ public class RepoManager
     }
     #endregion
 
+    #region Publieke Methodes Robot ID
+    public List<Software> GetSoftwareByRobotId(int robotId) {
+        db = Database.Open("Cyberdyne");      
+        GetRobots();
+        GetBasicSoftwareDataByRobotId(robotId);
+        FillAllDataInRepo(softwareRepository);
+        db.Close();
+        return softwareRepository.GetList();
+    }
+
+    protected void GetBasicSoftwareDataByRobotId(int robotId) {
+        softwareRepository = new Repository<Software>(this);
+        string sql = @"SELECT *
+        FROM Software 
+        WHERE RobotID = @0";
+        IEnumerable<dynamic> Data = db.Query(sql, robotId);
+        foreach (var Row in Data) 
+        {
+            softwareRepository.Add(new Software(Row["Name"], Row["Location"], Row["Version"], Row["RobotID"], Row["SoftwareID"], this));
+        }
+    }
+    #endregion
+
     //SEARCHEN ENZO MOET ER NOG IN!
     #region Publieke Zoek Methodes Robots
     public List<Robot> GetRobotsByName(string Search)
