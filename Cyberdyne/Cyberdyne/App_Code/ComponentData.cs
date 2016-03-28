@@ -23,7 +23,7 @@ public class ComponentData
     public void UpdateData(int componentID, int robotID, int quantity)
     {
         Database db = Database.Open("Cyberdyne");
-        if (Exist())
+        if (Exist(componentID, robotID))
             db.Execute("UPDATE ComponentList SET ComponentID=@0, RobotID=@1, Quantity=@2 WHERE ComponentID=@0 AND RobotID=@1", componentID, robotID, quantity);
         else
         {
