@@ -7,7 +7,7 @@ using WebMatrix.Data;
 /// <summary>
 /// Summary description for File
 /// </summary>
-public class File : RepoObject
+public class RobotFile : RepoObject
 {
     public string name { get; set; }
     public string location { get; set; }
@@ -17,7 +17,7 @@ public class File : RepoObject
 
     public Robot ReferencedRobot { get; private set; }
 
-    public File(string name, string location, string version, int robotID, int _ID, RepoManager _RepoRef) : base(_ID,_RepoRef)
+    public RobotFile(string name, string location, string version, int robotID, int _ID, RepoManager _RepoRef) : base(_ID,_RepoRef)
     {
         this.name = name;
         this.location = location;

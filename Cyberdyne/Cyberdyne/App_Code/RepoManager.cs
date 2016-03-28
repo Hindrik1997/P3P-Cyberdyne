@@ -23,7 +23,7 @@ public class RepoManager
     public Repository<RobotImage> robotImageRepository = null;
 
     public Repository<Component> componentRepository = null;
-    public Repository<File> fileRepository = null;
+    public Repository<RobotFile> fileRepository = null;
 
     public Repository<Software> softwareRepository = null;
     public Repository<Supplier> supplierRepository = null;
@@ -93,13 +93,13 @@ public class RepoManager
     }
     protected void GetBasicFileData()
     {
-        fileRepository = new Repository<File>(this);
+        fileRepository = new Repository<RobotFile>(this);
 
         IEnumerable<dynamic> Data = db.Query("SELECT * FROM Files");
 
         foreach (var Row in Data)
         {
-            fileRepository.Add(new File(Row["Name"], Row["Location"], Row["Version"], Row["RobotID"], Row["FileID"], this));
+            fileRepository.Add(new RobotFile(Row["Name"], Row["Location"], Row["Version"], Row["RobotID"], Row["FileID"], this));
         }
     }
     protected void GetBasicSoftwareData()
@@ -110,7 +110,7 @@ public class RepoManager
 
         foreach (var Row in Data)
         {
-            fileRepository.Add(new File(Row["Name"], Row["Location"], Row["Version"], Row["RobotID"], Row["FileID"], this));
+            fileRepository.Add(new RobotFile(Row["Name"], Row["Location"], Row["Version"], Row["RobotID"], Row["FileID"], this));
         }
     }
     protected void GetBasicSupplierData()
@@ -156,7 +156,7 @@ public class RepoManager
         db.Close();
         return componentRepository.GetList();
     }
-    public List<File> GetFiles()
+    public List<RobotFile> GetFiles()
     {
         db = Database.Open("Cyberdyne");
         GetBasicFileData();
@@ -257,7 +257,7 @@ public class RepoManager
         db.Close();
         return componentRepository.GetList();
     }
-    public List<File> GetBasicFiles()
+    public List<RobotFile> GetBasicFiles()
     {
         db = Database.Open("Cyberdyne");
         GetBasicFileData();

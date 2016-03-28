@@ -17,7 +17,7 @@ public class Robot : RepoObject
 
     public List<ComponentData> components { get; set; }
 
-    public List<File> files { get; set; }
+    public List<RobotFile> files { get; set; }
 
     public List<RobotImage> images { get; set; }
 
@@ -83,8 +83,8 @@ public class Robot : RepoObject
             }
         }
 
-        files = new List<File>();
-        foreach (File F in repoRef.fileRepository)
+        files = new List<RobotFile>();
+        foreach (RobotFile F in repoRef.fileRepository)
         {
             if (F.RobotID == ID)
             {

@@ -15,18 +15,16 @@
     var softwareVersion = "";
     var robotVideoName = "";
     var robotVideo = "";
-    List<RobotImage> image = new List<RobotImage>();
+    var fileVersion = "";
 
     //Validation fields
     Validation.RequireField("RobotName", "You must enter a robot name");
-    //Validation.RequireField("Description", "You must enter a description");
-    //Validation.RequireField("Parts", "You must specify the parts");
     Validation.RequireField("SoftwareLocation", "You haven't provided a software link");
     Validation.RequireField("RobotVideo", "You haven't provided a RobotVideo link");
 
     //Check if validation is valid and a user is logged in
     if (IsPost && Request.Files.Count > 0 && Validation.IsValid() && WebSecurity.IsAuthenticated){
-        
+
         //Create directories if they don't exist
         var dirPath = Server.MapPath("~/App_Data/UploadedFiles/");
         var imagePath = Server.MapPath("~/App_Data/Images/");
@@ -44,16 +42,23 @@
         softwareLocation = Request.Form["SoftwareLocation"];
         robotVideo = Request.Form["RobotVideo"];
         robotVideoName = Request.Form["RobotVideoName"];
+        fileVersion = Request.Form["fileVersion"];
+
+        List<RobotImage> image = new List<RobotImage>();
+        List<RobotMovie> movie = new List<RobotMovie>();
+        List<RobotFile> files = new List<RobotFile>();
 
         Robot Robot = new Robot(robotName, category, -1, RM);
         Robot.descriptionEnglish = descriptionEN;
         Robot.descriptionDutch = descriptionNL;
         Robot.UpdateData();
         Software Software = new Software(softwareName, softwareLocation, softwareVersion, Robot.ID, -1, RM);
-        List<RobotMovie> movie = new List<RobotMovie>();
+        Software.UpdateData();
+
         movie.Add(new RobotMovie(robotVideoName, Robot.ID, robotVideo, -1, RM));
-        Robot.software = Software;
-        Robot.movies = movie;
+        foreach(RobotMovie i in movie){
+            i.UpdateData();
+        }
 
         //Catch files and save them on the server
         string[] imageFormats = new string[]{".jpg", ".png", ".gif", ".jpeg"};
@@ -79,9 +84,13 @@
             else{
                 fileSavePath = Server.MapPath("~/App_Data/UploadedFiles/" + fileName);
                 uploadedFile.SaveAs(fileSavePath);
+                files.Add(new RobotFile(fileName, fileSavePath, fileVersion, Robot.ID, -1, RM));
             }
         }
-        Robot.images = image;
+
+        foreach(RobotImage i in image){
+            i.UpdateData();
+        }
     }
 }
 <!DOCTYPE html>
@@ -97,7 +106,7 @@
                 <p><label for="RobotName">Robot Name:</label></p>
                 <input type="text" name="RobotName" value="" />
                 
-                <p><label for="Category">Category:</label></p>
+                <p><label for="Category">Robot Category:</label></p>
                 <input type="text" name="Category" value=""/>
 
                 <p><label for="DescriptionNL">DescriptionNL:</label></p>
@@ -115,7 +124,6 @@
                         @Component.componentName
                         </option>
                     }
-                     </fieldlset>
                 </select>
                         
                 <p><label for="SoftwareLocation">Software:</label></p>
@@ -128,18 +136,21 @@
                 <input type="text" name="SoftwareVersion" value=""/>
                 
                 <p><label for="RobotVideo">Robotvideo(Youtube link):</label></p>
-                <input type="text" name="RobotVideo" value=""/></p>
+                <input type="text" name="RobotVideo" value=""/>
 
                 <p><label for="RobotVideoName">Robotvideo name:</label></p>
                 <input type="text" name="RobotVideoName" value=""/>
                 
-                <p><label for="Files">Files:</label></p>
+                <p><label for="Files">File:</label></p>
                 @FileUpload.GetHtml(
                     initialNumberOfFiles:1,
                     allowMoreFilesToBeAdded:true,
                     includeFormTag:false,
                     addText:"Add another file",
                     uploadText:"Upload")
+
+                <p><label for="FileVersion">File Version:</label></p>
+                <input type="text" name="FileVersion" value=""/>
 
                 <p><label for="images">images:</label></p>
                 <input type="file" name="image" value="" multiple/>
