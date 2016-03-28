@@ -62,6 +62,10 @@ mark {
     margin: 40px 25% 40px 25% ;
 }
 
+.inline{
+    display: inline-block;
+}
+
 .clear-fix:after {
     content: ".";
     clear: both;

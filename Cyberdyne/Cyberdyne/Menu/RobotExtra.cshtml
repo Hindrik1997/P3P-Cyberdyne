@@ -2,15 +2,25 @@
     Layout = "~/_RobotLayout.cshtml";
     int robotId = Convert.ToInt16(Session["RobotID"]);
     DeleteItemsFromDB db = new DeleteItemsFromDB();
-    var sql = "DELETE FROM Robots WHERE RobotID = @0";
+
 
     if (IsPost && WebSecurity.IsAuthenticated){
-        db.DeleteRobotFromDB(robotId);
+        if(Request.Form["editSubmit"] != null)
+        {
+
+
+        }
+        if(Request.Form["deleteSubmit"] != null)
+        {
+            db.DeleteRobotFromDB(robotId);
+            Response.Redirect("~/Menu/RobotList");
+        }
     }
 }
 
-<h1>Edit</h1>
+<h1>Edit Robot</h1>
 
 <form method="post" enctype="multipart/form-data" action="">
-    <input type="submit" name="buttonSubmit" value="Delete Robot"></input>
+    <input type="submit" name="editSubmit" value="Edit"></input>
+    <input type="submit" name="deleteSubmit" value="Delete"></input>
 </form>

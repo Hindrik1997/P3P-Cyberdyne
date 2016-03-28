@@ -95,13 +95,11 @@ public class Robot : RepoObject
     public override void UpdateData()
     {
         Database db = Database.Open("Cyberdyne");
-        bool exist = Exist();
-
-        if (exist)
+        if (Exist())
             db.Execute("UPDATE Robots SET Name=@0, Category=@1, DescriptionNL=@2, DescriptionENG=@3 WHERE RobotID =@4", name, category, descriptionDutch, descriptionEnglish, ID);
         else
         {
-            db.Execute("INSERT INTO Robots (Name, Category, DescriptionNL, DescriptionENG) VALUES @0, @1, @2, @3", name, category, descriptionDutch, descriptionEnglish);
+            db.Execute("INSERT INTO Robots (Name, Category, DescriptionNL, DescriptionENG) VALUES (@0, @1, @2, @3)", name, category, descriptionDutch, descriptionEnglish);
             ID = db.QueryValue("SELECT RobotID FROM Robots WHERE RobotID = @@IDENTITY");
         }
         db.Close();
