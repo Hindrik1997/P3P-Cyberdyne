@@ -5,15 +5,18 @@
     var ComponentID = "";
     var ComponentName = "";
     var Quantity = "";
+    int QuantityInt = 0;
     var ComponentNumber = "";
     var DescriptionNL = "";
     var DescriptionENG = "";
     var Price = "";
+    decimal PriceDec = 0;
     var SupplierName = "";
     var SupplierAddress = "";
     int SupplierID = 0;
 
     if(!IsPost){
+
         if(!Request.QueryString["ID"].IsEmpty() && Request.QueryString["ID"].IsInt()){
             ComponentID = Request.QueryString["ID"];
             var db = Database.Open("Cyberdyne");
@@ -22,14 +25,16 @@
 
             if(row != null) {
                 ComponentName = row.ComponentName;
-                Quantity = Convert.ToString(row.Quantity);
+                QuantityInt = row.Quantity;
                 ComponentNumber = row.ComponentNumber;
                 DescriptionNL = row.DescriptionNL;
                 DescriptionENG = row.DescriptionENG;
-                Price = Convert.ToString(row.Price);
+                PriceDec = row.Price;
                 SupplierName = row.Name;
                 SupplierAddress = row.Address;
                 SupplierID = row.SupplierID;
+                Price = Convert.ToString(PriceDec);
+                Quantity = Convert.ToString(QuantityInt);
             }
             else {
                 Validation.AddFormError("No component was found for this ID.");
@@ -43,9 +48,11 @@
     if(IsPost){
         Validation.RequireField("ComponentName", "You must enter a name");
         Validation.RequireField("Quantity", "You must enter a number");
+        Validation.Add("Quantity", Validator.Integer("Quantity must be Number"));
         Validation.RequireField("DescriptionNL", "You must enter a description");
         Validation.RequireField("DescriptionENG", "You must enter a description");
         Validation.RequireField("Price", "You must enter a price");
+        Validation.Add("Price", Validator.Decimal("Price should be a Decimal"));
         Validation.RequireField("SupplierName", "You must enter a name");
         Validation.RequireField("SupplierAddress", "You must enter an address");
 
@@ -57,12 +64,14 @@
         Price = Request.Form["Price"];
         SupplierName = Request.Form["SupplierName"];
         SupplierAddress = Request.Form["SupplierAddress"];
+        ComponentID = Request.QueryString["ID"];
 
-        if(Validation.IsValid()){
+        if (Validation.IsValid()){
             RepoManager RM = new RepoManager();
-            RM.GetComponents();
 
-            Component C = new Component(ComponentNumber, ComponentName, Convert.ToDecimal(Price), Convert.ToInt16(ComponentID), RM, -1, null, Convert.ToInt16(Quantity), Convert.ToInt16(SupplierID));
+            Supplier S = new Supplier(SupplierName, SupplierAddress, RM.GetSupplierIDbyComponentID(Convert.ToInt16(ComponentID)), RM);
+
+            Component C = new Component(ComponentNumber, ComponentName, 4, Convert.ToInt16(ComponentID), RM, -1, null, Convert.ToInt16(Quantity), Convert.ToInt16(SupplierID));
             C.UpdateData();
 
             //var db = Database.Open("Cyberdyne");
@@ -73,7 +82,7 @@
             //var updateCommand3 = "UPDATE Supplier SET Name=@0, Address=@1 WHERE SupplierID=@2";
             //db.Execute(updateCommand3, SupplierName, SupplierAddress, SupplierID);
             //Response.Redirect("~/Components");
-       }
+        }
     }
 }
 

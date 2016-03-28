@@ -76,7 +76,7 @@ public class Component : RepoObject
     {
         Database db = Database.Open("Cyberdyne");
         if (Exist())
-            db.Execute("UPDATE Components SET ComponentNumber=@0, SupplierID=@1, Price=@2, DescriptionNL=@3, DescriptionENG=@4, ComponentName=@5 WHERE ComponentID =@6",componentNumber, supplierID, price, descriptionNL, descriptionENG, ID);
+            db.Execute("UPDATE Components SET ComponentNumber=@0, SupplierID=@1, Price=@2, DescriptionNL=@3, DescriptionENG=@4, ComponentName=@5 WHERE ComponentID =@6",componentNumber, supplierID, price, descriptionNL, descriptionENG, componentName, ID);
         else
         {
             db.Execute("INSERT INTO Components (ComponentNumber, SupplierID, Price, DescriptionNL, DescriptionENG, ComponentName) VALUES (@0, @1, @2, @3, @4, @5)", componentNumber, supplierID, price, descriptionNL, descriptionENG);

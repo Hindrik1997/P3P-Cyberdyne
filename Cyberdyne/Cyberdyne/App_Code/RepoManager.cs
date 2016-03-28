@@ -443,4 +443,10 @@ public class RepoManager
         }
     }
     #endregion
+
+    public int GetSupplierIDbyComponentID(int ID)
+    {
+        var Pizza = db.QueryValue("SELECT SupplierID FROM Components WHERE ComponentID = @0", ID);
+        return (int)Pizza;
+    }
 }

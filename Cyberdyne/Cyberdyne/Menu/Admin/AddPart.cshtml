@@ -13,6 +13,7 @@
     Validation.RequireField("SupplierName", "You must enter a supplier name");
     Validation.RequireField("SupplierAddress", "You must enter a supplier adrress");
     Validation.RequireField("Price", "You must enter a price");
+    Validation.Add("Prijs", Validator.Decimal("Price should be a Decimal"));
     Validation.RequireField("DescriptionNL", "You must enter a description");
     Validation.RequireField("DescriptionEN", "You must enter a description");
 
