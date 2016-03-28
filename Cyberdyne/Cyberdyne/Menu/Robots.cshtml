@@ -10,26 +10,15 @@
     }
 
     Robot Robot = RM.GetRobotsByID(Convert.ToInt32(Session["RobotID"]));
-    //List<RobotMovie> movies = new List<RobotMovie>();
-    //foreach(RobotMovie m in allMovies)
-    //{
-    //    if(m.robotID == Convert.ToInt16(robotId))
-    //    {
-    //        movies.Add(m);
-    //    }
-    //}
-    <img class="widthMax" src="~/@Robot.images[0].imageLocation" alt="Terminator">
-    /*
-    if(movies.Count < 2){
-       RobotMovie stock = new RobotMovie("stock",0,"https://youtu.be/nrahTQfHP_o",0,RM);
-       movies.Add(stock);
-       movies.Add(stock);
-    }*/
+    List<RobotMovie> clips = Robot.movies;
 
 }
-
+        <img class="widthMax" src="~/@Robot.images[0].imageLocation" alt="Terminator">
         <div>
-            <iframe class="float-left" width="400" height="315" src="https://www.youtube.com/embed/nrahTQfHP_o"></iframe>
+            @if(clips.Count >= 1)
+            {
+                <iframe class="float-left" width="400" height="315" src="@clips[0].location"></iframe>
+            }
             <p>
                 Lorem ipsum dolor sit amet, ex has assum appetere, pri te commodo impedit detraxit. Melius detracto liberavisse eam ad, duo et amet signiferumque. Ipsum cotidieque et est. Lobortis tractatos ut his, ei oblique nusquam vis, et velit utinam omnium mel. Cu petentium intellegat reformidans eos.
                 In nam agam viderer splendide. Nostro offendit definitiones eos ad, ne est paulo erroribus. Duo quem possim viderer te. Usu ea homero evertitur. Lorem scaevola ut sea.
@@ -39,7 +28,10 @@
             </p>
         </div>
         <div>
-            <iframe class="float-right" width="400" height="315" src="https://www.youtube.com/embed/nrahTQfHP_o"></iframe>
+            @if(clips.Count >= 2)
+            {
+                <iframe class="float-right" width="400" height="315" src="@clips[1].location"></iframe>
+            }
             <p>
                 Lorem ipsum dolor sit amet, ex has assum appetere, pri te commodo impedit detraxit. Melius detracto liberavisse eam ad, duo et amet signiferumque. Ipsum cotidieque et est. Lobortis tractatos ut his, ei oblique nusquam vis, et velit utinam omnium mel. Cu petentium intellegat reformidans eos.
                 In nam agam viderer splendide. Nostro offendit definitiones eos ad, ne est paulo erroribus. Duo quem possim viderer te. Usu ea homero evertitur. Lorem scaevola ut sea.
