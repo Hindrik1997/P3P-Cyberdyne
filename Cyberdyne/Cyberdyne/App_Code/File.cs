@@ -40,13 +40,11 @@ public class File : RepoObject
     public override void UpdateData()
     {
         Database db = Database.Open("Cyberdyne");
-        bool exist = Exist();
-
-        if (exist)
+        if (Exist())
             db.Execute("UPDATE Files SET Name=@0, Location=@1, Version=@2, RobotID=@3 WHERE FileID =@4", name, location, version, RobotID, ID);
         else
         {
-            db.Execute("INSERT INTO Files (Name, Location, Version, RobotID) VALUES @0, @1, @2, @3", name, location, version, RobotID);
+            db.Execute("INSERT INTO Files (Name, Location, Version, RobotID) VALUES (@0, @1, @2, @3)", name, location, version, RobotID);
             ID = db.QueryValue("SELECT FileID FROM Files WHERE FileID = @@IDENTITY");
         }
         db.Close();

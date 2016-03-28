@@ -40,13 +40,11 @@ public class Software : RepoObject
     public override void UpdateData()
     {
         Database db = Database.Open("Cyberdyne");
-        bool exist = Exist();
-
-        if (exist)
+        if (Exist())
             db.Execute("UPDATE Software SET Name=@0, Location=@1, Version=@2, RobotID=@3 WHERE SoftwareID =@4", name, location, version, robotID, ID);
         else
         {
-            db.Execute("INSERT INTO Software (Name, Location, Version, RobotID) VALUES @0, @1, @2, @3", name, location, version, robotID);
+            db.Execute("INSERT INTO Software (Name, Location, Version, RobotID) VALUES (@0, @1, @2, @3)", name, location, version, robotID);
             ID = db.QueryValue("SELECT SoftwareID FROM Software WHERE SoftwareID = @@IDENTITY");
         }
         db.Close();

@@ -25,13 +25,11 @@ public class Supplier : RepoObject
     public override void UpdateData()
     {
         Database db = Database.Open("Cyberdyne");
-        bool exist = Exist();
-
-        if (exist)
+        if (Exist())
             db.Execute("UPDATE Supplier SET Name=@0, Address=@1  WHERE CategoryId", name, address);
         else
             {
-            db.Execute("INSERT INTO Supplier (Name, Address) VALUES @0, @1", name, address);
+            db.Execute("INSERT INTO Supplier (Name, Address) VALUES (@0, @1)", name, address);
             ID = db.QueryValue("SELECT SupplierID FROM Supplier WHERE SupplierID = @@IDENTITY");
             }
         db.Close();

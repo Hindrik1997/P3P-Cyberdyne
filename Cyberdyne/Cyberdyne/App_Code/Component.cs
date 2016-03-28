@@ -75,13 +75,11 @@ public class Component : RepoObject
     public override void UpdateData()
     {
         Database db = Database.Open("Cyberdyne");
-        bool exist = Exist();
-
-        if (exist)
+        if (Exist())
             db.Execute("UPDATE Components SET ComponentNumber=@0, SupplierID=@1, Price=@2, DescriptionNL=@3, DescriptionENG=@4, ComponentName=@5 WHERE ComponentID =@6",componentNumber, supplierID, price, descriptionNL, descriptionENG, ID);
         else
         {
-            db.Execute("INSERT INTO Components (ComponentNumber, SupplierID, Price, DescriptionNL, DescriptionENG, ComponentName) VALUES @0, @1, @2, @3, @4, @5", componentNumber, supplierID, price, descriptionNL, descriptionENG);
+            db.Execute("INSERT INTO Components (ComponentNumber, SupplierID, Price, DescriptionNL, DescriptionENG, ComponentName) VALUES (@0, @1, @2, @3, @4, @5)", componentNumber, supplierID, price, descriptionNL, descriptionENG);
             ID = db.QueryValue("SELECT ComponentID FROM Components WHERE ComponentID = @@IDENTITY");
         }
         db.Close();

@@ -36,13 +36,11 @@ public class RobotMovie : RepoObject
     public override void UpdateData()
     {
         Database db = Database.Open("Cyberdyne");
-        bool exist = Exist();
-
-        if (exist)
+        if (Exist())
             db.Execute("UPDATE RobotMovies SET Titel=@0, Location=@1, RobotID=@2 WHERE MovieID =@3", name, location, robotID, ID);
         else
         {
-            db.Execute("INSERT INTO RobotMovies (Name, Location, RobotID) VALUES @0, @1, @2", name, location, robotID);
+            db.Execute("INSERT INTO RobotMovies (Name, Location, RobotID) VALUES (@0, @1, @2)", name, location, robotID);
             ID = db.QueryValue("SELECT MovieID FROM RobotMovies WHERE MovieID = @@IDENTITY");
         }
         db.Close();
