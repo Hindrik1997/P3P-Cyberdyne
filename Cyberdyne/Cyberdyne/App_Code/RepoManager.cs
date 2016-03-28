@@ -381,4 +381,33 @@ public class RepoManager
         }
     }
     #endregion
+
+    #region Publieke Zoek Methodes Parts binnen Robot
+    public List<Component> GetPartsByNameWithinRobot(string Search)
+    {
+        db = Database.Open("Cyberdyne");
+        GetBasicPartsDataByNameOrRobot(Search);
+        FillAllDataInRepo(componentRepository);
+        db.Close();
+        return componentRepository.GetList();
+    }
+
+    protected void GetBasicPartsDataByNameWithinRobot(string Search)
+    {
+        componentRepository = new Repository<Component>(this);
+        string sql = @"
+        SELECT Components.ComponentID, Components.ComponentNumber, Components.SupplierID, Components.Price, Components.ComponentName, ComponentList.Quantity, ComponentList.RobotID, Robots.Name  
+            FROM Components
+        LEFT JOIN ComponentList
+            ON Components.ComponentID=ComponentList.ComponentID 
+        LEFT JOIN Robots
+            ON ComponentList.RobotID=Robots.RobotID
+        WHERE Components.ComponentName LIKE @0 OR Components.ComponentNumber LIKE @0 OR Robots.Name LIKE @0";
+        IEnumerable<dynamic> Data = db.Query(sql, Search);
+        foreach (var Row in Data)
+        {
+            componentRepository.Add(new Component(Row["ComponentNumber"], Row["ComponentName"], Row["Price"], Row["ComponentID"], this, Row["RobotID"], Row["Name"], Row["Quantity"], Row["SupplierID"]));
+        }
+    }
+    #endregion
 }
