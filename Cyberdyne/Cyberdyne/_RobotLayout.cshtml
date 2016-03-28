@@ -74,7 +74,10 @@
                         <li><a href="~/Menu/Robots">Robot</a></li>
                         <li><a href="~/Menu/RobotHardware">Hardware</a></li>
                         <li><a href="~/Menu/RobotSoftware">Software</a></li>
-                        <li><a href="~/Menu/RobotExtra">Extra</a></li>
+                        @if (WebSecurity.IsAuthenticated)
+                        {
+                            <li><a href="~/Menu/RobotExtra">Edit Robot</a></li>
+                        }
                     </ul>
                 </nav>
                 <div class="well">

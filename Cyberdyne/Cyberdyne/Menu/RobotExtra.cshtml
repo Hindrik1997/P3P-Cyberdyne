@@ -1,33 +1,16 @@
 ﻿@{
     Layout = "~/_RobotLayout.cshtml";
+    string robotId = Session["RobotID"].ToString();
+    var db = Database.Open("Cyberdyne");
+    var sql = "DELETE FROM Robots WHERE RobotID = @0";
+
+    if (IsPost && WebSecurity.IsAuthenticated){
+        db.Query(sql,robotId);
+    }
 }
 
-<h1>Extra</h1>
+<h1>Edit</h1>
 
-<object class="float-left" width="420" height="315"
-        data="http://www.youtube.com/v/nrahTQfHP_o">
-</object>
-<div>
-    <hgroup class="title">
-        <h1>@Page.Title</h1>
-    </hgroup>
-    <p>
-        Lorem ipsum dolor sit amet, ex has assum appetere, pri te commodo impedit detraxit. Melius detracto liberavisse eam ad, duo et amet signiferumque. Ipsum cotidieque et est. Lobortis tractatos ut his, ei oblique nusquam vis, et velit utinam omnium mel. Cu petentium intellegat reformidans eos.
-        In nam agam viderer splendide. Nostro offendit definitiones eos ad, ne est paulo erroribus. Duo quem possim viderer te. Usu ea homero evertitur. Lorem scaevola ut sea.
-        Ius no purto pericula, ea hinc discere tacimates mei. Eu eam modo prompta dignissim. Movet conclusionemque at vix, nihil feugiat mei ne, dolor homero debitis qui et. Cum feugiat voluptua cu, in est soluta veritus graecis. Ne ignota tamquam adipiscing mei, cum id tation nemore officiis.
-        An has dico vocibus contentiones, nam duis oblique ad. Sit numquam utroque te, cum suas forensibus dissentiunt ut, nam ne amet alia scribentur. Per ei ferri erant consetetur, ullum assum principes ne vis. Has nusquam recteque ad.
-        Pri id malis viris delectus, ei doming integre moderatius nam. Liber audire no vim, eu pro consul integre expetendis. Mel aeterno debitis quaerendum eu, in facer oportere inciderint per, dissentiunt ullamcorper pro ex. Ex eam quas rationibus honestatis. Omittam ullamcorper suscipiantur mel ex, ea mea accusamus principes ullamcorper, an duo stet reprimique. Ex nec fabulas epicuri verterem, prompta torquatos pertinacia ei eam.
-    </p>
-</div>
-<object class="float-right" width="420" height="315"
-        data="http://www.youtube.com/v/nrahTQfHP_o">
-</object>
-<div>
-    <p>
-        Lorem ipsum dolor sit amet, ex has assum appetere, pri te commodo impedit detraxit. Melius detracto liberavisse eam ad, duo et amet signiferumque. Ipsum cotidieque et est. Lobortis tractatos ut his, ei oblique nusquam vis, et velit utinam omnium mel. Cu petentium intellegat reformidans eos.
-        In nam agam viderer splendide. Nostro offendit definitiones eos ad, ne est paulo erroribus. Duo quem possim viderer te. Usu ea homero evertitur. Lorem scaevola ut sea.
-        Ius no purto pericula, ea hinc discere tacimates mei. Eu eam modo prompta dignissim. Movet conclusionemque at vix, nihil feugiat mei ne, dolor homero debitis qui et. Cum feugiat voluptua cu, in est soluta veritus graecis. Ne ignota tamquam adipiscing mei, cum id tation nemore officiis.
-        An has dico vocibus contentiones, nam duis oblique ad. Sit numquam utroque te, cum suas forensibus dissentiunt ut, nam ne amet alia scribentur. Per ei ferri erant consetetur, ullum assum principes ne vis. Has nusquam recteque ad.
-        Pri id malis viris delectus, ei doming integre moderatius nam. Liber audire no vim, eu pro consul integre expetendis. Mel aeterno debitis quaerendum eu, in facer oportere inciderint per, dissentiunt ullamcorper pro ex. Ex eam quas rationibus honestatis. Omittam ullamcorper suscipiantur mel ex, ea mea accusamus principes ullamcorper, an duo stet reprimique. Ex nec fabulas epicuri verterem, prompta torquatos pertinacia ei eam.
-    </p>
-</div>
+<form method="post" enctype="multipart/form-data" action="">
+    <input type="submit" name="buttonSubmit" value="Delete Robot"></input>
+</form>
