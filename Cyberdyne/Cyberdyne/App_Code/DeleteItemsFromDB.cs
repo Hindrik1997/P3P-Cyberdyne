@@ -124,7 +124,7 @@ public class DeleteItemsFromDB
         }
         if (RobotID > 0)
         {
-            int numRowsEffected = db.Execute("DELETE FROM MovieID WHERE RobotID = @0",
+            int numRowsEffected = db.Execute("DELETE FROM Software WHERE RobotID = @0",
                 RobotID);
             db.Close();
             return numRowsEffected > 0;

@@ -1,11 +1,11 @@
 ﻿@{
     Layout = "~/_RobotLayout.cshtml";
-    string robotId = Session["RobotID"].ToString();
-    var db = Database.Open("Cyberdyne");
+    int robotId = Convert.ToInt16(Session["RobotID"]);
+    DeleteItemsFromDB db = new DeleteItemsFromDB();
     var sql = "DELETE FROM Robots WHERE RobotID = @0";
 
     if (IsPost && WebSecurity.IsAuthenticated){
-        db.Query(sql,robotId);
+        db.DeleteRobotFromDB(robotId);
     }
 }
 
