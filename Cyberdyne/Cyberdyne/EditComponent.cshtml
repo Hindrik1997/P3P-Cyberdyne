@@ -1,0 +1,111 @@
+﻿@{
+    Page.Title = "Edit a component";
+    Layout = "~/_SiteLayout.cshtml";
+
+    var ComponentID = "";
+    var ComponentName = "";
+    var Quantity = "";
+    var ComponentNumber = "";
+    var DescriptionNL = "";
+    var DescriptionENG = "";
+    var Price = "";
+    var SupplierName = "";
+    var SupplierAddress = "";
+    int SupplierID = 0;
+
+    if(!IsPost){
+        if(!Request.QueryString["ID"].IsEmpty() && Request.QueryString["ID"].IsInt()){
+            ComponentID = Request.QueryString["ID"];
+            var db = Database.Open("Cyberdyne");
+            var dbCommand = "SELECT * FROM Components INNER JOIN ComponentList ON Components.ComponentID = ComponentList.ComponentID INNER JOIN Supplier ON Components.SupplierID = Supplier.SupplierID WHERE Components.ComponentID = @0";
+            var row = db.QuerySingle(dbCommand, ComponentID);
+
+            if(row != null) {
+                ComponentName = row.ComponentName;
+                Quantity = Convert.ToString(row.Quantity);
+                ComponentNumber = row.ComponentNumber;
+                DescriptionNL = row.DescriptionNL;
+                DescriptionENG = row.DescriptionENG;
+                Price = Convert.ToString(row.Price);
+                SupplierName = row.Name;
+                SupplierAddress = row.Address;
+                SupplierID = row.SupplierID;
+            }
+            else {
+                Validation.AddFormError("No component was found for this ID.");
+            }
+        }
+        else{
+            Validation.AddFormError("No Component was selected.");
+        }
+    }
+
+    if(IsPost){
+        Validation.RequireField("ComponentName", "You must enter a name");
+        Validation.RequireField("Quantity", "You must enter a number");
+        Validation.RequireField("DescriptionNL", "You must enter a description");
+        Validation.RequireField("DescriptionENG", "You must enter a description");
+        Validation.RequireField("Price", "You must enter a price");
+        Validation.RequireField("SupplierName", "You must enter a name");
+        Validation.RequireField("SupplierAddress", "You must enter an address");
+
+        ComponentName = Request.Form["ComponentName"];
+        Quantity = Request.Form["Quantity"];
+        ComponentNumber = Request.Form["ComponentNumber"];
+        DescriptionNL = Request.Form["DescriptionNL"];
+        DescriptionENG = Request.Form["DescriptionENG"];
+        Price = Request.Form["Price"];
+        SupplierName = Request.Form["SupplierName"];
+        SupplierAddress = Request.Form["SupplierAddress"];
+
+        if(Validation.IsValid()){
+            RepoManager RM = new RepoManager();
+            RM.GetComponents();
+
+            Component C = new Component(ComponentNumber, ComponentName, Convert.ToDecimal(Price), Convert.ToInt16(ComponentID), RM, -1, null, Convert.ToInt16(Quantity), Convert.ToInt16(SupplierID));
+            C.UpdateData();
+
+            //var db = Database.Open("Cyberdyne");
+            //var updateCommand1 = "UPDATE Components SET ComponentNumber=@0, Price=@1, DescriptionNL=@2 , DescriptionENG=@3, ComponentName=@4 WHERE ComponentID=@5";
+            //db.Execute(updateCommand1, ComponentNumber, Convert.ToDecimal(Price), DescriptionNL, DescriptionENG, ComponentName, ComponentID);
+            //var updateCommand2 = "UPDATE ComponentList SET Quantity=@0 WHERE ComponentID=@1";
+            //db.Execute(updateCommand2, Convert.ToInt16(Quantity), ComponentID);
+            //var updateCommand3 = "UPDATE Supplier SET Name=@0, Address=@1 WHERE SupplierID=@2";
+            //db.Execute(updateCommand3, SupplierName, SupplierAddress, SupplierID);
+            //Response.Redirect("~/Components");
+       }
+    }
+}
+
+<h2>@Page.title</h2>
+@Html.ValidationSummary()
+<form method="post">
+    <p><label for="ComponentName">Name:</label>
+        <input type="text" name="ComponentName" value="@ComponentName" /></p>
+
+    <p><label for="Quantity">Quantity:</label>
+        <input type="text" name="Quantity" value="@Quantity" /></p>
+
+    <p><label for="ComponentNumber">Article Number:</label>
+        <input type="text" name="ComponentNumber" value="@ComponentNumber" /></p>
+
+    <p><label for="DescriptionNL">Description NL:</label>
+        <input type="text" name="DescriptionNL" value="@DescriptionNL" /></p>
+
+    <p><label for="DescriptionENG">Description ENG:</label>
+        <input type="text" name="DescriptionENG" value="@DescriptionENG" /></p>
+
+    <p><label for="Price">Price:</label>
+        <input type="text" name="Price" value="@Price" /></p>
+
+    <p><label for="SupplierName">Supplier:</label>
+        <input type="text" name="SupplierName" value="@SupplierName" /></p>
+
+    <p><label for="SupplierAddress">Supplier Address:</label>
+        <input type="text" name="SupplierAddress" value="@SupplierAddress" /></p>
+
+    <p><input type="submit" name="buttonSubmit" value="Submit" /></p>
+</form>
+
+
+
