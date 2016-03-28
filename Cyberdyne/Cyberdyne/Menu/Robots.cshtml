@@ -9,7 +9,7 @@
         Session["RobotID"] = robotId;
     }
 
-    Robot Robot = RM.GetRobotsByID(Convert.ToInt32(robotId));
+    Robot Robot = RM.GetRobotsByID(Convert.ToInt32(Session["RobotID"]));
     //List<RobotMovie> movies = new List<RobotMovie>();
     //foreach(RobotMovie m in allMovies)
     //{
