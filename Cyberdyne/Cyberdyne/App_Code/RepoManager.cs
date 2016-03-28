@@ -181,8 +181,8 @@ public class RepoManager
         {
             if (robotRepository != null)
                 FillAllDataInRepo(robotMovieRepository);
-            else
-                throw new NullReferenceException("robot repo is either null!");
+            //else
+            //    //throw new NullReferenceException("robot repo is either null!");
         }
         finally
         {
@@ -407,6 +407,39 @@ public class RepoManager
         foreach (var Row in Data)
         {
             componentRepository.Add(new Component(Row["ComponentNumber"], Row["ComponentName"], Row["Price"], Row["ComponentID"], this, Row["RobotID"], Row["Name"], Row["Quantity"], Row["SupplierID"]));
+        }
+    }
+    #endregion
+
+    //SEARCHEN ENZO MOET ER NOG IN!
+    #region Publieke Zoek Methodes Robots by ID
+    public Robot GetRobotsByID(int ID)
+    {
+        db = Database.Open("Cyberdyne");
+        GetBasicRobotDataByID(ID);
+        GetBasicRobotImages();
+        //Softwares inladen
+        GetSoftwares();
+        //Componenten inladen
+        GetComponents();
+        //GetRobotImages, Movies, Files
+        GetFiles(); GetRobotImages(); GetRobotMovies();
+        FillAllDataInRepo(robotRepository);
+        db.Close();
+        return robotRepository[0];
+    }
+
+    protected void GetBasicRobotDataByID(int ID)
+    {
+        robotRepository = new Repository<Robot>(this);
+        string sql = @"
+        SELECT Robots.Name, Robots.Category, Robots.RobotID 
+            FROM Robots 
+            Where Robots.RobotID = @0";
+        IEnumerable<dynamic> Data = db.Query(sql, ID);
+        foreach (var Row in Data)
+        {
+            robotRepository.Add(new Robot(Row["Name"], Row["Category"], Row["RobotID"], this));
         }
     }
     #endregion

@@ -1,22 +1,24 @@
 ﻿@{
     Layout = "~/_RobotLayout.cshtml";
     RepoManager RM = new RepoManager();
-    List<RobotMovie> allMovies = RM.GetRobotMovies();
+    //List<RobotMovie> allMovies = RM.GetRobotMovies();
 
     string robotId = Request.QueryString["ID"];
-    if (Session["RobotID"] == null) {
+    if (Session["RobotID"] == null)
+    {
         Session["RobotID"] = robotId;
     }
 
-    List<RobotMovie> movies = new List<RobotMovie>();
-    foreach(RobotMovie m in allMovies)
-    {
-        if(m.robotID == Convert.ToInt16(robotId))
-        {
-            movies.Add(m);
-        }
-    }
-
+    Robot Robot = RM.GetRobotsByID(Convert.ToInt32(robotId));
+    //List<RobotMovie> movies = new List<RobotMovie>();
+    //foreach(RobotMovie m in allMovies)
+    //{
+    //    if(m.robotID == Convert.ToInt16(robotId))
+    //    {
+    //        movies.Add(m);
+    //    }
+    //}
+    <img class="widthMax" src="~/@Robot.images[0].imageLocation" alt="Terminator">
     /*
     if(movies.Count < 2){
        RobotMovie stock = new RobotMovie("stock",0,"https://youtu.be/nrahTQfHP_o",0,RM);
