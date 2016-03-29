@@ -20,14 +20,14 @@ public class ComponentData
         this.robotID = robotID;
     }
 
-    public void UpdateData(int componentID, int robotID, int quantity)
+    public void UpdateData()
     {
         Database db = Database.Open("Cyberdyne");
-        if (Exist(componentID, robotID))
-            db.Execute("UPDATE ComponentList SET ComponentID=@0, RobotID=@1, Quantity=@2 WHERE ComponentID=@0 AND RobotID=@1", componentID, robotID, quantity);
+        if (Exist(component.ID, robotID))
+            db.Execute("UPDATE ComponentList SET ComponentID=@0, RobotID=@1, Quantity=@2 WHERE ComponentID=@0 AND RobotID=@1", component.ID, robotID, count);
         else
         {
-            db.Execute("INSERT INTO ComponentList (ComponentID, RobotID, Quantity) VALUES (@0, @1, @2)", componentID, robotID, quantity);
+            db.Execute("INSERT INTO ComponentList (ComponentID, RobotID, Quantity) VALUES (@0, @1, @2)", component.ID, robotID, count);
         }
         db.Close();
     }

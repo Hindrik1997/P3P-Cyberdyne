@@ -84,8 +84,10 @@
 
                 ComponentDatas.Add(new ComponentData(D, Convert.ToInt32(PartCountList[i]), Robot.ID));
             }
-
-
+            foreach (ComponentData d in ComponentDatas)
+            {
+                d.UpdateData(d.component.ID, Robot.ID, d.count);
+            }
             Software Software = new Software(softwareName, softwareLocation, softwareVersion, Robot.ID, -1, RM);
             Software.UpdateData();
 
@@ -139,10 +141,10 @@
         }
         catch (Exception e)
         {
-            //Supress exception
+            <p>An error occured. Please try again.</p>
         }
     }
-}
+    }
 <!DOCTYPE html>
 
 <html lang="en">
