@@ -43,7 +43,7 @@
 
             //Variables
             robotName = Request.Form["RobotName"];
-            category = Request.Form["Category"];
+            category = Request.Form["RobotCategory"];
             descriptionNL = Request.Form["DescriptionNL"];
             descriptionEN = Request.Form["DescriptionEN"];
             parts = Request.Params["Parts"];
@@ -118,9 +118,9 @@
 
                 if (isImage)
                 {
-                    fileSavePath = Server.MapPath("~/App_Data/Images/" + fileName);
+                    fileSavePath = Server.MapPath("~/Images/" + fileName);
                     uploadedFile.SaveAs(fileSavePath);
-                    image.Add(new RobotImage(fileName, "App_Data/Images/" + fileName, Robot.ID, -1, RM));
+                    image.Add(new RobotImage(fileName, "Images/" + fileName, Robot.ID, -1, RM));
                 }
                 else {
                     fileSavePath = Server.MapPath("~/App_Data/UploadedFiles/" + fileName);
@@ -138,6 +138,9 @@
             {
                 f.UpdateData();
             }
+
+            Robot.images = image;
+            Robot.files = files;
             Response.Redirect("~/Default.cshtml");
         }
         catch (Exception e)
