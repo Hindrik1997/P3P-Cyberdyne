@@ -16,10 +16,16 @@
 
     //Validation fields
     Validation.RequireField("RobotName", "You must enter a robot name");
-    Validation.RequireField("Description", "You must enter a description");
-    //Validation.RequireField("Parts", "You must specify the parts");
-    Validation.RequireField("SoftwareLocation", "You haven't provided a software link");
-    Validation.RequireField("Youtube", "You haven't provided a youtube link");
+    Validation.RequireField("DescriptionEN", "You must enter an english description");
+    Validation.RequireField("DescriptionNL", "You must enter a dutch description");
+
+    Validation.RequireField("SoftwareName", "You must enter a software name");
+    Validation.RequireField("SoftwareVersion", "You must enter a software version");
+    Validation.RequireField("SoftwareLocation", "You must enter a link to the software");
+
+    Validation.RequireField("YoutubeName", "You must enter a name of the software");
+
+    Validation.RequireField("Parts", "You must specify the parts");
 
     //Check if validation is valid and a user is logged in
     //if(IsPost && Request.Files.Count >0 && Validation.IsValid() && WebSecurity.CurrentUserId == 3){
@@ -51,7 +57,7 @@
         Robot.UpdateData();
         Robot.descriptionEnglish = description;
         Software Software = new Software(softwareName, softwareLocation, softwareVersion, Robot.ID, -1, RM);
-        
+
 
         //Catch files and save them on the server
         string[] imageFormats = new string[]{".jpg", ".png", ".gif", ".jpeg"};
@@ -103,12 +109,6 @@
 
                 <p>
                     <label for="Parts">Parts:</label>
-                    @*<select name="cars">
-              @foreach(string option in options){
-                  @:<option value="@option">@option</option>
-              }
-            </select>*@
-
                     <input type="text" name="Parts" placeholder=" Part ID's, Comma seperated" />
                     <select multiple id="SELECTOR">
                         <fieldlset>
