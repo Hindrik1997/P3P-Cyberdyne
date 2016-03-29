@@ -6,6 +6,7 @@
     Robot Robot = RM.GetRobotsByID(robotId);
 
     Validation.RequireField("RobotName", "You must enter a robot name");
+    Validation.RequireField("Category", "You must enter a category");
     Validation.RequireField("DescriptionEN", "You must enter an english description");
     Validation.RequireField("DescriptionNL", "You must enter a dutch description");
 
@@ -15,6 +16,16 @@
             Robot.name = Request.Form["RobotName"];
             Robot.descriptionEnglish = Request.Form["DescriptionEN"];
             Robot.descriptionDutch = Request.Form["DescriptionNL"];
+            Robot.category = Request.Form["Category"];
+            
+            if(Request.Form["ClipOne"] != "")
+            {
+                Robot.movies[0] = new RobotMovie("Clip",Robot.ID,Request.Form["ClipOne"],-1 ,RM);
+            }
+            if(Request.Form["ClipTwo"] != "")
+            {
+                Robot.movies[1] = new RobotMovie("Clip",Robot.ID,Request.Form["ClipTwo"],-1 ,RM);
+            }
             Robot.UpdateData();
 
         }
@@ -33,6 +44,18 @@
         <p>
             <label for="RobotName">Robot Name:</label>
             <input type="text" name="RobotName" value="@Robot.name" placeholder="Name of the robot"/>
+        </p>
+        <p>
+            <label for="Category">Robot Category:</label>
+            <input type="text" name="Category" value="@Robot.category" placeholder="Give the robot a category for easy searching"/>
+        </p>
+        <p>
+            <label for="ClipOne">Embedded Clip:</label>
+            <input type="text" name="ClipOne" value="@if(Robot.movies.Count >= 1){@Robot.movies[0];}" placeholder="First clip for the robot"/>
+        </p>
+        <p>
+            <label for="ClipTwo">Embedded Clip:</label>
+            <input type="text" name="ClipTwo" value="@if(Robot.movies.Count >= 2){@Robot.movies[1];}" placeholder="Second clip for the robot"/>
         </p>
         <p>
             <label for="DescriptionEN">Description: (English)</label>

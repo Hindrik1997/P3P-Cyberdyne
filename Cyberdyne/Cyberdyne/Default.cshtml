@@ -23,7 +23,7 @@
         string path = Server.MapPath("~/App_GlobalResources/Content.nl-NL.resx");
         string position = "HomeContent";
         DutchContent = Request["Dutch1"];
-        re.Add(path, position, EnglishContent);
+        re.Add(path, position, DutchContent);
         Response.Redirect("~/Default.cshtml");
     }
 }
@@ -39,24 +39,7 @@
                 <p class="text-center">
                     @Content.HomeContent
                 </p>
-                @if (WebSecurity.IsAuthenticated)
-                {
-                    <form method="post" id="HomeEditor">
-                        <div>
-                            <label for="English1">English:</label>
-                            <textarea rows="3" cols="50" name="English1">@EnglishContent</textarea>
-                        </div>
-
-                        <div id="DutchText">
-                            <label for="Dutch1"> Dutch:</label>
-                            <textarea rows="3" cols="50" name="Dutch1">@DutchContent</textarea>
-                        </div>
-
-                        <div id="SubmitButton">
-                            <p><input type="submit" name="Submit" value="@Content.Submit" /></p>
-                        </div>
-                    </form>
-                }
+                
                 <div id="myCarousel" class="carousel slide" data-ride="carousel">
                       <!-- Indicators -->
                       <ol class="carousel-indicators">
@@ -110,7 +93,25 @@
                         <span class="glyphicon glyphicon-chevron-right"></span>
                         <span class="sr-only">Next</span>
                       </a>
-                    </div>
+                </div>
+                @if (WebSecurity.IsAuthenticated)
+                {
+                    <form method="post" id="HomeEditor">
+                        <div>
+                            <label for="English1">English:</label>
+                            <textarea rows="3" cols="50" name="English1">@EnglishContent</textarea>
+                        </div>
+
+                        <div id="DutchText">
+                            <label for="Dutch1"> Dutch:</label>
+                            <textarea rows="3" cols="50" name="Dutch1">@DutchContent</textarea>
+                        </div>
+
+                        <div id="SubmitButton">
+                            <p><input type="submit" name="Submit" value="@Content.Submit" /></p>
+                        </div>
+                    </form>
+                }
             </div>
         </div>
         <div class="col-sm-1"></div>
