@@ -72,16 +72,9 @@
             Supplier S = new Supplier(SupplierName, SupplierAddress, RM.GetSupplierIDbyComponentID(Convert.ToInt16(ComponentID)), RM);
 
             Component C = new Component(ComponentNumber, ComponentName, 4, Convert.ToInt16(ComponentID), RM, -1, null, Convert.ToInt16(Quantity), Convert.ToInt16(SupplierID));
+            C.descriptionENG = DescriptionENG;
+            C.descriptionNL = DescriptionNL;
             C.UpdateData();
-
-            //var db = Database.Open("Cyberdyne");
-            //var updateCommand1 = "UPDATE Components SET ComponentNumber=@0, Price=@1, DescriptionNL=@2 , DescriptionENG=@3, ComponentName=@4 WHERE ComponentID=@5";
-            //db.Execute(updateCommand1, ComponentNumber, Convert.ToDecimal(Price), DescriptionNL, DescriptionENG, ComponentName, ComponentID);
-            //var updateCommand2 = "UPDATE ComponentList SET Quantity=@0 WHERE ComponentID=@1";
-            //db.Execute(updateCommand2, Convert.ToInt16(Quantity), ComponentID);
-            //var updateCommand3 = "UPDATE Supplier SET Name=@0, Address=@1 WHERE SupplierID=@2";
-            //db.Execute(updateCommand3, SupplierName, SupplierAddress, SupplierID);
-            //Response.Redirect("~/Components");
         }
     }
 }
