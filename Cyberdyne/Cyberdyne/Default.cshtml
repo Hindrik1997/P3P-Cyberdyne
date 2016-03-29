@@ -23,7 +23,7 @@
         string path = Server.MapPath("~/App_GlobalResources/Content.nl-NL.resx");
         string position = "HomeContent";
         DutchContent = Request["Dutch1"];
-        re.Add(path, position, EnglishContent);
+        re.Add(path, position, DutchContent);
         Response.Redirect("~/Default.cshtml");
     }
 }
