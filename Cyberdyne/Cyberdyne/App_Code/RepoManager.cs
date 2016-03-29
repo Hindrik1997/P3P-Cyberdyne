@@ -53,7 +53,7 @@ public class RepoManager
     protected void GetBasicRobotData()
     {
         robotRepository = new Repository<Robot>(this);
-        IEnumerable<dynamic> Data = db.Query("SELECT * FROM Robots");
+        IEnumerable<dynamic> Data = db.Query("SELECT * FROM Robots ORDER BY Category");
 
         foreach (var Row in Data)
         {
