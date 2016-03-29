@@ -121,13 +121,13 @@
     <value>Submit</value>
   </data>
   <data name="Address" xml:space="preserve">
-    <value>Address:</value>
+    <value>Address</value>
   </data>
   <data name="Support" xml:space="preserve">
-    <value>Support:</value>
+    <value>Support</value>
   </data>
   <data name="Phone" xml:space="preserve">
-    <value>Phone:</value>
+    <value>Phone</value>
   </data>
   <data name="HomeContent" xml:space="preserve">
     <value>Welcome to Cyberdyne. This website is the place to be for people interested in robots. We have all sorts of information that will help you creating the best results.</value>
@@ -155,5 +155,11 @@
   </data>
   <data name="Products" xml:space="preserve">
     <value>Products</value>
+  </data>
+  <data name="Dutch" xml:space="preserve">
+    <value>Dutch</value>
+  </data>
+  <data name="English" xml:space="preserve">
+    <value>English</value>
   </data>
 </root>

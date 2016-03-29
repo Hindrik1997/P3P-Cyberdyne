@@ -121,13 +121,13 @@
     <value>Toepassen</value>
   </data>
   <data name="Address" xml:space="preserve">
-    <value>Adres:</value>
+    <value>Adres</value>
   </data>
   <data name="Support" xml:space="preserve">
-    <value>Helpdesk:</value>
+    <value>Ondersteuning</value>
   </data>
   <data name="Phone" xml:space="preserve">
-    <value>Telefoon:</value>
+    <value>Telefoon</value>
   </data>
   <data name="HomeContent" xml:space="preserve">
     <value>Welkom bij Cyberdyne. Deze website is de plek voor iedereen die geïnteresseerd is in robots.</value>
@@ -155,5 +155,11 @@
   </data>
   <data name="Products" xml:space="preserve">
     <value>Producten</value>
+  </data>
+  <data name="Dutch" xml:space="preserve">
+    <value>Nederlands</value>
+  </data>
+  <data name="English" xml:space="preserve">
+    <value>Engels</value>
   </data>
 </root>
