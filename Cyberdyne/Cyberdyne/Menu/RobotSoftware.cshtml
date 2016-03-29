@@ -21,6 +21,9 @@
         <tr>
             <td>@Software.name</td>
             <td>@Software.version</td>
+            @if(!Software.location.StartsWith("http://")) { 
+                Software.location = "http://" + Software.location;
+            }
             <td><a href="@Software.location">@Software.location</a></td>
         </tr>
     }
@@ -29,7 +32,7 @@
         <tr>
             <td>@File.name</td>
             <td>@File.version</td>
-            <td><a href="@File.location" download>Download</a></td>
+            <td><a href="@File.location">Download</a></td>
         </tr>
     }
 </table>
