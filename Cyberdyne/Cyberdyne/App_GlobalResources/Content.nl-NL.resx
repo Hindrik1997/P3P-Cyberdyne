@@ -162,4 +162,22 @@
   <data name="English" xml:space="preserve">
     <value>Engels</value>
   </data>
+  <data name="ArticleNumber" xml:space="preserve">
+    <value>Artikel nummer</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Beschrijving</value>
+  </data>
+  <data name="PartName" xml:space="preserve">
+    <value>Naam van onderdeel</value>
+  </data>
+  <data name="Price" xml:space="preserve">
+    <value>Prijs</value>
+  </data>
+  <data name="SupplierAddress" xml:space="preserve">
+    <value>Adres van de fabrikant</value>
+  </data>
+  <data name="SupplierName" xml:space="preserve">
+    <value>Naam van de fabrikant</value>
+  </data>
 </root>
