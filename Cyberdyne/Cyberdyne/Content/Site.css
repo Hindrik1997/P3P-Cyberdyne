@@ -82,6 +82,11 @@ h4, h5, h6 {
     padding-bottom: 0;
 }
     
+#SELECTOR {
+    float: right;
+    margin-right: 10px;
+    width: 25%;   
+}
 
 h1 {
     font-size: 2em;

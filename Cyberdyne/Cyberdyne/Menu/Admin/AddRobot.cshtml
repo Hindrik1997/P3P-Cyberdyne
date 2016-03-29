@@ -5,60 +5,53 @@
     Layout = "~/_SiteLayout.cshtml";
     Page.Title = "Add robot";
 
+
     var robotName = "";
-    var descriptionNL = "";
-    var descriptionEN = "";
+    var description = "";
     var parts = "";
     var softwareLocation = "";
-    var category = "";
-    var softwareName = "";
-    var softwareVersion = "";
-    var robotVideoName = "";
-    var robotVideo = "";
-    var fileVersion = "";
+    //var robotVideoLocation = "";
+
+    string[] options = new string[]{"ja", "Nee"};
 
     //Validation fields
     Validation.RequireField("RobotName", "You must enter a robot name");
+    Validation.RequireField("Description", "You must enter a description");
+    //Validation.RequireField("Parts", "You must specify the parts");
     Validation.RequireField("SoftwareLocation", "You haven't provided a software link");
-    Validation.RequireField("RobotVideo", "You haven't provided a RobotVideo link");
+    Validation.RequireField("Youtube", "You haven't provided a youtube link");
 
     //Check if validation is valid and a user is logged in
-    if (IsPost && Request.Files.Count > 0 && Validation.IsValid() && WebSecurity.IsAuthenticated){
-
+    //if(IsPost && Request.Files.Count >0 && Validation.IsValid() && WebSecurity.CurrentUserId == 3){
+    if (IsPost && Request.Files.Count > 0 && Validation.IsValid()){
         //Create directories if they don't exist
+
         var dirPath = Server.MapPath("~/App_Data/UploadedFiles/");
         var imagePath = Server.MapPath("~/App_Data/Images/");
+
+        //Moet nog toegevoegd worden aan FRONT END
+        var category = "";
+        var softwareName = "";
+        var softwareVersion = "";
+        //en Wat meer...
+
         Directory.CreateDirectory(dirPath);
         Directory.CreateDirectory(imagePath);
 
-        //Variables
-        robotName = Request.Form["RobotName"];
-        category = Request.Form["Category"];
-        descriptionNL = Request.Form["DescriptionNL"];
-        descriptionEN = Request.Form["DescriptionEN"];
-        parts = Request.Params["Parts"];
-        softwareName = Request.Form["SoftwareName"];
-        softwareVersion = Request.Form["SoftwareVersion"];
-        softwareLocation = Request.Form["SoftwareLocation"];
-        robotVideo = Request.Form["RobotVideo"];
-        robotVideoName = Request.Form["RobotVideoName"];
-        fileVersion = Request.Form["fileVersion"];
 
-        List<RobotImage> image = new List<RobotImage>();
-        List<RobotMovie> movie = new List<RobotMovie>();
-        List<RobotFile> files = new List<RobotFile>();
+        //Initialize variables
+        robotName = Request.Form["RobotName"];
+        description = Request.Form["Description"];
+        parts = Request.Params["Parts"];
+        softwareLocation = Request.Form["SoftwareLocation"];
+        //robotVideo = Request.Form["Youtube"];
+
 
         Robot Robot = new Robot(robotName, category, -1, RM);
-        Robot.descriptionEnglish = descriptionEN;
-        Robot.descriptionDutch = descriptionNL;
         Robot.UpdateData();
+        Robot.descriptionEnglish = description;
         Software Software = new Software(softwareName, softwareLocation, softwareVersion, Robot.ID, -1, RM);
-        Software.UpdateData();
-
-        movie.Add(new RobotMovie(robotVideoName, Robot.ID, robotVideo, -1, RM));
-        foreach(RobotMovie i in movie){
-            i.UpdateData();
-        }
+        
 
         //Catch files and save them on the server
         string[] imageFormats = new string[]{".jpg", ".png", ".gif", ".jpeg"};
@@ -79,17 +72,11 @@
             if(isImage){
                 fileSavePath = Server.MapPath("~/App_Data/Images/" + fileName);
                 uploadedFile.SaveAs(fileSavePath);
-                image.Add(new RobotImage(fileName,fileSavePath,Robot.ID,-1,RM));
             }
             else{
                 fileSavePath = Server.MapPath("~/App_Data/UploadedFiles/" + fileName);
                 uploadedFile.SaveAs(fileSavePath);
-                files.Add(new RobotFile(fileName, fileSavePath, fileVersion, Robot.ID, -1, RM));
             }
-        }
-
-        foreach(RobotImage i in image){
-            i.UpdateData();
         }
     }
 }
@@ -103,45 +90,62 @@
         @Html.ValidationSummary()
         <form method="post" enctype="multipart/form-data" action="">
             <fieldset>
-                <p><label for="RobotName">Robot Name:</label></p>
-                <input type="text" name="RobotName" value="" />
+                <p><label for="RobotName">Robot Name:</label>
+                <input type="text" name="RobotName" value="" placeholder="name of the robot"/>
                 
-                <p><label for="Category">Robot Category:</label></p>
-                <input type="text" name="Category" value=""/>
+                <p>
+                    <label for="DescriptionEN">Description: (English)</label>
+                    <textarea name="DescriptionEN" placeholder="English description of the robot"></textarea>
 
-                <p><label for="DescriptionNL">DescriptionNL:</label></p>
-                <textarea name="DescriptionNL"></textarea>
+                <p>
+                    <label for="DescriptionNL">Description: (Nederlands)</label>
+                    <textarea name="DescriptionNL" placeholder="Nederlandse beschrijving van de robot"></textarea>
 
-                <p><label for="DescriptionEN">DescriptionEN:</label>
-                <textarea name="DescriptionEN"></textarea>
+                <p>
+                    <label for="Parts">Parts:</label>
+                    @*<select name="cars">
+              @foreach(string option in options){
+                  @:<option value="@option">@option</option>
+              }
+            </select>*@
 
-                <p><label for="Parts">Parts:</label></p>
-                <select multiple>
-                    @foreach(var Component in RM.componentRepository)
-                    {
-                        <option value="@Component.ID">
-                        @Component.ID
-                        @Component.componentName
-                        </option>
-                    }
-                </select>
-                        
-                <p><label for="SoftwareLocation">Software:</label></p>
-                <input type="text" name="SoftwareLocation" value="" />
+                    <input type="text" name="Parts" placeholder=" Part ID's, Comma seperated" />
+                    <select multiple id="SELECTOR">
+                        <fieldlset>
+                            <legend>Parts</legend>
+                            @foreach (var Component in RM.componentRepository)
+                            {
+                                <option value="@Component.ID">
+                                    <ul id="menu">
+                                        <li>@Component.ID</li>
+                                        <li>@Component.componentName</li>
+                                    </ul>
+                                </option>
+                            }
+                        </fieldlset>
+                    </select>
 
-                <p><label for="SoftwareName">Software name:</label></p>
-                <input type="text" name="SoftwareName" value=""/>
+                <p>
+                    <label for="SoftwareName">Software name:</label>
+                    <input type="text" name="SoftwareName" value="" placeholder="name of the software" />
+                </p>
+                <p>
+                    <label for="SoftwareVersion">Software version:</label>
+                    <input type="text" name="SoftwareVersion" value="" placeholder="version of the software"/>
+                </p>
 
-                <p><label for="SoftwareVersion">Software version:</label></p>
-                <input type="text" name="SoftwareVersion" value=""/>
+                <p><label for="SoftwareLocation">Software link:</label>
+                <input type="text" name="SoftwareLocation" value="" placeholder="link to software repository"/></p>
                 
-                <p><label for="RobotVideo">Robotvideo(Youtube link):</label></p>
-                <input type="text" name="RobotVideo" value=""/>
+                <p>
+                    <label for="YoutubeName">Movie name:</label>
+                    <input type="text" name="YoutubeName" value="" placeholder="name of the movie"/>
+                </p>
 
-                <p><label for="RobotVideoName">Robotvideo name:</label></p>
-                <input type="text" name="RobotVideoName" value=""/>
+                <p><label for="Youtube">Youtube link:</label>
+                <input type="text" name="Youtube" value="" placeholder="link to the youtube video"/></p>
                 
-                <p><label for="Files">File:</label></p>
+                <p><label for="Files">Files:</label></p>
                 @FileUpload.GetHtml(
                     initialNumberOfFiles:1,
                     allowMoreFilesToBeAdded:true,
@@ -149,11 +153,8 @@
                     addText:"Add another file",
                     uploadText:"Upload")
 
-                <p><label for="FileVersion">File Version:</label></p>
-                <input type="text" name="FileVersion" value=""/>
-
                 <p><label for="images">images:</label></p>
-                <input type="file" name="image" value="" multiple/>
+                <input type="file" name="image" value="" multiple/></p>
 
                 <p><input type="submit" name="buttonSubmit" value="Add Robot" /></p>
             </fieldset>
