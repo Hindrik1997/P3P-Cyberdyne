@@ -147,4 +147,10 @@
   <data name="AddRobot" xml:space="preserve">
     <value>Robot Toevoegen</value>
   </data>
+  <data name="LeaveBlank" xml:space="preserve">
+    <value>Laat leeg om alle robots te laten zien</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>Zoeken</value>
+  </data>
 </root>
