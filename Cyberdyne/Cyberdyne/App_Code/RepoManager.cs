@@ -106,11 +106,11 @@ public class RepoManager
     {
         softwareRepository = new Repository<Software>(this);
 
-        IEnumerable<dynamic> Data = db.Query("SELECT * FROM Files");
+        IEnumerable<dynamic> Data = db.Query("SELECT * FROM Software");
 
         foreach (var Row in Data)
         {
-            fileRepository.Add(new RobotFile(Row["Name"], Row["Location"], Row["Version"], Row["RobotID"], Row["FileID"], this));
+            softwareRepository.Add(new Software(Row["Name"], Row["Location"], Row["Version"], Row["RobotID"], Row["SoftwareID"], this));
         }
     }
     protected void GetBasicSupplierData()
@@ -197,7 +197,7 @@ public class RepoManager
         GetBasicRobotImageData();
         try
         {
-            if (robotRepository != null)
+            if (robotImageRepository != null)
                 FillAllDataInRepo(robotImageRepository);
             else
                 throw new NullReferenceException("robot repo is null!");
@@ -214,7 +214,7 @@ public class RepoManager
         GetBasicSoftwareData();
         try
         {
-            if (robotRepository != null)
+            if (softwareRepository != null)
                 FillAllDataInRepo(softwareRepository);
             else
                 throw new NullReferenceException("robot repo is null!");

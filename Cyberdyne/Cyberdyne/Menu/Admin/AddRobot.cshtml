@@ -86,7 +86,7 @@
             }
             foreach (ComponentData d in ComponentDatas)
             {
-                d.UpdateData(d.component.ID, Robot.ID, d.count);
+                d.UpdateData();
             }
             Software Software = new Software(softwareName, softwareLocation, softwareVersion, Robot.ID, -1, RM);
             Software.UpdateData();
@@ -120,12 +120,12 @@
                 {
                     fileSavePath = Server.MapPath("~/App_Data/Images/" + fileName);
                     uploadedFile.SaveAs(fileSavePath);
-                    image.Add(new RobotImage(fileName, fileSavePath, Robot.ID, -1, RM));
+                    image.Add(new RobotImage(fileName, "App_Data/Images/" + fileName, Robot.ID, -1, RM));
                 }
                 else {
                     fileSavePath = Server.MapPath("~/App_Data/UploadedFiles/" + fileName);
                     uploadedFile.SaveAs(fileSavePath);
-                    files.Add(new RobotFile(fileName, fileSavePath, fileversionlist[0], Robot.ID, -1, RM));
+                    files.Add(new RobotFile(fileName, "App_Data/UploadedFiles/" + fileName, fileversionlist[0], Robot.ID, -1, RM));
                     fileversionlist.RemoveAt(0);
                 }
             }
