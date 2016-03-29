@@ -742,6 +742,10 @@ td {
     border: 0 none;
 }
 
+.data_table {
+    word-spacing: 50px;
+}
+
 tr.pager td {
     padding: 0 0.25em 0 0;
 }
