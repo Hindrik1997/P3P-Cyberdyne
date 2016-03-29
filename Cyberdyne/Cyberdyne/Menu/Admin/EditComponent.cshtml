@@ -4,8 +4,6 @@
 
     var ComponentID = "";
     var ComponentName = "";
-    var Quantity = "";
-    int QuantityInt = 0;
     var ComponentNumber = "";
     var DescriptionNL = "";
     var DescriptionENG = "";
@@ -25,7 +23,6 @@
 
             if(row != null) {
                 ComponentName = row.ComponentName;
-                QuantityInt = row.Quantity;
                 ComponentNumber = row.ComponentNumber;
                 DescriptionNL = row.DescriptionNL;
                 DescriptionENG = row.DescriptionENG;
@@ -34,7 +31,6 @@
                 SupplierAddress = row.Address;
                 SupplierID = row.SupplierID;
                 Price = Convert.ToString(PriceDec);
-                Quantity = Convert.ToString(QuantityInt);
             }
             else {
                 Validation.AddFormError("No component was found for this ID.");
@@ -47,8 +43,6 @@
 
     if(IsPost){
         Validation.RequireField("ComponentName", "You must enter a name");
-        Validation.RequireField("Quantity", "You must enter a number");
-        Validation.Add("Quantity", Validator.Integer("Quantity must be Number"));
         Validation.RequireField("DescriptionNL", "You must enter a description");
         Validation.RequireField("DescriptionENG", "You must enter a description");
         Validation.RequireField("Price", "You must enter a price");
@@ -57,7 +51,6 @@
         Validation.RequireField("SupplierAddress", "You must enter an address");
 
         ComponentName = Request.Form["ComponentName"];
-        Quantity = Request.Form["Quantity"];
         ComponentNumber = Request.Form["ComponentNumber"];
         DescriptionNL = Request.Form["DescriptionNL"];
         DescriptionENG = Request.Form["DescriptionENG"];
@@ -69,9 +62,9 @@
         if (Validation.IsValid()){
             RepoManager RM = new RepoManager();
 
-            Supplier S = new Supplier(SupplierName, SupplierAddress, RM.GetSupplierIDbyComponentID(Convert.ToInt16(ComponentID)), RM);
+            Supplier S = new Supplier(SupplierName, SupplierAddress, RM.GetSupplierIDbySuppliertName(SupplierName), RM);
 
-            Component C = new Component(ComponentNumber, ComponentName, 4, Convert.ToInt16(ComponentID), RM, -1, null, Convert.ToInt16(Quantity), Convert.ToInt16(SupplierID));
+            Component C = new Component(ComponentNumber, ComponentName, Convert.ToDecimal(Price),Convert.ToInt16(ComponentID), RM, -1, null, -1, S.ID);
             C.descriptionENG = DescriptionENG;
             C.descriptionNL = DescriptionNL;
             C.UpdateData();
@@ -84,9 +77,6 @@
 <form method="post">
     <p><label for="ComponentName">Name:</label>
         <input type="text" name="ComponentName" value="@ComponentName" /></p>
-
-    <p><label for="Quantity">Quantity:</label>
-        <input type="text" name="Quantity" value="@Quantity" /></p>
 
     <p><label for="ComponentNumber">Article Number:</label>
         <input type="text" name="ComponentNumber" value="@ComponentNumber" /></p>
