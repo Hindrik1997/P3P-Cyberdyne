@@ -141,4 +141,10 @@
   <data name="Version" xml:space="preserve">
     <value>Version</value>
   </data>
+  <data name="AddPart" xml:space="preserve">
+    <value>Add Part</value>
+  </data>
+  <data name="AddRobot" xml:space="preserve">
+    <value>Add Robot</value>
+  </data>
 </root>
