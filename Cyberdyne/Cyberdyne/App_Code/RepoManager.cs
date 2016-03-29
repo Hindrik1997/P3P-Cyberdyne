@@ -464,11 +464,24 @@ public class RepoManager
             robotRepository.Add(new Robot(Row["Name"], Row["Category"], Row["RobotID"], this));
         }
     }
-    #endregion
 
-    public int GetSupplierIDbyComponentID(int ID)
+    public int GetSupplierIDbySuppliertName(string name)
     {
-        var Pizza = db.QueryValue("SELECT SupplierID FROM Components WHERE ComponentID = @0", ID);
-        return (int)Pizza;
+        Database db = Database.Open("Cyberdyne");
+        if (SupplierExistByName(name))
+        {
+            var commandText = @"SELECT SupplierID FROM Supplier WHERE Name LIKE  @0";
+            int ID = (int)db.QueryValue(commandText, name);
+            return ID;
+        }
+        else return -1;
     }
+
+    public bool SupplierExistByName(string name)
+    {
+        Database db = Database.Open("Cyberdyne");
+        var commandText = @"SELECT COUNT(*) FROM Supplier WHERE NAME LIKE @0";
+        return (int)db.QueryValue(commandText, name) > 0;
+    }
+    #endregion
 }
