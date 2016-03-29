@@ -182,7 +182,6 @@ footer {
     list-style: none;
 }
 
-
 /* login
 ----------------------------------------------------------*/
 #login {
@@ -299,7 +298,7 @@ ul#menu {
 #SoftwareTable {
     width:  100%;
 }
-
+th
 #SoftwareTable th, #SoftwareTable td{
     border: 1px solid grey;
 }
@@ -843,7 +842,7 @@ tr.pager td {
             padding: 0;
         }
 
-        ul#menu li:hover {
+        ul#menu li a:hover {
             color: #333;
             background-color:transparent;
         }
