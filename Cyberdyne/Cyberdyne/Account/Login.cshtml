@@ -29,7 +29,7 @@
             errorMessage: "Password must be at least 6 characters"));
 
     // If this is a POST request, validate and process data
-    if (IsPost) {
+    if (IsPost && Request["Dutch"].IsEmpty() && Request["English"].IsEmpty()) {
         AntiForgery.Validate();
         // is this an external login request?
         string provider = Request.Form["provider"];

@@ -25,7 +25,7 @@
             errorMessage: "Password must be at least 6 characters"));
 
     // If this is a POST request, validate and process data
-    if (IsPost) {
+    if (IsPost && Request["Dutch"].IsEmpty() && Request["English"].IsEmpty()) {
         AntiForgery.Validate();
         email = Request.Form["email"];
         password = Request.Form["password"];
