@@ -22,17 +22,22 @@
 
     if(IsPost && WebSecurity.IsAuthenticated){
         partName = Request.Form["PartName"];
+        partNumber = Request.Form["PartNumber"];
         supplierName = Request.Form["SupplierName"];
-        supplierAddress = Request.Form["SupplierAdress"];
+        supplierAddress = Request.Form["SupplierAddress"];
         price = Request.Form["Price"];
         descriptionNL = Request.Form["DescriptionNL"];
         descriptionEN = Request.Form["DescriptionEN"];
+        RepoManager RM = new RepoManager();
 
-        Supplier s = new Supplier(supplierName, supplierAddress, -1, null);
+        Supplier s = new Supplier(supplierName, supplierAddress, RM.GetSupplierIDbySuppliertName(supplierName), null);
         s.UpdateData();
 
         Component comp = new Component(partNumber, partName, Convert.ToDecimal(price),-1, null, -1, null, -1, s.ID);
+        comp.descriptionENG = descriptionEN;
+        comp.descriptionNL = descriptionNL;
         comp.UpdateData();
+
         Response.Redirect("~/Default.cshtml");
     }
 

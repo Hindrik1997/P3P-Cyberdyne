@@ -25,7 +25,7 @@
         columns: grid.Columns(grid.Column("ComponentName", "Naam"), grid.Column("Quantity", "Hoeveelheid"), 
         grid.Column("ComponentNumber", "Artikel Nummer"), grid.Column("DescriptionNL", "Beschrijving"), 
         grid.Column("Price", "Prijs (€)"), grid.Column("Name", "Leverancier"), grid.Column("Address", "Adres Leverancier"),
-        grid.Column(format: @<a href="~/EditComponent?ID=@item.ComponentID">Edit</a>)))
+        grid.Column(format: @<a href="~/Menu/Admin/EditComponent?ID=@item.ComponentID">Edit</a>)))
     }
     else {
         @grid.GetHtml(
@@ -35,5 +35,5 @@
         columns: grid.Columns(grid.Column("ComponentName", "Name"), grid.Column("Quantity"), 
         grid.Column("ComponentNumber", "Article Number"), grid.Column("DescriptionENG", "Description"), 
         grid.Column("Price", "Price (€)"), grid.Column("Name", "Supplier"), grid.Column("Address", "Address Supplier "),
-        grid.Column(format: @<a href="~/EditComponent?ID=@item.ComponentID">Edit</a>)))
+        grid.Column(format: @<a href="~/Menu/Admin/EditComponent?ID=@item.ComponentID">Edit</a>)))
     }
