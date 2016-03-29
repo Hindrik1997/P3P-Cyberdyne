@@ -21,7 +21,14 @@
                 <iframe class="float-left" width="400" height="315" src="@clips[0].location"></iframe>
             }
             <p>
-                @Robot.descriptionEnglish
+            @if (UICulture.Equals("nl-NL"))
+            {
+            <p>@Robot.descriptionDutch</p>
+            }
+            else
+            {
+            <p>@Robot.descriptionEnglish</p>
+            }
             </p>
             @if(clips.Count >= 2)
             {
