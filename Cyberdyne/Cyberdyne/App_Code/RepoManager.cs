@@ -395,7 +395,7 @@ public class RepoManager
             ON Components.ComponentID=ComponentList.ComponentID 
         LEFT JOIN Robots
             ON ComponentList.RobotID=Robots.RobotID
-        WHERE Components.ComponentName LIKE @0 OR Components.ComponentNumber LIKE @0 OR Robots.Name LIKE @0";
+        WHERE Components.ComponentName LIKE @0 OR Components.ComponentNumber LIKE @0 OR Robots.Name LIKE @0 OR Components.ComponentID";
         IEnumerable<dynamic> Data = db.Query(sql, Search);
         foreach (var Row in Data)
         {
