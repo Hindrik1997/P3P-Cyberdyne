@@ -294,6 +294,23 @@ ul#menu {
     float: none;
 }
 
+/* Software page
+----------------------------------------------------------*/
+#SoftwareTable {
+    width:  100%;
+}
+
+#SoftwareTable th, #SoftwareTable td{
+    border: 1px solid grey;
+}
+
+#SoftwareTable th{
+    height:  55px;
+    background-color: #E1E1E1;
+    font-weight: 600;
+}
+
+
 /* side menu
 ----------------------------------------------------------*/
 

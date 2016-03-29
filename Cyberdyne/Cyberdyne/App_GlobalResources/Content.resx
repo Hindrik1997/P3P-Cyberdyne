@@ -132,4 +132,13 @@
   <data name="HomeContent" xml:space="preserve">
     <value>Welcome to Cyberdyne. This website is the place to be for people interested in robots. We have all sorts of information that will help you creating the best results.</value>
   </data>
+  <data name="Location" xml:space="preserve">
+    <value>Location</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="Version" xml:space="preserve">
+    <value>Version</value>
+  </data>
 </root>
