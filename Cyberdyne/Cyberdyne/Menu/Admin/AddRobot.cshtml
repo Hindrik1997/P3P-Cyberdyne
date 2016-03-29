@@ -34,82 +34,112 @@
     //Check if validation is valid and a user is logged in
     if (IsPost && Request.Files.Count > 0 && Validation.IsValid() && WebSecurity.IsAuthenticated)
     {
-        //Create directories if they don't exist
-        var dirPath = Server.MapPath("~/App_Data/UploadedFiles/");
-        var imagePath = Server.MapPath("~/App_Data/Images/");
-        Directory.CreateDirectory(dirPath);
-        Directory.CreateDirectory(imagePath);
+        try {
+            //Create directories if they don't exist
+            var dirPath = Server.MapPath("~/App_Data/UploadedFiles/");
+            var imagePath = Server.MapPath("~/App_Data/Images/");
+            Directory.CreateDirectory(dirPath);
+            Directory.CreateDirectory(imagePath);
 
-        //Variables
-        robotName = Request.Form["RobotName"];
-        category = Request.Form["Category"];
-        descriptionNL = Request.Form["DescriptionNL"];
-        descriptionEN = Request.Form["DescriptionEN"];
-        parts = Request.Params["Parts"];
-        softwareName = Request.Form["SoftwareName"];
-        softwareVersion = Request.Form["SoftwareVersion"];
-        softwareLocation = Request.Form["SoftwareLocation"];
-        robotVideo = Request.Form["RobotVideoLink"];
-        robotVideoName = Request.Form["RobotVideoName"];
-        List<string> fileversionlist = Request.Form["fileversion"].Split(',').ToList();
+            //Variables
+            robotName = Request.Form["RobotName"];
+            category = Request.Form["Category"];
+            descriptionNL = Request.Form["DescriptionNL"];
+            descriptionEN = Request.Form["DescriptionEN"];
+            parts = Request.Params["Parts"];
+            softwareName = Request.Form["SoftwareName"];
+            softwareVersion = Request.Form["SoftwareVersion"];
+            softwareLocation = Request.Form["SoftwareLocation"];
+            robotVideo = Request.Form["RobotVideoLink"];
+            robotVideoName = Request.Form["RobotVideoName"];
+            List<string> fileversionlist = Request.Form["fileversion"].Split(',').ToList();
+            List<string> partList = Request.Form["Parts"].Split(',').ToList();
+            List<string> PartCountList = Request.Form["PartQuant"].Split(',').ToList();
 
-        List<RobotImage> image = new List<RobotImage>();
-        List<RobotMovie> movie = new List<RobotMovie>();
-        List<RobotFile> files = new List<RobotFile>();
+            List<ComponentData> ComponentDatas = new List<ComponentData>();
 
-        Robot Robot = new Robot(robotName, category, -1, RM);
-        Robot.descriptionEnglish = descriptionEN;
-        Robot.descriptionDutch = descriptionNL;
-        Robot.UpdateData();
-        Software Software = new Software(softwareName, softwareLocation, softwareVersion, Robot.ID, -1, RM);
-        Software.UpdateData();
+            List<RobotImage> image = new List<RobotImage>();
+            List<RobotMovie> movie = new List<RobotMovie>();
+            List<RobotFile> files = new List<RobotFile>();
 
-        movie.Add(new RobotMovie(robotVideoName, Robot.ID, robotVideo, -1, RM));
-        foreach (RobotMovie i in movie)
-        {
-            i.UpdateData();
-        }
+            Robot Robot = new Robot(robotName, category, -1, RM);
+            Robot.descriptionEnglish = descriptionEN;
+            Robot.descriptionDutch = descriptionNL;
+            Robot.UpdateData();
 
-        //Catch files and save them on the server
-        string[] imageFormats = new string[] { ".jpg", ".png", ".gif", ".jpeg" };
-        var fileName = "";
-        var fileSavePath = "";
+            RM.GetComponents();
 
-        for (int i = 0; i < Request.Files.Count; i++)
-        {
-            bool isImage = false;
-            var uploadedFile = Request.Files[i];
-            fileName = Path.GetFileName(uploadedFile.FileName);
-
-            foreach (var item in imageFormats)
+            for (int i = 0; i < partList.Count; ++i)
             {
-                if (fileName.Contains(item))
+                string s = partList[i];
+                Component D = null;
+                foreach (Component k in RM.componentRepository)
                 {
-                    isImage = true;
+                    if (k.ID == Convert.ToInt32(s))
+                    {
+                        D = k;
+                        break;
+                    }
+                }
+
+                ComponentDatas.Add(new ComponentData(D, Convert.ToInt32(PartCountList[i]), Robot.ID));
+            }
+
+
+            Software Software = new Software(softwareName, softwareLocation, softwareVersion, Robot.ID, -1, RM);
+            Software.UpdateData();
+
+            movie.Add(new RobotMovie(robotVideoName, Robot.ID, robotVideo, -1, RM));
+            foreach (RobotMovie i in movie)
+            {
+                i.UpdateData();
+            }
+
+            //Catch files and save them on the server
+            string[] imageFormats = new string[] { ".jpg", ".png", ".gif", ".jpeg" };
+            var fileName = "";
+            var fileSavePath = "";
+
+            for (int i = 0; i < Request.Files.Count; i++)
+            {
+                bool isImage = false;
+                var uploadedFile = Request.Files[i];
+                fileName = Path.GetFileName(uploadedFile.FileName);
+
+                foreach (var item in imageFormats)
+                {
+                    if (fileName.Contains(item))
+                    {
+                        isImage = true;
+                    }
+                }
+
+                if (isImage)
+                {
+                    fileSavePath = Server.MapPath("~/App_Data/Images/" + fileName);
+                    uploadedFile.SaveAs(fileSavePath);
+                    image.Add(new RobotImage(fileName, fileSavePath, Robot.ID, -1, RM));
+                }
+                else {
+                    fileSavePath = Server.MapPath("~/App_Data/UploadedFiles/" + fileName);
+                    uploadedFile.SaveAs(fileSavePath);
+                    files.Add(new RobotFile(fileName, fileSavePath, fileversionlist[0], Robot.ID, -1, RM));
+                    fileversionlist.RemoveAt(0);
                 }
             }
 
-            if (isImage)
+            foreach (RobotImage i in image)
             {
-                fileSavePath = Server.MapPath("~/App_Data/Images/" + fileName);
-                uploadedFile.SaveAs(fileSavePath);
-                image.Add(new RobotImage(fileName, fileSavePath, Robot.ID, -1, RM));
+                i.UpdateData();
             }
-            else {
-                fileSavePath = Server.MapPath("~/App_Data/UploadedFiles/" + fileName);
-                uploadedFile.SaveAs(fileSavePath);
-                files.Add(new RobotFile(fileName, fileSavePath, fileversionlist[0], Robot.ID, -1, RM));
-                fileversionlist.RemoveAt(0);
+            foreach (RobotFile f in files)
+            {
+                f.UpdateData();
             }
         }
-
-        foreach (RobotImage i in image)
+        catch (Exception e)
         {
-            i.UpdateData();
-        }
-        foreach (RobotFile f in files)
-        {
-            f.UpdateData();
+            //Supress exception
         }
     }
 }
@@ -149,6 +179,9 @@
                             </option>
                         }
                     </select>
+
+                <p><label for="PartQuant">Part quantities:</label></p>
+                <input type="text" name="PartQuant" placeholder="Part quantities, Comma seperated" />
 
                 <p><label for="SoftwareName">Software name:</label></p>
                 <input type="text" name="SoftwareName" value="" placeholder="Name of the software"/>
