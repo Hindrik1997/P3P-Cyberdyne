@@ -1,35 +1,23 @@
-﻿@using Resources;
-@{
+﻿@{
     Layout = "~/_RobotLayout.cshtml";
     Page.Title = "Software";
 
     RepoManager RM = new RepoManager();
     string robotId = Session["RobotID"].ToString();
-    RM.GetSoftwareByRobotId(Convert.ToInt16(robotId));
-    RM.GetFileByRobotId(Convert.ToInt16(robotId));
+
+    var grid = new WebGrid(source: RM.GetSoftwareByRobotId(Convert.ToInt16(robotId)));
 }
 
 <h1>@Page.Title</h1>
-<table id="SoftwareTable">
-    <tr>
-        <th>@Content.Name</th>
-        <th>@Content.Version</th>
-        <th>@Content.Location</th>
-    </tr>
-    @foreach (var Software in RM.softwareRepository)
-    {
-        <tr>
-            <td>@Software.name</td>
-            <td>@Software.version</td>
-            <td><a href="@Software.location">@Software.location</a></td>
-        </tr>
-    }
-    @foreach (var File in RM.fileRepository)
-    {
-        <tr>
-            <td>@File.name</td>
-            <td>@File.version</td>
-            <td><a href="@File.location" download>Download</a></td>   
-        </tr>
-    }
-</table>
+    <style type="text/css">
+        .grid {margin: 4px; border-collapse: collapse; width: 100%; }
+        .grid th, .grid td {border: 1px solid #C0C0C0; padding: 3px; }
+        .head {background-color: #E8E8E8; color: #FFF;}
+        .alt {background-color: #E8E8E8; color: #000;}
+    </style>
+<div class="table table-responsive">
+    @grid.GetHtml(
+            tableStyle: "grid",
+            headerStyle: "head",
+            alternatingRowStyle: "alt")
+</div>

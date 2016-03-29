@@ -31,8 +31,8 @@
                         <li><a href="~/Contact">Contact</a></li>
                         @if (WebSecurity.IsAuthenticated)
                         {
-                            <li><a href="~/Menu/Admin/AddRobot">Add Robot</a></li>
-                            <li><a href="~/Menu/Admin/AddPart">Add Parts</a></li>
+                            <li><a href="~/Menu/Admin/AddRobot">@Content.AddRobot</a></li>
+                            <li><a href="~/Menu/Admin/AddPart">@Content.AddPart</a></li>
                         }
                     </ul>
                 </nav>
