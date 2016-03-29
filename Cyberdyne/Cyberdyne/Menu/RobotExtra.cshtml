@@ -1,26 +1,48 @@
 ﻿@{
     Layout = "~/_RobotLayout.cshtml";
     int robotId = Convert.ToInt16(Session["RobotID"]);
-    DeleteItemsFromDB db = new DeleteItemsFromDB();
+    DeleteItemsFromDB DeleteClass = new DeleteItemsFromDB();
+    RepoManager RM = new RepoManager();
+    Robot Robot = RM.GetRobotsByID(robotId);
 
+    Validation.RequireField("RobotName", "You must enter a robot name");
+    Validation.RequireField("DescriptionEN", "You must enter an english description");
+    Validation.RequireField("DescriptionNL", "You must enter a dutch description");
 
-    if (IsPost && WebSecurity.IsAuthenticated){
+    if (IsPost && WebSecurity.IsAuthenticated && Validation.IsValid()){
         if(Request.Form["editSubmit"] != null)
         {
-
+            Robot.name = Request.Form["RobotName"];
+            Robot.descriptionEnglish = Request.Form["DescriptionEN"];
+            Robot.descriptionDutch = Request.Form["DescriptionNL"];
+            Robot.UpdateData();
 
         }
         if(Request.Form["deleteSubmit"] != null)
         {
-            db.DeleteRobotFromDB(robotId);
+            DeleteClass.DeleteRobotFromDB(robotId);
             Response.Redirect("~/Menu/RobotList");
         }
     }
 }
 
 <h1>Edit Robot</h1>
-
+<p>@Html.ValidationSummary()</p>
 <form method="post" enctype="multipart/form-data" action="">
+    <fieldset>
+        <p>
+            <label for="RobotName">Robot Name:</label>
+            <input type="text" name="RobotName" value="@Robot.name" placeholder="Name of the robot"/>
+        </p>
+        <p>
+            <label for="DescriptionEN">Description: (English)</label>
+            <textarea name="DescriptionEN" placeholder="English description of the robot">@Robot.descriptionEnglish</textarea>
+        </p>
+        <p>
+            <label for="DescriptionNL">Description: (Nederlands)</label>
+            <textarea name="DescriptionNL" placeholder="Nederlandse beschrijving van de robot">@Robot.descriptionDutch</textarea>
+        </p>
+    </fieldset>
     <input type="submit" name="editSubmit" value="Edit"></input>
     <input type="submit" name="deleteSubmit" value="Delete"></input>
 </form>
