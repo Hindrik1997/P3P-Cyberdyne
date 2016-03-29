@@ -34,7 +34,6 @@
     //Check if validation is valid and a user is logged in
     if (IsPost && Request.Files.Count > 0 && Validation.IsValid() && WebSecurity.IsAuthenticated)
     {
-
         //Create directories if they don't exist
         var dirPath = Server.MapPath("~/App_Data/UploadedFiles/");
         var imagePath = Server.MapPath("~/App_Data/Images/");
@@ -128,19 +127,18 @@
             <fieldset>
                 <p><label for="RobotName">Robot Name:</label></p>
                 <input type="text" name="RobotName" value="" placeholder="Name of the robot" />
-                <p>
-                    <label for="DescriptionEN">Description: (English)</label>
-                    <textarea name="DescriptionEN" placeholder="English description of the robot"></textarea>
 
-                </p>
+                <p><label for="RobotCategory">Robot category:</label></p>
+                <input type="text" name="RobotCategory" value="" placeholder="Category of the robot" />
+                
+                <p><label for="DescriptionEN">Description: (English)</label></p>
+                <textarea name="DescriptionEN" placeholder="English description of the robot"></textarea>
 
-                <p>
-                    <label for="DescriptionNL">Description: (Nederlands)</label>
-                    <textarea name="DescriptionNL" placeholder="Nederlandse beschrijving van de robot"></textarea>
+                <p><label for="DescriptionNL">Description: (Nederlands)</label></p>
+                <textarea name="DescriptionNL" placeholder="Nederlandse beschrijving van de robot"></textarea>
 
-                </p>
-                <p>
-                    <label for="Parts">Parts:</label>
+                
+                <p><label for="Parts">Parts:</label></p>
                     <input type="text" name="Parts" placeholder=" Part ID's, Comma seperated" />
                     <select multiple id="SELECTOR">
                         @foreach (var Component in RM.componentRepository)
@@ -151,7 +149,6 @@
                             </option>
                         }
                     </select>
-                </p>
 
                 <p><label for="SoftwareName">Software name:</label></p>
                 <input type="text" name="SoftwareName" value="" placeholder="Name of the software"/>
