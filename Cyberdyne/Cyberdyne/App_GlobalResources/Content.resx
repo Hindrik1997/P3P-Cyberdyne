@@ -156,10 +156,28 @@
   <data name="Products" xml:space="preserve">
     <value>Products</value>
   </data>
+  <data name="ArticleNumber" xml:space="preserve">
+    <value>Article number</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Description</value>
+  </data>
   <data name="Dutch" xml:space="preserve">
     <value>Dutch</value>
   </data>
   <data name="English" xml:space="preserve">
     <value>English</value>
+  </data>
+  <data name="PartName" xml:space="preserve">
+    <value>Part name</value>
+  </data>
+  <data name="Price" xml:space="preserve">
+    <value>Price</value>
+  </data>
+  <data name="SupplierAddress" xml:space="preserve">
+    <value>Supplier Address</value>
+  </data>
+  <data name="SupplierName" xml:space="preserve">
+    <value>Supplier name</value>
   </data>
 </root>

@@ -1,4 +1,5 @@
-﻿@{
+﻿@using Resources;
+@{
     Layout = "~/_SiteLayout.cshtml";
     Page.Title = "Add Part";
 
@@ -38,30 +39,29 @@
         @Html.ValidationSummary()
         <form method="post" enctype="multipart/form-data" action="">
             <fieldset>
-                <p><label for="PartName">Part Name:</label></p>
-                <input type="text" name="PartName" value=""/>
+                <p><label for="PartName">@Content.PartName</label></p>
+                <input type="text" name="PartName" value="" />
 
-                <p><label for="DescriptionNL">DescriptionNL:</label></p>
+                <p><label for="DescriptionNL">@Content.Description in @Content.Dutch</label></p>
                 <textarea style="width: 100%" name="DescriptionNL"></textarea>
 
 
-                <p><label for="DescriptionEN">DescriptionEN:</label></p>
+                <p><label for="DescriptionEN">@Content.Description in @Content.English</label></p>
                 <textarea style="width: 100%" name="DescriptionEN"></textarea>
                 
-                <p><label for="SupplierName">Supplier Name:</label></p>
+                <p><label for="SupplierName">@Content.SupplierName</label></p>
                 <input type="text" name="SupplierName" value=""/>
 
-                <p><label for="SupplierAddress">Supplier Address:</label></p>
+                <p><label for="SupplierAddress">@Content.SupplierAddress</label></p>
                 <input type="text" name="SupplierAddress" value=""/>
 
-                <p><label for="Price">Price:</label></p>
+                <p><label for="Price">@Content.Price</label></p>
                 <input type="text" name="Price" value=""/>
 
-                <p><input type="submit" name="buttonSubmit" value="Add Part" /></p>
-                <p><label for="partNumber">Article Number:</label>
+                <p><label for="partNumber">@Content.ArticleNumber</label>
                 <input type="text" name="partNumber" value="" /></p>
 
-                <p><input id="SubmitButtonAll" type="submit" name="buttonSubmit" value="Add Part" /></p>
+                <p><input id="SubmitButtonAll" type="submit" name="buttonSubmit" value="@Content.AddPart" /></p>
             </fieldset>
         </form>
     </body>
