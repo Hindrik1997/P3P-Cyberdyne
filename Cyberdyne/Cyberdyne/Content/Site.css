@@ -497,8 +497,9 @@ a .well {
     padding: 0px;
 }
 
-.tile.text{
+.tile-text{
     padding-left: 10px;
+    padding-bottom: 10px;
 }
 
 #video {
