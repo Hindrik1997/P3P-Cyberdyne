@@ -2,9 +2,8 @@
     Layout = "~/_RobotLayout.cshtml";
     RepoManager RM = new RepoManager();
     //List<RobotMovie> allMovies = RM.GetRobotMovies();
-
     string robotId = Request.QueryString["ID"];
-    if (Session["RobotID"] == null)
+    if (Session["RobotID"] == null || robotId != Session["RobotID"])
     {
         Session["RobotID"] = robotId;
     }

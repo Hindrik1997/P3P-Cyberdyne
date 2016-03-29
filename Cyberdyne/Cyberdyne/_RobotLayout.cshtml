@@ -71,12 +71,12 @@
             <section class="content-wrapper main-content clear-fix">
                 <nav>
                     <ul id="menu-side">
-                        <li><a href="~/Menu/Robots">Robot</a></li>
-                        <li><a href="~/Menu/RobotHardware">Hardware</a></li>
-                        <li><a href="~/Menu/RobotSoftware">Software</a></li>
+                        <li><a href="~/Menu/Robots/?id=@Session["RobotID"]">Robot</a></li>
+                        <li><a href="~/Menu/RobotHardware/?id=@Session["RobotID"]">Hardware</a></li>
+                        <li><a href="~/Menu/RobotSoftware/?id=@Session["RobotID"]">Software</a></li>
                         @if (WebSecurity.IsAuthenticated)
                         {
-                            <li><a href="~/Menu/RobotExtra">Edit Robot</a></li>
+                            <li><a href="~/Menu/RobotExtra/?id=@Session["RobotID"]">Edit Robot</a></li>
                         }
                     </ul>
                 </nav>
