@@ -156,6 +156,12 @@ footer {
     font-size: .8em;
 }
 
+#SubmitButtonAll {
+    background-color: black;
+    color: white;
+    border: 0;
+}
+
 /* Carousal
 ----------------------------------------------------------*/
 
@@ -846,11 +852,37 @@ tr.pager td {
             color: #333;
             background-color:transparent;
         }
-
-
         ul#menu a:hover {
             color: #333;
         }
+       
+    /* side-menu */ 
+        ul#menu-side {
+            margin: 0;
+            padding: 0;
+            padding-top: 40px;
+            float: left;
+            font-weight: 600;
+            text-align: center;
+            color: #fff;
+        }
+
+    ul#menu-side li {
+        margin-left: 0;
+        width: 60px;
+        -webkit-transition: width 2s, margin-left 2s; /* Safari */
+        transition: width 0s, margin-left 0s;
+    }
+
+    ul#menu-side li:hover  {
+        /*Transitions*/
+        margin-left: -25px;
+        width: 85px;
+    }
+
+    ul#menu-side li a {
+        color: transparent;
+    }
 
 
     /* main layout
@@ -946,7 +978,7 @@ tr.pager td {
     footer {
         text-align: center;
         height: auto;
-        padding: 10px 0;
+        padding: 0;
     }
 
         footer p {
