@@ -23,14 +23,13 @@
     <body>
         <form method="get">
         <div>
-            <label for="SearchRobot">Robot 2 Look for:</label>
             <input type="text" name="SearchRobot" value="@Request.QueryString["searchRobot"]" />
-            <input id="SubmitButtonAll" type="submit" value="@Content.Search" /><br />
+            <input id="SubmitButtonAll" type="submit" value="@Content.Search" placeholder="@Content.Search" /><br />
  
             (@Content.LeaveBlank)<br />
         </div>
         </form>
-        <h1>Products</h1>
+        <h1>@Content.Products</h1>
        
             @foreach (var Robot in RM.robotRepository)
             {
