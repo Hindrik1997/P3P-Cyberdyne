@@ -16,7 +16,6 @@
     var softwareVersion = "";
     var robotVideoName = "";
     var robotVideo = "";
-    var fileVersion = "";
 
     //Validation fields
     Validation.RequireField("RobotName", "You must enter a robot name");
@@ -51,9 +50,9 @@
         softwareName = Request.Form["SoftwareName"];
         softwareVersion = Request.Form["SoftwareVersion"];
         softwareLocation = Request.Form["SoftwareLocation"];
-        robotVideo = Request.Form["RobotVideo"];
+        robotVideo = Request.Form["RobotVideoLink"];
         robotVideoName = Request.Form["RobotVideoName"];
-        fileVersion = Request.Form["fileVersion"];
+        List<string> fileversionlist = Request.Form["fileversion"].Split(',').ToList();
 
         List<RobotImage> image = new List<RobotImage>();
         List<RobotMovie> movie = new List<RobotMovie>();
@@ -100,7 +99,8 @@
             else {
                 fileSavePath = Server.MapPath("~/App_Data/UploadedFiles/" + fileName);
                 uploadedFile.SaveAs(fileSavePath);
-                files.Add(new RobotFile(fileName, fileSavePath, fileVersion, Robot.ID, -1, RM));
+                files.Add(new RobotFile(fileName, fileSavePath, fileversionlist[0], Robot.ID, -1, RM));
+                fileversionlist.RemoveAt(0);
             }
         }
 
@@ -143,18 +143,13 @@
                     <label for="Parts">Parts:</label>
                     <input type="text" name="Parts" placeholder=" Part ID's, Comma seperated" />
                     <select multiple id="SELECTOR">
-                        <fieldlset>
-                            <legend>Parts</legend>
-                            @foreach (var Component in RM.componentRepository)
-                            {
-                                <option value="@Component.ID">
-                                    <ul id="menu">
-                                        <li>@Component.ID</li>
-                                        <li>@Component.componentName</li>
-                                    </ul>
-                                </option>
-                            }
-                        </fieldlset>
+                        @foreach (var Component in RM.componentRepository)
+                        {
+                            <option value="@Component.ID">
+                                    @Component.ID
+                                    @Component.componentName
+                            </option>
+                        }
                     </select>
                 </p>
 
@@ -171,21 +166,24 @@
                 <input type="text" name="RobotVideoName" value="" placeholder="Name of the video"/>
 
                 <p><label for="RobotVideo">Robotvideo (Youtube link):</label></p>
-                <input type="text" name="RobotVideo" value="" placeholder="Link to the video"/>
+                <input type="text" name="RobotVideoLink" value="" placeholder="Link to the video"/>
 
                 <p><label for="Files">File:</label></p>
                 @FileUpload.GetHtml(
                  initialNumberOfFiles: 1,
                  allowMoreFilesToBeAdded: true,
                  includeFormTag: false,
-                 addText: "Add another file",
-                 uploadText: "Upload")
+                 addText: "Add another file")
 
                 <p><label for="FileVersion">File Version:</label></p>
-                <input type="text" name="FileVersion" value="" />
+                <input type="text" name="FileVersion" value="" placeholder="File versions comma seperated"/>             
 
                 <p><label for="images">images:</label></p>
-                <input type="file" name="image" value="" multiple />
+                @FileUpload.GetHtml(
+                 initialNumberOfFiles: 1,
+                 allowMoreFilesToBeAdded: true,
+                 includeFormTag: false,
+                 addText: "Add another image")
 
                 <p><input type="submit" name="buttonSubmit" value="Add Robot" /></p>
             </fieldset>
