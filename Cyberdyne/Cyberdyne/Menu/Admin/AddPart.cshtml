@@ -3,6 +3,7 @@
     Layout = "~/_SiteLayout.cshtml";
     Page.Title = "Add Part";
 
+    var partNumber = "";
     var partName ="";
     var supplierName ="";
     var supplierAddress ="";
@@ -17,6 +18,7 @@
     Validation.Add("Prijs", Validator.Decimal("Price should be a Decimal"));
     Validation.RequireField("DescriptionNL", "You must enter a description");
     Validation.RequireField("DescriptionEN", "You must enter a description");
+    Validation.RequireField("partNumber", "You must enter a part number");
 
     if(IsPost && WebSecurity.IsAuthenticated){
         partName = Request.Form["PartName"];
@@ -25,6 +27,13 @@
         price = Request.Form["Price"];
         descriptionNL = Request.Form["DescriptionNL"];
         descriptionEN = Request.Form["DescriptionEN"];
+
+        Supplier s = new Supplier(supplierName, supplierAddress, -1, null);
+        s.UpdateData();
+
+        Component comp = new Component(partNumber, partName, Convert.ToDecimal(price),-1, null, -1, null, -1, s.ID);
+        comp.UpdateData();
+
     }
 
 }
@@ -35,7 +44,9 @@
     <head>
         <meta charset="utf-8" />
     </head>
-    <body>
+<body>
+    @if (WebSecurity.IsAuthenticated)
+    {
         @Html.ValidationSummary()
         <form method="post" enctype="multipart/form-data" action="">
             <fieldset>
@@ -48,21 +59,29 @@
 
                 <p><label for="DescriptionEN">@Content.Description in @Content.English</label></p>
                 <textarea style="width: 100%" name="DescriptionEN"></textarea>
-                
+
                 <p><label for="SupplierName">@Content.SupplierName</label></p>
-                <input type="text" name="SupplierName" value=""/>
+                <input type="text" name="SupplierName" value="" />
 
                 <p><label for="SupplierAddress">@Content.SupplierAddress</label></p>
-                <input type="text" name="SupplierAddress" value=""/>
+                <input type="text" name="SupplierAddress" value="" />
 
                 <p><label for="Price">@Content.Price</label></p>
-                <input type="text" name="Price" value=""/>
+                <input type="text" name="Price" value="" />
 
-                <p><label for="partNumber">@Content.ArticleNumber</label>
-                <input type="text" name="partNumber" value="" /></p>
+                <p>
+                    <label for="partNumber">@Content.ArticleNumber</label>
+                    <input type="text" name="partNumber" value="" />
+                </p>
 
                 <p><input id="SubmitButtonAll" type="submit" name="buttonSubmit" value="@Content.AddPart" /></p>
             </fieldset>
         </form>
-    </body>
+    }
+    else
+    {
+        <p>You must be logged in to do that!</p>
+    }
+</body>
+
 </html>
