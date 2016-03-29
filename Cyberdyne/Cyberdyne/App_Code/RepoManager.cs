@@ -315,6 +315,28 @@ public class RepoManager
             softwareRepository.Add(new Software(Row["Name"], Row["Location"], Row["Version"], Row["RobotID"], Row["SoftwareID"], this));
         }
     }
+
+    public List<RobotFile> GetFileByRobotId(int robotId)
+    {
+        db = Database.Open("Cyberdyne");
+        GetBasicFileDataByRobotId(robotId);
+        FillAllDataInRepo(fileRepository);
+        db.Close();
+        return fileRepository.GetList();
+    }
+
+    protected void GetBasicFileDataByRobotId(int robotId)
+    {
+        fileRepository = new Repository<RobotFile>(this);
+        string sql = @"SELECT *
+        FROM Files 
+        WHERE RobotID = @0";
+        IEnumerable<dynamic> Data = db.Query(sql, robotId);
+        foreach (var Row in Data)
+        {
+            fileRepository.Add(new RobotFile(Row["Name"], Row["Location"], Row["Version"], Row["RobotID"], Row["FileID"], this));
+        }
+    }
     #endregion
 
     //SEARCHEN ENZO MOET ER NOG IN!

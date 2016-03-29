@@ -6,21 +6,30 @@
     RepoManager RM = new RepoManager();
     string robotId = Session["RobotID"].ToString();
     RM.GetSoftwareByRobotId(Convert.ToInt16(robotId));
+    RM.GetFileByRobotId(Convert.ToInt16(robotId));
 }
 
 <h1>@Page.Title</h1>
 <table id="SoftwareTable">
     <tr>
         <th>@Content.Name</th>
-        <th>@Content.Version</th> 
+        <th>@Content.Version</th>
         <th>@Content.Location</th>
     </tr>
-@foreach(var Software in RM.softwareRepository)
-{ 
-    <tr>
-        <td>@Software.name</td>
-        <td>@Software.version</td> 
-        <td><a href="@Software.location">@Software.location</a></td>
-    </tr>
-}
+    @foreach (var Software in RM.softwareRepository)
+    {
+        <tr>
+            <td>@Software.name</td>
+            <td>@Software.version</td>
+            <td><a href="@Software.location">@Software.location</a></td>
+        </tr>
+    }
+    @foreach (var File in RM.fileRepository)
+    {
+        <tr>
+            <td>@File.name</td>
+            <td>@File.version</td>
+            <td><a href="@File.location">@File.location</a></td>
+        </tr>
+    }
 </table>
