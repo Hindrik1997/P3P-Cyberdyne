@@ -156,6 +156,12 @@ footer {
     font-size: .8em;
 }
 
+#SubmitButtonAll {
+    background-color: black;
+    color: white;
+    border: 0;
+}
+
 /* Carousal
 ----------------------------------------------------------*/
 

@@ -25,9 +25,9 @@
         <div>
             <label for="SearchRobot">Robot 2 Look for:</label>
             <input type="text" name="SearchRobot" value="@Request.QueryString["searchRobot"]" />
-            <input type="submit" value="Search Robot" /><br />
+            <input id="SubmitButtonAll" type="submit" value="@Content.Search" /><br />
  
-            (leave blank to list all Robots.)<br />
+            (@Content.LeaveBlank)<br />
         </div>
         </form>
         <h1>Products</h1>
