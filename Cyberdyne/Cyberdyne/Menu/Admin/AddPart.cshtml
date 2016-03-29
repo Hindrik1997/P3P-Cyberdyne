@@ -8,22 +8,35 @@
     var price = "";
     var descriptionNL = "";
     var descriptionEN = "";
+    var partNumber = "";
 
     Validation.RequireField("PartName", "You must enter a part name");
     Validation.RequireField("SupplierName", "You must enter a supplier name");
     Validation.RequireField("SupplierAddress", "You must enter a supplier adrress");
     Validation.RequireField("Price", "You must enter a price");
-    Validation.Add("Prijs", Validator.Decimal("Price should be a Decimal"));
+    Validation.Add("Price", Validator.Decimal("Price should be a Decimal"));
     Validation.RequireField("DescriptionNL", "You must enter a description");
     Validation.RequireField("DescriptionEN", "You must enter a description");
+    Validation.RequireField("partNumber", "You must enter a number");
 
     if(IsPost && WebSecurity.IsAuthenticated){
+        RepoManager RM = new RepoManager();
+        RM.GetComponents();
+
         partName = Request.Form["PartName"];
         supplierName = Request.Form["SupplierName"];
         supplierAddress = Request.Form["SupplierAdress"];
         price = Request.Form["Price"];
         descriptionNL = Request.Form["DescriptionNL"];
         descriptionEN = Request.Form["DescriptionEN"];
+        partNumber = Request.Form["partNumber"];
+
+        Supplier S = new Supplier(supplierName, supplierAddress, -1, RM);
+        S.UpdateData();
+        Component C = new Component(partNumber, partName, Convert.ToDecimal(price), -1, RM, -1, null, -1, S.ID);
+        C.descriptionENG = descriptionEN;
+        C.descriptionNL = descriptionNL;
+        C.UpdateData();
     }
 
 }
@@ -55,6 +68,9 @@
 
                 <p><label for="Price">Price:</label></p>
                 <input type="text" name="Price" value=""/>
+
+                <p><label for="partNumber">Article Number:</label>
+                <input type="text" name="partNumber" value="" /></p>
 
                 <p><input type="submit" name="buttonSubmit" value="Add Part" /></p>
             </fieldset>
