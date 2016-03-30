@@ -17,17 +17,20 @@
             Robot.descriptionEnglish = Request.Form["DescriptionEN"];
             Robot.descriptionDutch = Request.Form["DescriptionNL"];
             Robot.category = Request.Form["Category"];
-            
+
             if(Request.Form["ClipOne"] != "")
             {
-                Robot.movies.Add(new RobotMovie("Clip",Robot.ID,Request.Form["ClipOne"],-1 ,RM));
+                RobotMovie Movie = new RobotMovie("Clip", Robot.ID, Request.Form["ClipOne"], -1, RM);
+                Movie.UpdateData();
             }
             if(Request.Form["ClipTwo"] != "")
             {
-                Robot.movies.Add(new RobotMovie("Clip",Robot.ID,Request.Form["ClipTwo"],-1 ,RM));
+                //Robot.movies.Add(new RobotMovie("Clip",Robot.ID,Request.Form["ClipTwo"],-1 ,RM));
+                
             }
             Robot.UpdateData();
-   
+
+
 
         }
         if(Request.Form["deleteSubmit"] != null)
