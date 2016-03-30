@@ -10,6 +10,7 @@
     Validation.RequireField("DescriptionEN", "You must enter an english description");
     Validation.RequireField("DescriptionNL", "You must enter a dutch description");
 
+
     if (IsPost && WebSecurity.IsAuthenticated && Validation.IsValid()){
         if(Request.Form["editSubmit"] != null)
         {
@@ -17,17 +18,49 @@
             Robot.descriptionEnglish = Request.Form["DescriptionEN"];
             Robot.descriptionDutch = Request.Form["DescriptionNL"];
             Robot.category = Request.Form["Category"];
+            string clipOne = "";
+            string clipTwo = "";
 
-            if(Request.Form["ClipOne"] != "")
+            // This is getting quite big, maybe make it a function.
+            try{
+                clipOne = "https://www.youtube.com/embed/" + Request.Form["ClipOne"].Split('=')[1];
+            }
+            catch
             {
-                RobotMovie Movie = new RobotMovie("Clip", Robot.ID, Request.Form["ClipOne"], -1, RM);
+                clipOne = Request.Form["ClipOne"];
+            }
+
+            try{
+                clipTwo = "https://www.youtube.com/embed/" + Request.Form["ClipTwo"].Split('=')[1];
+            }
+            catch
+            {
+                clipTwo = Request.Form["ClipTwo"];
+            }
+
+            if(Robot.movies.Count < 1)
+            {
+                RobotMovie Movie = new RobotMovie("Clip", Robot.ID, clipOne, -1, RM);
                 Movie.UpdateData();
             }
-            if(Request.Form["ClipTwo"] != "")
+            else
             {
-                //Robot.movies.Add(new RobotMovie("Clip",Robot.ID,Request.Form["ClipTwo"],-1 ,RM));
-                
+                Robot.movies[0].location = clipOne;   
+                Robot.movies[0].UpdateData(); 
             }
+            
+            if(Robot.movies.Count < 2)
+            {
+                RobotMovie Movie = new RobotMovie("Clip", Robot.ID, clipTwo, -1, RM);
+                Movie.UpdateData();
+            }
+            else
+            {
+                Robot.movies[1].location = clipTwo;   
+                Robot.movies[1].UpdateData();  
+            }
+            
+
             Robot.UpdateData();
 
 
@@ -55,12 +88,11 @@
         </p>
         <p>
             <label for="ClipOne">Embedded Clip:</label>
-            <p>@Robot.movies.Count</p>
-            <input type="text" name="ClipOne" value="@if(Robot.movies.Count >= 1){@Robot.movies[0].location;}" placeholder="First clip for the robot"/>
+            <input type="url" name="ClipOne" value="@if(Robot.movies.Count >= 1 && Robot.movies[0].location != ""){@("https://www.youtube.com/watch?v="+Robot.movies[0].location.Split('/')[4]);}" placeholder="First clip for the robot"/>
         </p>
         <p>
             <label for="ClipTwo">Embedded Clip:</label>
-            <input type="text" name="ClipTwo" value="@if(Robot.movies.Count >= 2){@Robot.movies[1].location;}" placeholder="Second clip for the robot"/>
+            <input type="url" name="ClipTwo" value="@if(Robot.movies.Count >= 2 && Robot.movies[1].location != ""){@("https://www.youtube.com/watch?v="+Robot.movies[1].location.Split('/')[4]);}" placeholder="Second clip for the robot"/>
         </p>
         <p>
             <label for="DescriptionEN">Description: (English)</label>

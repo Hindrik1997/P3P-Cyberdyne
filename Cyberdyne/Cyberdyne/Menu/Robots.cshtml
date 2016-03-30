@@ -16,7 +16,7 @@
         <h1 class="inline">@Robot.name</h1>
         <h3 class="inline">@Robot.category</h3>
         <div>
-            @if(clips.Count >= 1)
+            @if(clips.Count >= 1 && clips[0].location != "")
             {
                 <iframe class="float-left" width="400" height="315" src="@clips[0].location"></iframe>
             }
@@ -29,7 +29,7 @@
             <p>@Robot.descriptionEnglish</p>
             }
             </p>
-            @if(clips.Count >= 2)
+            @if(clips.Count >= 2 && clips[1].location != "")
             {
                 <iframe class="float-right" width="400" height="315" src="@clips[1].location"></iframe>
             }
