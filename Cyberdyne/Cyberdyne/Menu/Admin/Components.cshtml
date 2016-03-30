@@ -1,11 +1,18 @@
-﻿@{
+﻿@using Resources;
+@{
     Layout = "~/_SiteLayout.cshtml";
     Page.Title = "Hardware";
-
+    
+    var searchTerm = "";
     var db = Database.Open("Cyberdyne");
-    var sql = "SELECT * FROM Components INNER JOIN ComponentList ON Components.ComponentID = ComponentList.ComponentID INNER JOIN Supplier ON Components.SupplierID = Supplier.SupplierID";
+    var sql = "SELECT * FROM Components INNER JOIN Supplier ON Components.SupplierID = Supplier.SupplierID";
+    if (!Request.QueryString["searchComponent"].IsEmpty())
+    {
+        sql = "SELECT * FROM Components INNER JOIN Supplier ON Components.SupplierID = Supplier.SupplierID WHERE Components.ComponentNumber LIKE @0 OR Components.ComponentName LIKE @0 OR Supplier.Name LIKE @0";
+        searchTerm = "%" + Request["searchComponent"] + "%";
+    }
 
-    var selectedData = db.Query(sql);
+    var selectedData = db.Query(sql, searchTerm);
     var grid = new WebGrid(source: selectedData, defaultSort: "ComponentName", rowsPerPage: 10);
 }
 
@@ -17,23 +24,38 @@
         .head {background-color: #E8E8E8; color: #FFF;}
         .alt {background-color: #E8E8E8; color: #000;}
     </style>
-    @if (UICulture.Equals("nl-NL")) {
+    <form method="get">
+        <div>
+            <input type="text" name="searchComponent" value="@Request.QueryString["searchComponent"]" placeholder="@Content.Search" />
+            <input id="SubmitButtonAll" type="submit" value="@Content.Search" /><br />
+
+            (@Content.LeaveBlank)<br />
+        </div>
+    </form>
+    @if (UICulture.Equals("nl-NL") && WebSecurity.IsAuthenticated) {
         @grid.GetHtml(
         tableStyle: "grid",
         headerStyle: "head",
         alternatingRowStyle: "alt",
-        columns: grid.Columns(grid.Column("ComponentName", "Naam"), grid.Column("Quantity", "Hoeveelheid"), 
+        columns: grid.Columns(grid.Column("ComponentName", "Naam"), 
         grid.Column("ComponentNumber", "Artikel Nummer"), grid.Column("DescriptionNL", "Beschrijving"), 
         grid.Column("Price", "Prijs (€)"), grid.Column("Name", "Leverancier"), grid.Column("Address", "Adres Leverancier"),
         grid.Column(format: @<a href="~/Menu/Admin/EditComponent?ID=@item.ComponentID">Edit</a>)))
+        <p><input id="SubmitButtonAll" type="submit" name="buttonSubmit" value="@Content.AddPart FIX FF DIT KNOPJE IK ZUIG IN HTML" /></p>
     }
-    else {
+    else if (WebSecurity.IsAuthenticated)
+    {
         @grid.GetHtml(
         tableStyle: "grid",
         headerStyle: "head",
         alternatingRowStyle: "alt",
-        columns: grid.Columns(grid.Column("ComponentName", "Name"), grid.Column("Quantity"), 
+        columns: grid.Columns(grid.Column("ComponentName", "Name"), 
         grid.Column("ComponentNumber", "Article Number"), grid.Column("DescriptionENG", "Description"), 
         grid.Column("Price", "Price (€)"), grid.Column("Name", "Supplier"), grid.Column("Address", "Address Supplier "),
         grid.Column(format: @<a href="~/Menu/Admin/EditComponent?ID=@item.ComponentID">Edit</a>)))
+        <p><input id="SubmitButtonAll" type="submit" name="buttonSubmit" value="@Content.AddPart FIX FF DIT KNOPJE IK ZUIG IN HTML" /></p>
+    }
+    else
+    {
+        <p>You must be logged in to do that!</p>
     }

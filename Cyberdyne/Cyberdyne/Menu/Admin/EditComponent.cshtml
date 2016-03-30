@@ -63,6 +63,7 @@
             RepoManager RM = new RepoManager();
 
             Supplier S = new Supplier(SupplierName, SupplierAddress, RM.GetSupplierIDbySuppliertName(SupplierName), RM);
+            S.UpdateData();
 
             Component C = new Component(ComponentNumber, ComponentName, Convert.ToDecimal(Price),Convert.ToInt16(ComponentID), RM, -1, null, -1, S.ID);
             C.descriptionENG = DescriptionENG;

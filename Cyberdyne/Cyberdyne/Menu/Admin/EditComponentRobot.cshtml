@@ -1,0 +1,148 @@
+﻿@{
+    Page.Title = "Edit a component";
+    Layout = "~/_SiteLayout.cshtml";
+
+    var ComponentID = "";
+    var ComponentName = "";
+    var ComponentNumber = "";
+    var DescriptionNL = "";
+    var DescriptionENG = "";
+    var Price = "";
+    decimal PriceDec = 0;
+    var Quantity = "";
+    int QuantityInt = 0;
+    var SupplierName = "";
+    var SupplierAddress = "";
+    int SupplierID = 0;
+    string robotId = Session["RobotID"].ToString();
+
+    if (!IsPost && WebSecurity.IsAuthenticated)
+    {
+
+        if (!Request.QueryString["ID"].IsEmpty() && Request.QueryString["ID"].IsInt())
+        {
+            ComponentID = Request.QueryString["ID"];
+            var db = Database.Open("Cyberdyne");
+            var dbCommand = "SELECT * FROM Components INNER JOIN ComponentList ON Components.ComponentID = ComponentList.ComponentID INNER JOIN Supplier ON Components.SupplierID = Supplier.SupplierID WHERE Components.ComponentID = @0 AND ComponentList.RobotID = @1";
+            var row = db.QuerySingle(dbCommand, ComponentID, robotId);
+
+            if (row != null)
+            {
+                ComponentName = row.ComponentName;
+                ComponentNumber = row.ComponentNumber;
+                DescriptionNL = row.DescriptionNL;
+                DescriptionENG = row.DescriptionENG;
+                PriceDec = row.Price;
+                QuantityInt = row.Quantity;
+                SupplierName = row.Name;
+                SupplierAddress = row.Address;
+                SupplierID = row.SupplierID;
+                Price = Convert.ToString(PriceDec);
+                Quantity = Convert.ToString(QuantityInt);
+            }
+            else
+            {
+                Validation.AddFormError("No component was found for this ID.");
+            }
+        }
+        else
+        {
+            Validation.AddFormError("No Component was selected.");
+        }
+    }
+
+    if (IsPost && WebSecurity.IsAuthenticated)
+    {
+        Validation.RequireField("ComponentName", "You must enter a name");
+        Validation.RequireField("DescriptionNL", "You must enter a description");
+        Validation.RequireField("DescriptionENG", "You must enter a description");
+        Validation.RequireField("Price", "You must enter a price");
+        Validation.Add("Price", Validator.Decimal("Price should be a Decimal"));
+        Validation.RequireField("Price", "You must enter a Quantity");
+        Validation.Add("Price", Validator.Integer("Quantity should be a Number"));
+        Validation.RequireField("SupplierName", "You must enter a name");
+        Validation.RequireField("SupplierAddress", "You must enter an address");
+
+        ComponentName = Request.Form["ComponentName"];
+        ComponentNumber = Request.Form["ComponentNumber"];
+        DescriptionNL = Request.Form["DescriptionNL"];
+        DescriptionENG = Request.Form["DescriptionENG"];
+        Price = Request.Form["Price"];
+        Quantity = Request.Form["Quantity"];
+        SupplierName = Request.Form["SupplierName"];
+        SupplierAddress = Request.Form["SupplierAddress"];
+        ComponentID = Request.QueryString["ID"];
+
+        if (Validation.IsValid())
+        {
+            RepoManager RM = new RepoManager();
+
+            Supplier S = new Supplier(SupplierName, SupplierAddress, RM.GetSupplierIDbySuppliertName(SupplierName), RM);
+            S.UpdateData();
+
+            Component C = new Component(ComponentNumber, ComponentName, Convert.ToDecimal(Price), Convert.ToInt16(ComponentID), RM, -1, null, -1, S.ID);
+            C.descriptionENG = DescriptionENG;
+            C.descriptionNL = DescriptionNL;
+            C.UpdateData();
+
+            ComponentData D = new ComponentData(C, Convert.ToInt16(Quantity), Convert.ToInt16(robotId));
+            D.UpdateData();
+        }
+    }
+}
+
+@if (WebSecurity.IsAuthenticated)
+{
+<h2>@Page.title</h2>
+@Html.ValidationSummary()
+<form method="post">
+    <p>
+        <label for="ComponentName">Name:</label>
+        <input type="text" name="ComponentName" value="@ComponentName" />
+    </p>
+
+    <p>
+        <label for="ComponentNumber">Article Number:</label>
+        <input type="text" name="ComponentNumber" value="@ComponentNumber" />
+    </p>
+
+    <p>
+        <label for="DescriptionNL">Description NL:</label>
+        <input type="text" name="DescriptionNL" value="@DescriptionNL" />
+    </p>
+
+    <p>
+        <label for="DescriptionENG">Description ENG:</label>
+        <input type="text" name="DescriptionENG" value="@DescriptionENG" />
+    </p>
+
+    <p>
+        <label for="Price">Price:</label>
+        <input type="text" name="Price" value="@Price" />
+    </p>
+
+    <p>
+        <label for="Price">Quantity:</label>
+        <input type="text" name="Quantity" value="@Quantity" />
+    </p>
+
+    <p>
+        <label for="SupplierName">Supplier:</label>
+        <input type="text" name="SupplierName" value="@SupplierName" />
+    </p>
+
+    <p>
+        <label for="SupplierAddress">Supplier Address:</label>
+        <input type="text" name="SupplierAddress" value="@SupplierAddress" />
+    </p>
+
+    <p><input type="submit" name="buttonSubmit" value="Submit" /></p>
+</form>
+}
+else
+{
+    <p>You must be logged in to do that!</p>
+}
+
+
+

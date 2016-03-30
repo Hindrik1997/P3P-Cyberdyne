@@ -13,13 +13,14 @@
     }
     string robotId = Session["RobotID"].ToString();
 
+
     var selectedData = db.Query(sql, robotId, searchTerm);
     var grid = new WebGrid(source: selectedData, defaultSort: "ComponentName", rowsPerPage: 10);
 }
 
 <h1>@Page.Title</h1>
     <style type="text/css">
-        .grid {margin: 4px; border-collapse: collapse; width: 90%; }
+        .grid {margin: 4px; border-collapse: collapse; width: 95%; }
         .grid th, .grid td {border: 1px solid #C0C0C0; padding: 3px; }
         .head {background-color: #E8E8E8; color: #FFF;}
         .alt {background-color: #E8E8E8; color: #000;}
@@ -41,16 +42,20 @@
         alternatingRowStyle: "alt",
         columns: grid.Columns(grid.Column("ComponentName", "Naam"), grid.Column("Quantity", "Hoeveelheid"),
         grid.Column("ComponentNumber", "Artikel Nummer"), grid.Column("DescriptionNL", "Beschrijving"),
-        grid.Column("Price", "Prijs (€)"), grid.Column("Name", "Leverancier"), grid.Column("Address", "Adres Leverancier")))
+        grid.Column("Price", "Prijs (€)"), grid.Column("Name", "Leverancier"), grid.Column("Address", "Adres Leverancier"),
+        grid.Column(format: @<a href="~/Menu/Admin/EditComponentRobot?ID=@item.ComponentID">Edit</a>)))
         }
-        else
-        {
+else
+{
             @grid.GetHtml(
         tableStyle: "grid",
         headerStyle: "head",
         alternatingRowStyle: "alt",
         columns: grid.Columns(grid.Column("ComponentName", "Name"), grid.Column("Quantity"),
         grid.Column("ComponentNumber", "Article Number"), grid.Column("DescriptionENG", "Description"),
-        grid.Column("Price", "Price (€)"), grid.Column("Name", "Supplier"), grid.Column("Address", "Address Supplier ")))
+        grid.Column("Price", "Price (€)"), grid.Column("Name", "Supplier"), grid.Column("Address", "Address Supplier "),
+        grid.Column(format: @<a href="~/Menu/Admin/EditComponentRobot?ID=@item.ComponentID">Edit</a>)))
         }
+       
+        
     </div>

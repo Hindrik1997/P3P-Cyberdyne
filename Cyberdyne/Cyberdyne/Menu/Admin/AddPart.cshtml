@@ -43,13 +43,7 @@
 
 }
 
-<!DOCTYPE html>
 
-<html lang="en">
-    <head>
-        <meta charset="utf-8" />
-    </head>
-<body>
     @if (WebSecurity.IsAuthenticated)
     {
         @Html.ValidationSummary()
@@ -87,6 +81,3 @@
     {
         <p>You must be logged in to do that!</p>
     }
-</body>
-
-</html>

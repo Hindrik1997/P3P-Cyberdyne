@@ -26,7 +26,7 @@ public class Supplier : RepoObject
     {
         Database db = Database.Open("Cyberdyne");
         if (Exist())
-            db.Execute("UPDATE Supplier SET Name=@0, Address=@1  WHERE CategoryId", name, address);
+            db.Execute("UPDATE Supplier SET Name=@0, Address=@1  WHERE SupplierID = @2", name, address, ID);
         else
             {
             db.Execute("INSERT INTO Supplier (Name, Address) VALUES (@0, @1)", name, address);
