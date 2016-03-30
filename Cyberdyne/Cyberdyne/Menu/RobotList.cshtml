@@ -7,7 +7,6 @@
     var searchTerm = "";
     if (!Request.QueryString["searchRobot"].IsEmpty())
     {
-        //RM.robotRepository.RemoveAll();
         searchTerm = "%" + Request["searchRobot"] + "%";
         RM.GetRobotsByName(searchTerm);
     }
@@ -20,7 +19,7 @@
 }
 @* Vertaling Gebeuren hier ook nog voor aub :) *@
 
-    <body>
+
         <form method="get">
         <div>
             <input type="text" name="SearchRobot" value="@Request.QueryString["searchRobot"]" placeholder="@Content.Search" />
@@ -46,5 +45,5 @@
                     </a>
                 </div>
             }
-    </body>
+
 

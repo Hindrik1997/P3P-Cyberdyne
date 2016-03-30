@@ -4,6 +4,9 @@
 }
     
 body {
+    background-image: url("themes/base/images/Skynet.jpg");
+    background-repeat: no-repeat;
+    background-attachment: fixed;
     background-color: #fff;
     border-top: solid 10px #000;
     color: #333;
