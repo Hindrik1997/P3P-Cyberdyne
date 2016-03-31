@@ -1,4 +1,5 @@
-﻿@using Microsoft.Web.Helpers;
+﻿@using Resources;
+@using Microsoft.Web.Helpers;
 @{
 
     RepoManager RM = new RepoManager();
@@ -155,20 +156,20 @@
         @Html.ValidationSummary()
         <form method="post" enctype="multipart/form-data" action="">
             <fieldset>
-                <p><label for="RobotName">Robot Name:</label></p>
+                <p><label for="RobotName">Robot @Content.Name:</label></p>
                 <input type="text" name="RobotName" value="" placeholder="Name of the robot" />
 
-                <p><label for="RobotCategory">Robot category:</label></p>
+                <p><label for="RobotCategory">Robot @Content.Category:</label></p>
                 <input type="text" name="RobotCategory" value="" placeholder="Category of the robot" />
                 
-                <p><label for="DescriptionEN">Description: (English)</label></p>
+                <p><label for="DescriptionEN">@Content.Description: (@Content.English)</label></p>
                 <textarea style="width: 100%" name="DescriptionEN" placeholder="English description of the robot"></textarea>
 
-                <p><label for="DescriptionNL">Description: (Nederlands)</label></p>
+                <p><label for="DescriptionNL">@Content.Description (@Content.Dutch)</label></p>
                 <textarea style="width: 100%" name="DescriptionNL" placeholder="Nederlandse beschrijving van de robot"></textarea>
 
                 
-                <p><label for="Parts">Parts:</label></p>
+                <p><label for="Parts">@Content.Parts</label></p>
                     <input type="text" name="Parts" placeholder=" Part ID's, Comma seperated" />
                     <select multiple id="SELECTOR">
                         @foreach (var Component in RM.componentRepository)
@@ -180,42 +181,42 @@
                         }
                     </select>
 
-                <p><label for="PartQuant">Part quantities:</label></p>
+                <p><label for="PartQuant">@Content.Part @Content.Quantity:</label></p>
                 <input type="text" name="PartQuant" placeholder="Part quantities, Comma seperated" />
 
-                <p><label for="SoftwareName">Software name:</label></p>
+                <p><label for="SoftwareName">Software @Content.Name:</label></p>
                 <input type="text" name="SoftwareName" value="" placeholder="Name of the software"/>
 
                 <p><label for="SoftwareLocation">Software:</label></p>
                 <input type="text" name="SoftwareLocation" value="" placeholder="Link to the software repository"/>
 
-                <p><label for="SoftwareVersion">Software version:</label></p>
+                <p><label for="SoftwareVersion">Software @Content.Version:</label></p>
                 <input type="text" name="SoftwareVersion" value="" placeholder="Version of the software"/>
 
-                <p><label for="RobotVideoName">Robotvideo name:</label></p>
+                <p><label for="RobotVideoName">Robotvideo @Content.Name:</label></p>
                 <input type="text" name="RobotVideoName" value="" placeholder="Name of the video"/>
 
                 <p><label for="RobotVideo">Robotvideo (Youtube link):</label></p>
                 <input type="text" name="RobotVideoLink" value="" placeholder="Link to the video"/>
 
-                <p><label for="Files">File:</label></p>
+                <p><label for="Files">@Content.File:</label></p>
                 @FileUpload.GetHtml(
                  initialNumberOfFiles: 1,
                  allowMoreFilesToBeAdded: true,
                  includeFormTag: false,
                  addText: "Add another file")
 
-                <p><label for="FileVersion">File Version:</label></p>
+                <p><label for="FileVersion">@Content.File @Content.Version:</label></p>
                 <input type="text" name="FileVersion" value="" placeholder="File versions comma seperated"/>             
 
-                <p><label for="images">images:</label></p>
+                <p><label for="images">@Content.Images:</label></p>
                 @FileUpload.GetHtml(
                  initialNumberOfFiles: 1,
                  allowMoreFilesToBeAdded: true,
                  includeFormTag: false,
                  addText: "Add another image")
 
-                <p><input type="submit" name="buttonSubmit" value="Add Robot !!!!!MAAAAK DIT KNOPJE OOK FF ZWART Misschien ook Taal Shizzle aan toevoegen" /></p>
+                <p><input type="submit" id="SubmitButtonAll" name="buttonSubmit" value="@Content.AddRobot" /></p>
             </fieldset>
         </form>
     }

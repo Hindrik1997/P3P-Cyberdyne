@@ -41,7 +41,7 @@
         grid.Column("ComponentNumber", "Artikel Nummer"), grid.Column("DescriptionNL", "Beschrijving"), 
         grid.Column("Price", "Prijs (€)"), grid.Column("Name", "Leverancier"), grid.Column("Address", "Adres Leverancier"),
         grid.Column(format: @<a href="~/Menu/Admin/EditComponent?ID=@item.ComponentID">Edit</a>)))
-        <p><input id="SubmitButtonAll" type="submit" name="buttonSubmit" value="@Content.AddPart FIX FF DIT KNOPJE IK ZUIG IN HTML" /></p>
+        <a href="~/Menu/Admin/AddPart" id="RefButton">@Content.AddPart</a>
     }
     else if (WebSecurity.IsAuthenticated)
     {
@@ -53,7 +53,7 @@
         grid.Column("ComponentNumber", "Article Number"), grid.Column("DescriptionENG", "Description"), 
         grid.Column("Price", "Price (€)"), grid.Column("Name", "Supplier"), grid.Column("Address", "Address Supplier "),
         grid.Column(format: @<a href="~/Menu/Admin/EditComponent?ID=@item.ComponentID">Edit</a>)))
-        <p><input id="SubmitButtonAll" type="submit" name="buttonSubmit" value="@Content.AddPart FIX FF DIT KNOPJE IK ZUIG IN HTML" /></p>
+        <a href="~/Menu/Admin/AddPart" id="RefButton">@Content.AddPart</a>
     }
     else
     {

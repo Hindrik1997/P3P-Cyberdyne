@@ -180,4 +180,22 @@
   <data name="SupplierName" xml:space="preserve">
     <value>Naam van de fabrikant</value>
   </data>
+  <data name="Category" xml:space="preserve">
+    <value>Categorie</value>
+  </data>
+  <data name="File" xml:space="preserve">
+    <value>Bestand</value>
+  </data>
+  <data name="Images" xml:space="preserve">
+    <value>Afbeeldingen</value>
+  </data>
+  <data name="Part" xml:space="preserve">
+    <value>Onderdeel</value>
+  </data>
+  <data name="Parts" xml:space="preserve">
+    <value>Onderdelen</value>
+  </data>
+  <data name="Quantity" xml:space="preserve">
+    <value>Hoeveelheid</value>
+  </data>
 </root>
