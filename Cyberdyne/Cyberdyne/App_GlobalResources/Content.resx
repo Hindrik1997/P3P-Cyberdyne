@@ -183,6 +183,9 @@
   <data name="Category" xml:space="preserve">
     <value>Category</value>
   </data>
+  <data name="EditComponent" xml:space="preserve">
+    <value>Edit a component</value>
+  </data>
   <data name="File" xml:space="preserve">
     <value>File</value>
   </data>
@@ -197,5 +200,8 @@
   </data>
   <data name="Quantity" xml:space="preserve">
     <value>Quantity</value>
+  </data>
+  <data name="Supplier" xml:space="preserve">
+    <value>Fabrikant</value>
   </data>
 </root>
